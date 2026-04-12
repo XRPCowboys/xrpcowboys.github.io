@@ -13,7 +13,7 @@
 
     /* Carved Gold with Green Etch */
     .carved-gold {
-      font-size: 6.5rem;
+      font-size: 6.2rem;
       font-weight: 900;
       letter-spacing: -0.04em;
       background: linear-gradient(145deg, 
@@ -31,7 +31,7 @@
         2px 2px 6px rgba(34, 197, 94, 0.5);
     }
 
-    /* Clean strong hover zoom - no green spaces */
+    /* Clean hover zoom - no green spaces */
     .photo-card {
       transition: all 0.5s ease;
       overflow: hidden;
@@ -39,7 +39,7 @@
     }
     .photo-card:hover {
       transform: scale(1.48);
-      box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.85);
     }
     .photo-card img {
       width: 100%;
@@ -55,18 +55,32 @@
 <body class="hero-bg text-white min-h-screen">
   <div class="max-w-6xl mx-auto px-6 py-16">
 
+    <!-- Navigation Links -->
+    <nav class="flex justify-center gap-8 mb-12 text-lg">
+      <a href="#home" class="hover:text-green-400 transition-colors">Home</a>
+      <a href="#about" class="hover:text-green-400 transition-colors">About</a>
+      <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" target="_blank" class="hover:text-green-400 transition-colors">Forum</a>
+      <a href="https://x.com/xrpcowboys" target="_blank" class="hover:text-green-400 transition-colors">X</a>
+    </nav>
+
     <!-- Hero -->
-    <div class="text-center mb-20">
+    <div id="home" class="text-center mb-20">
       <h1 class="carved-gold">XRPCOWBOYS</h1>
-      <div class="h-3 w-40 bg-green-400 mx-auto rounded-full mt-6 mb-10"></div>
+      <div class="h-2 w-36 bg-green-400 mx-auto rounded-full mt-6 mb-8"></div>
       <h2 class="text-5xl md:text-6xl font-semibold text-green-200">Exclusive XRP Ledger Community</h2>
-      <p class="text-xl md:text-2xl text-green-300 max-w-2xl mx-auto mt-4">Where it all started... Real holders. Real friends. Real value.</p>
+      <p class="text-xl md:text-2xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
+    </div>
+
+    <!-- About -->
+    <div id="about" class="max-w-3xl mx-auto text-center mb-24 bg-black/40 rounded-3xl p-10">
+      <h3 class="text-5xl font-bold mb-8 text-green-400">About XRPCowboys</h3>
+      <p class="text-xl leading-relaxed text-gray-300">We are a tight-knit group of dedicated XRP Ledger holders since the early days.</p>
     </div>
 
     <!-- Technology -->
     <div class="max-w-3xl mx-auto text-center mb-20">
       <h3 class="text-5xl font-bold mb-6 text-green-400">The Technology</h3>
-      <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet.</p>
+      <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger.</p>
     </div>
 
     <!-- Making Friends -->
@@ -75,7 +89,7 @@
       <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
     </div>
 
-    <!-- Clean Gallery - No extra green spaces -->
+    <!-- Gallery - No green spaces -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
