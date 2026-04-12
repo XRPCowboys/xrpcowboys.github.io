@@ -7,33 +7,51 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; }
-    .hero-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); }
+    .hero-bg { 
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); 
+    }
 
+    /* Carved Gold with more Green Etch */
     .carved-gold {
-      font-size: 6rem;
+      font-size: 6.2rem;
       font-weight: 900;
       letter-spacing: -0.04em;
-      background: linear-gradient(145deg, #ffe766 20%, #e8c670 40%, #c9a22e 55%, #a37f1a 75%, #2e7d32 90%);
+      background: linear-gradient(145deg, 
+        #ffe766 15%, 
+        #e8c670 30%, 
+        #c9a22e 45%, 
+        #a37f1a 60%, 
+        #4ade80 75%, 
+        #22c55e 90%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 8px rgba(0,0,0,0.6), 0 -2px 4px rgba(255,255,200,0.4);
+      text-shadow: 
+        0 4px 8px rgba(0,0,0,0.65),
+        0 -2px 4px rgba(255,255,200,0.45),
+        2px 2px 5px rgba(34, 197, 94, 0.4);
     }
 
     .photo-card {
+      transition: all 0.4s ease;
       overflow: hidden;
       border-radius: 20px;
     }
+    .photo-card:hover {
+      transform: scale(1.15);
+      box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.7);
+    }
     .photo-card img {
       width: 100%;
-      height: 280px;           /* fixed height */
-      object-fit: cover;       /* this crops nicely without stretching */
-      object-position: center; /* focuses on the center */
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
     }
   </style>
 </head>
 <body class="hero-bg text-white min-h-screen">
   <div class="max-w-6xl mx-auto px-6 py-16">
 
+    <!-- Hero -->
     <div class="text-center mb-20">
       <h1 class="carved-gold">XRPCOWBOYS</h1>
       <div class="h-2 w-36 bg-green-400 mx-auto rounded-full mt-6 mb-8"></div>
@@ -41,6 +59,19 @@
       <p class="text-xl md:text-2xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
     </div>
 
+    <!-- Technology -->
+    <div class="max-w-3xl mx-auto text-center mb-20">
+      <h3 class="text-5xl font-bold mb-6 text-green-400">The Technology</h3>
+      <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet.</p>
+    </div>
+
+    <!-- Making Friends -->
+    <div class="max-w-3xl mx-auto text-center mb-20">
+      <h3 class="text-5xl font-bold mb-8 text-green-400">Making New Friends</h3>
+      <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
+    </div>
+
+    <!-- Gallery -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
