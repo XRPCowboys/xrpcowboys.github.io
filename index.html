@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,18 +20,51 @@
 <body class="hero-bg text-white min-h-screen">
   <div class="max-w-5xl mx-auto px-6 py-20">
 
+    <!-- Navigation Bar -->
+    <nav class="flex justify-center gap-8 mb-16 text-lg">
+      <a href="#home" class="hover:text-green-400 transition-colors">Home</a>
+      <a href="#about" class="hover:text-green-400 transition-colors">About</a>
+      <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" 
+         target="_blank"
+         class="hover:text-green-400 transition-colors">Forum</a>
+      <a href="https://x.com/xrpcowboys" target="_blank" class="hover:text-green-400 transition-colors">X</a>
+    </nav>
+
     <!-- Big Hero -->
-    <div class="text-center mb-20">
+    <div id="home" class="text-center mb-20">
       <h1 class="text-8xl md:text-9xl font-black tracking-tighter mb-4 text-white">XRPCOWBOYS</h1>
       <div class="h-2 w-32 bg-green-400 mx-auto rounded-full mb-8"></div>
       <h2 class="text-5xl md:text-6xl font-semibold mb-6">Exclusive XRP Ledger Community</h2>
       <p class="text-2xl md:text-3xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
       
-      <div class="mt-12">
-        <a href="https://x.com/xrpcowboys" 
+      <div class="mt-12 flex flex-wrap gap-6 justify-center">
+        <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" 
            target="_blank"
-           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-black font-bold text-2xl px-12 py-5 rounded-3xl transition-all shadow-xl">
-          Join the Community on X
+           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-black font-bold text-xl px-10 py-5 rounded-3xl transition-all shadow-xl">
+          Join the Forum
+        </a>
+        <a href="#about" 
+           class="inline-flex items-center border border-green-400 hover:bg-green-400/10 text-green-400 font-bold text-xl px-10 py-5 rounded-3xl transition-all">
+          Learn About Us
+        </a>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="max-w-3xl mx-auto text-center mb-24 bg-black/30 rounded-3xl p-10">
+      <h3 class="text-5xl font-bold mb-8 text-green-400">About XRPCowboys</h3>
+      <p class="text-xl leading-relaxed text-gray-300 mb-6">
+        We are a tight-knit group of dedicated XRP Ledger holders who have been together since the early days.
+      </p>
+      <p class="text-xl leading-relaxed text-gray-300">
+        Our mission is simple: build real friendships, share knowledge, and support the long-term success of the XRP ecosystem. 
+        No hype, no scams — just genuine community.
+      </p>
+      <div class="mt-10">
+        <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" 
+           target="_blank"
+           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-black font-bold text-xl px-10 py-5 rounded-3xl transition-all">
+          Start a Discussion in the Forum
         </a>
       </div>
     </div>
@@ -52,7 +86,7 @@
       </p>
     </div>
 
-    <!-- Big Gallery -->
+    <!-- Gallery -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       <img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys Community" class="rounded-3xl shadow-2xl w-full photo-hover transition-all">
       <img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys Community" class="rounded-3xl shadow-2xl w-full photo-hover transition-all">
