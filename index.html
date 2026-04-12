@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,50 +12,23 @@
       background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); 
     }
 
-    /* Carved Gold with Green Etch */
     .carved-gold {
-      font-size: 6.2rem;
+      font-size: 6.5rem;
       font-weight: 900;
       letter-spacing: -0.04em;
-      background: linear-gradient(145deg, 
-        #ffe766 15%, 
-        #e8c670 30%, 
-        #c9a22e 45%, 
-        #a37f1a 60%, 
-        #4ade80 78%, 
-        #22c55e 92%);
+      background: linear-gradient(145deg, #ffe766 15%, #e8c670 30%, #c9a22e 45%, #a37f1a 60%, #4ade80 78%, #22c55e 92%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 
-        0 4px 8px rgba(0,0,0,0.65),
-        0 -2px 4px rgba(255,255,200,0.45),
-        2px 2px 6px rgba(34, 197, 94, 0.5);
+      text-shadow: 0 4px 8px rgba(0,0,0,0.65), 0 -2px 4px rgba(255,255,200,0.45);
     }
 
-    /* Hat icon in top left corner */
-    .hat-icon {
-      position: fixed;
-      top: 20px;
-      left: 30px;
-      z-index: 50;
-      width: 80px;
-      height: 80px;
-      border-radius: 9999px;
-      box-shadow: 0 10px 15px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
-    }
-    .hat-icon:hover {
-      transform: scale(1.15);
-    }
-
-    /* Strong hover zoom for gallery */
     .photo-card {
       transition: all 0.5s ease;
       overflow: hidden;
       border-radius: 24px;
     }
     .photo-card:hover {
-      transform: scale(1.48);
+      transform: scale(1.45);
       box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.85);
     }
     .photo-card img {
@@ -64,45 +38,25 @@
       transition: transform 0.8s ease;
     }
     .photo-card:hover img {
-      transform: scale(1.28);
+      transform: scale(1.25);
     }
   </style>
 </head>
 <body class="hero-bg text-white min-h-screen">
   <div class="max-w-6xl mx-auto px-6 py-16">
 
-    <!-- Hat Icon in upper left corner -->
-    <img src="XRPCowboys_files/davehat.jpg" alt="XRPCowboys Hat Icon" class="hat-icon">
-
-    <!-- Navigation Links -->
-    <nav class="flex justify-center gap-8 mb-16 text-lg">
-      <a href="#home" class="hover:text-green-400 transition-colors">Home</a>
-      <a href="#about" class="hover:text-green-400 transition-colors">About</a>
-      <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" target="_blank" class="hover:text-green-400 transition-colors">Forum</a>
-      <a href="https://x.com/xrpcowboys" target="_blank" class="hover:text-green-400 transition-colors">X</a>
-    </nav>
-
-    <!-- Hero -->
-    <div id="home" class="text-center mb-20">
+    <div class="text-center mb-20">
       <h1 class="carved-gold">XRPCOWBOYS</h1>
-      <div class="h-2 w-36 bg-green-400 mx-auto rounded-full mt-6 mb-8"></div>
+      <div class="h-3 w-40 bg-green-400 mx-auto rounded-full mt-6 mb-10"></div>
       <h2 class="text-5xl md:text-6xl font-semibold text-green-200">Exclusive XRP Ledger Community</h2>
       <p class="text-xl md:text-2xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
     </div>
 
-    <!-- About -->
-    <div id="about" class="max-w-3xl mx-auto text-center mb-24 bg-black/40 rounded-3xl p-10">
-      <h3 class="text-5xl font-bold mb-8 text-green-400">About XRPCowboys</h3>
-      <p class="text-xl leading-relaxed text-gray-300">We are a tight-knit group of dedicated XRP Ledger holders since the early days.</p>
-    </div>
-
-    <!-- Technology -->
     <div class="max-w-3xl mx-auto text-center mb-20">
       <h3 class="text-5xl font-bold mb-6 text-green-400">The Technology</h3>
       <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet.</p>
     </div>
 
-    <!-- Making Friends -->
     <div class="max-w-3xl mx-auto text-center mb-20">
       <h3 class="text-5xl font-bold mb-8 text-green-400">Making New Friends</h3>
       <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
@@ -117,6 +71,7 @@
       <div class="photo-card"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div>
