@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,18 +38,18 @@
       border-radius: 24px;
     }
     .photo-card:hover {
-      transform: scale(1.45);        /* Bigger zoom than before */
-      box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.85);
+      transform: scale(1.55);        /* Much bigger zoom */
+      box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.9);
     }
     .photo-card img {
       width: 100%;
-      height: 300px;
+      height: 320px;                 /* Taller boxes for better view */
       object-fit: cover;
-      object-position: center;
-      transition: transform 0.7s ease;
+      object-position: center;       /* Better centering */
+      transition: transform 0.8s ease;
     }
     .photo-card:hover img {
-      transform: scale(1.25);
+      transform: scale(1.30);        /* Stronger inner zoom */
     }
   </style>
 </head>
@@ -75,7 +76,7 @@
       <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
     </div>
 
-    <!-- Gallery - Green XRP pictures removed + stronger zoom -->
+    <!-- Gallery -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
@@ -86,7 +87,7 @@
       <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys" style="object-position: center 20%;"></div>
       <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div>
