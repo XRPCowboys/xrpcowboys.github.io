@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,44 +11,44 @@
       background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); 
     }
 
-    /* Carved Gold with Green Etch */
+    /* Stronger green etch in carved gold title */
     .carved-gold {
-      font-size: 6.2rem;
+      font-size: 6.4rem;
       font-weight: 900;
       letter-spacing: -0.04em;
       background: linear-gradient(145deg, 
-        #ffe766 20%, 
-        #e8c670 35%, 
-        #c9a22e 50%, 
-        #a37f1a 65%, 
-        #4ade80 80%, 
-        #22c55e 95%);
+        #ffe766 15%, 
+        #e8c670 30%, 
+        #c9a22e 45%, 
+        #a37f1a 60%, 
+        #4ade80 78%, 
+        #22c55e 92%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 
-        0 4px 8px rgba(0,0,0,0.6),
-        0 -2px 4px rgba(255,255,200,0.4);
+        0 4px 8px rgba(0,0,0,0.65),
+        0 -2px 4px rgba(255,255,200,0.45),
+        2px 2px 6px rgba(34, 197, 94, 0.5);
     }
 
-    /* Much stronger hover zoom */
+    /* Strong hover zoom - no cropping */
     .photo-card {
       transition: all 0.5s ease;
       overflow: hidden;
       border-radius: 24px;
     }
     .photo-card:hover {
-      transform: scale(1.55);        /* Much bigger zoom */
+      transform: scale(1.52);        /* Big zoom you liked */
       box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.9);
     }
     .photo-card img {
       width: 100%;
-      height: 320px;                 /* Taller boxes for better view */
-      object-fit: cover;
-      object-position: center;       /* Better centering */
+      height: auto;                  /* No cropping - original shape */
+      display: block;
       transition: transform 0.8s ease;
     }
     .photo-card:hover img {
-      transform: scale(1.30);        /* Stronger inner zoom */
+      transform: scale(1.28);
     }
   </style>
 </head>
@@ -76,7 +75,7 @@
       <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
     </div>
 
-    <!-- Gallery -->
+    <!-- Gallery - No cropping, strong zoom -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
@@ -87,7 +86,7 @@
       <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys" style="object-position: center 20%;"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div>
       <div class="photo-card"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div>
