@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,75 +7,66 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; }
-    .hero-bg {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%);
-    }
-    
-    /* Big hover zoom effect */
+    .hero-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); }
     .photo-card {
       transition: all 0.4s ease;
       overflow: hidden;
       border-radius: 24px;
     }
-    
     .photo-card:hover {
-      transform: scale(1.25);
+      transform: scale(1.28);
       z-index: 10;
-      box-shadow: 0 30px 40px -10px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8);
     }
-    
     .photo-card img {
-      transition: transform 0.6s ease;
+      transition: transform 0.7s ease;
     }
-    
     .photo-card:hover img {
-      transform: scale(1.15);
+      transform: scale(1.18);
     }
   </style>
 </head>
 <body class="hero-bg text-white min-h-screen">
   <div class="max-w-5xl mx-auto px-6 py-20">
 
-    <!-- Navigation -->
-    <nav class="flex justify-center gap-8 mb-16 text-lg">
-      <a href="#home" class="hover:text-green-400 transition-colors">Home</a>
-      <a href="#about" class="hover:text-green-400 transition-colors">About</a>
-      <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" 
-         target="_blank"
-         class="hover:text-green-400 transition-colors">Forum</a>
-      <a href="https://x.com/xrpcowboys" target="_blank" class="hover:text-green-400 transition-colors">X</a>
-    </nav>
-
     <!-- Hero -->
-    <div id="home" class="text-center mb-20">
+    <div class="text-center mb-20">
       <h1 class="text-8xl md:text-9xl font-black tracking-tighter mb-4">XRPCOWBOYS</h1>
       <div class="h-2 w-32 bg-green-400 mx-auto rounded-full mb-8"></div>
       <h2 class="text-5xl md:text-6xl font-semibold mb-6">Exclusive XRP Ledger Community</h2>
       <p class="text-2xl md:text-3xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
-      
-      <div class="mt-12 flex flex-wrap gap-6 justify-center">
-        <a href="https://github.com/XRPCowboys/xrpcowboys.github.io/discussions" 
-           target="_blank"
-           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-black font-bold text-xl px-10 py-5 rounded-3xl transition-all shadow-xl">
-          Join the Forum
-        </a>
-        <a href="#about" 
-           class="inline-flex items-center border border-green-400 hover:bg-green-400/10 text-green-400 font-bold text-xl px-10 py-5 rounded-3xl transition-all">
-          Learn About Us
-        </a>
-      </div>
-    </div>
-
-    <!-- About -->
-    <div id="about" class="max-w-3xl mx-auto text-center mb-24 bg-black/30 rounded-3xl p-10">
-      <h3 class="text-5xl font-bold mb-8 text-green-400">About XRPCowboys</h3>
-      <p class="text-xl leading-relaxed text-gray-300 mb-6">
-        We are a tight-knit group of dedicated XRP Ledger holders who have been together since the early days.
-      </p>
-      <p class="text-xl leading-relaxed text-gray-300">
-        Our mission is simple: build real friendships, share knowledge, and support the long-term success of the XRP ecosystem.
-      </p>
     </div>
 
     <!-- Technology -->
-    <div class="max-w-3xl mx-auto
+    <div class="max-w-3xl mx-auto text-center mb-20">
+      <h3 class="text-5xl font-bold mb-6 text-green-400">The Technology</h3>
+      <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet.</p>
+    </div>
+
+    <!-- Making Friends -->
+    <div class="max-w-3xl mx-auto text-center mb-20">
+      <h3 class="text-5xl font-bold mb-8 text-green-400">Making New Friends</h3>
+      <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
+    </div>
+
+    <!-- Gallery with ALL your pictures + big hover zoom -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/image03.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/image05.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys" class="w-full"></div>
+      <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys" class="w-full"></div>
+    </div>
+
+    <footer class="text-center text-green-400/60 text-sm mt-28 py-10 border-t border-green-900">
+      © 2026 XRPCowboys — Official landing page for the exclusive XRP community
+    </footer>
+  </div>
+</body>
+</html>
