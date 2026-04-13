@@ -139,12 +139,12 @@
       pointer-events: none;
     }
 
-    /* Cowboy — desktop */
+    /* Cowboy — moved down so full image shows, shifted right near the title X */
     .cowboy-corner {
       position: absolute;
-      top: 20px;
-      left: 0;
-      width: 300px;
+      top: 60px;        /* down enough to show full image */
+      left: 20px;       /* slight gap from edge */
+      width: 280px;
       pointer-events: none;
       z-index: 2;
       animation: floatCowboy 5s ease-in-out infinite;
@@ -156,16 +156,16 @@
     }
     @keyframes floatCowboy {
       0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
+      50%       { transform: translateY(-8px); }
     }
 
-    /* Hero content — push right on desktop to clear cowboy */
+    /* Hero content — less left padding so title is more centered */
     .hero-content {
       position: relative;
       z-index: 3;
       text-align: center;
       width: 100%;
-      padding: 5rem 2rem 4rem 320px;
+      padding: 5rem 2rem 4rem 290px;
     }
 
     .hero-eyebrow {
@@ -181,7 +181,7 @@
     }
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-size: clamp(3rem, 7vw, 7.5rem);
       font-weight: 900;
       line-height: 1;
       letter-spacing: -0.01em;
@@ -202,7 +202,7 @@
       animation: fadeUp 0.8s 0.5s forwards;
     }
     .hero-sub {
-      font-size: clamp(1.1rem, 3vw, 1.9rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.7rem);
       font-weight: 300;
       color: rgba(184,212,160,0.9);
       letter-spacing: 0.04em;
@@ -212,7 +212,7 @@
     }
     .hero-tagline {
       font-family: 'Oswald', sans-serif;
-      font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+      font-size: clamp(0.7rem, 1.5vw, 0.88rem);
       font-weight: 300;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -227,8 +227,8 @@
 
     /* ── TABLET ── */
     @media (max-width: 768px) and (min-width: 641px) {
-      .cowboy-corner { width: 200px; }
-      .hero-content  { padding-left: 220px; }
+      .cowboy-corner { width: 190px; top: 40px; left: 10px; }
+      .hero-content  { padding-left: 210px; }
     }
 
     /* ── MOBILE ── */
@@ -236,37 +236,27 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
 
-      .hero-wrapper {
-        min-height: 500px;
-        flex-direction: column;
-        justify-content: center;
-      }
+      .hero-wrapper { min-height: 500px; }
 
-      /* Cowboy bottom-left, medium size */
       .cowboy-corner {
-        width: 150px;
+        width: 140px;
         top: auto;
         bottom: 0;
         left: 0;
         right: auto;
       }
 
-      /* Full width centered content, no left push */
       .hero-content {
         padding: 3rem 1.5rem 6rem 1.5rem;
         text-align: center;
       }
 
-      /* Title shrinks to fit on one screen width */
       .hero-title {
         font-size: 13vw;
         white-space: nowrap;
-        overflow: visible;
       }
 
-      .hero-sub {
-        font-size: 1.1rem;
-      }
+      .hero-sub { font-size: 1.1rem; }
     }
 
     /* ── BADGE BAR ── */
