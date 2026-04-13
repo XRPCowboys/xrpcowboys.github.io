@@ -349,4 +349,168 @@
       border-color: rgba(245,208,96,0.35);
       z-index: 20;
     }
-    .photo-card .img-
+    .photo-card .img-wrap { border-radius: 12px; overflow: hidden; position: relative; }
+    .photo-card img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    @media (min-width: 768px) { .photo-card img { height: 205px; } }
+    .photo-card:hover img { transform: scale(1.08); }
+    .photo-card .img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+    }
+    .footer p {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,0.22);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .hero-content { padding: 4rem 1.25rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="#community">Community</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#community" onclick="toggleMenu()">Community</a>
+      <a href="#technology" onclick="toggleMenu()">Technology</a>
+      <a href="#gallery"   onclick="toggleMenu()">Gallery</a>
+    </div>
+  </nav>
+
+  <div class="hero-wrapper">
+    <div class="cowboy-corner">
+      <img src="XRPCowboys_files/cowboy_clean.png" alt="Neon cowboy sign">
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Exclusive XRP Ledger Community</p>
+      <h1 class="hero-title">XRPCOWBOYS</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">The Original Riders of the XRP Ledger</p>
+      <p class="hero-tagline">Real holders &nbsp;·&nbsp; Real friends &nbsp;·&nbsp; Real value</p>
+    </div>
+  </div>
+
+  <div class="badge-bar">
+    <span class="badge">XRP Ledger</span>
+    <span class="badge">OG Holders</span>
+    <span class="badge">Est. Day One</span>
+    <span class="badge">True Community</span>
+    <span class="badge">Western Spirit</span>
+  </div>
+
+  <section class="section" id="community">
+    <p class="section-label">Who We Are</p>
+    <h2 class="section-title">Making New Friends</h2>
+    <div class="section-rule"></div>
+    <p class="section-body">True heroes who represented the XRP family from day one. Where it all started — the riders, the holders, the believers.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🤠</span>
+        <h4>OG Cowboys</h4>
+        <p>The original riders who held strong through every storm. First in, never out. The backbone of the XRP community.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🤝</span>
+        <h4>Real Connections</h4>
+        <p>Beyond the blockchain — real friendships built on shared vision, late nights, and a belief in what XRP can become.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌵</span>
+        <h4>Western Spirit</h4>
+        <p>The frontier never scared us. We ride toward the horizon with the same grit and determination as the cowboys of old.</p>
+      </div>
+    </div>
+    <div class="ornament">— ✦ —</div>
+  </section>
+
+  <section class="section" id="technology">
+    <p class="section-label">The Infrastructure</p>
+    <h2 class="section-title">The Technology</h2>
+    <div class="section-rule"></div>
+    <p class="section-body">Built on the speed and power of the XRP Ledger. Real community and real utility — fast, green, and built for the future.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h4>Lightning Fast</h4>
+        <p>Transactions settle in 3–5 seconds on the XRP Ledger. No waiting. No guessing. Just speed.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌿</span>
+        <h4>Eco-Friendly</h4>
+        <p>The XRP Ledger uses a fraction of the energy of proof-of-work chains. Built for a sustainable future.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h4>Battle-Tested</h4>
+        <p>Over a decade of uninterrupted operation. Proven security. Rock-solid infrastructure the cowboys trust.</p>
+      </div>
+    </div>
+    <div class="ornament">— ✦ —</div>
+  </section>
+
+  <section class="section" id="gallery">
+    <p class="section-label">The Crew</p>
+    <h2 class="section-title">The Roundup</h2>
+    <div class="section-rule"></div>
+    <p class="section-body">From meetups to milestones — the XRP Cowboys family in the wild.</p>
+    <div class="gallery-grid">
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image01.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image02.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image03.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image05.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davejamesguys.jpg"    alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/daveswell.jpg"        alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davetwinsswell.jpg"   alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davehat.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/ny party.jpg"         alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/properparty.jpg"      alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrp2025(4).jpg"       alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrppartynight.jpg"    alt="XRP Cowboys"></div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>✦ &nbsp; © 2026 XRPCowboys &nbsp;·&nbsp; Official landing page for the exclusive XRP community &nbsp; ✦</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
