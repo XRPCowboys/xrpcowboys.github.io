@@ -82,7 +82,6 @@
       height: 2px;
       background: #f5d060;
       border-radius: 2px;
-      transition: all 0.3s;
     }
     .mobile-menu {
       display: none;
@@ -102,12 +101,54 @@
     }
     .mobile-menu.open { display: flex; }
 
+    /* ── Hero wrapper (positions the cowboy image) ── */
+    .hero-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Cowboy image top-left ── */
+    .cowboy-corner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 280px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 2;
+      mask-image: radial-gradient(ellipse 85% 90% at 20% 15%, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 90% at 20% 15%, black 40%, transparent 80%);
+    }
+    .cowboy-corner img {
+      position: absolute;
+      width: 480px;
+      top: 30px;
+      left: -60px;
+      opacity: 0.82;
+      filter: saturate(1.2) brightness(0.95);
+    }
+
+    @media (max-width: 640px) {
+      .cowboy-corner {
+        width: 130px;
+        height: 170px;
+      }
+      .cowboy-corner img {
+        width: 300px;
+        top: 20px;
+        left: -40px;
+      }
+    }
+
     /* ── Hero ── */
     .hero {
       text-align: center;
       padding: 6rem 1.5rem 5rem;
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .star-row {
       display: flex;
@@ -123,17 +164,30 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, #c9921a, transparent);
     }
+
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      font-size: clamp(3rem, 9vw, 7rem);
       font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
       background: linear-gradient(150deg, #ffe87a 0%, #f5c842 20%, #c9921a 45%, #a06e10 62%, #4ade80 78%, #22c55e 95%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 0 0 1.5rem;
+      padding: 0 0.25em;
+      word-break: keep-all;
+      white-space: nowrap;
     }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(2.4rem, 11vw, 3.5rem);
+        white-space: normal;
+        padding: 0 0.5em;
+      }
+    }
+
     .hero-divider {
       width: 120px;
       height: 3px;
@@ -142,14 +196,14 @@
       border-radius: 2px;
     }
     .hero-sub {
-      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-size: clamp(1.2rem, 3.5vw, 2.2rem);
       font-weight: 300;
       color: #b8d4a0;
       letter-spacing: 0.02em;
       margin: 0 0 1rem;
     }
     .hero-tagline {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
       color: rgba(232,224,208,0.55);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -347,17 +401,26 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="star-row">
-      <div class="star-line"></div>
-      <span>✦</span><span>✦</span><span>✦</span>
-      <div class="star-line"></div>
+  <div class="hero-wrapper">
+
+    <!-- COWBOY IMAGE TOP LEFT -->
+    <div class="cowboy-corner">
+      <img src="XRPCowboys_files/karsten-winegeart-VaBKpvzVOMI-unsplash.jpg" alt="Cowboy on horse neon sign">
     </div>
-    <h1 class="hero-title">XRPCOWBOYS</h1>
-    <div class="hero-divider"></div>
-    <p class="hero-sub">Exclusive XRP Ledger Community</p>
-    <p class="hero-tagline">Real holders &nbsp;·&nbsp; Real friends &nbsp;·&nbsp; Real value</p>
-  </section>
+
+    <section class="hero">
+      <div class="star-row">
+        <div class="star-line"></div>
+        <span>✦</span><span>✦</span><span>✦</span>
+        <div class="star-line"></div>
+      </div>
+      <h1 class="hero-title">XRPCOWBOYS</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">Exclusive XRP Ledger Community</p>
+      <p class="hero-tagline">Real holders &nbsp;·&nbsp; Real friends &nbsp;·&nbsp; Real value</p>
+    </section>
+
+  </div>
 
   <!-- BADGES -->
   <div class="badge-bar">
