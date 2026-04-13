@@ -15,7 +15,6 @@
       margin: 0;
     }
 
-    /* ── Background ── */
     .site-bg {
       background:
         radial-gradient(ellipse 80% 40% at 50% 0%, rgba(30,60,25,0.55) 0%, transparent 70%),
@@ -68,7 +67,6 @@
     }
     .nav-links a:hover { color: #f5d060; }
 
-    /* hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -125,7 +123,6 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, #c9921a, transparent);
     }
-
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3.5rem, 10vw, 7.5rem);
@@ -179,7 +176,7 @@
       background: rgba(180,150,60,0.07);
     }
 
-    /* ── Section ── */
+    /* ── Sections ── */
     .section {
       max-width: 1100px;
       margin: 0 auto;
@@ -252,17 +249,31 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 14px;
+      padding: 0.5rem 0;
     }
     @media (min-width: 640px)  { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .photo-card {
       border-radius: 14px;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid rgba(180,150,60,0.12);
       position: relative;
       background: #111;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      cursor: pointer;
+    }
+    .photo-card:hover {
+      transform: scale(1.45);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 0 1px rgba(245,208,96,0.25);
+      border-color: rgba(245,208,96,0.4);
+      z-index: 20;
+    }
+    .photo-card .img-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
     }
     .photo-card img {
       width: 100%;
@@ -272,12 +283,12 @@
       transition: transform 0.5s ease;
     }
     @media (min-width: 768px) { .photo-card img { height: 210px; } }
-    .photo-card:hover img { transform: scale(1.08); }
-    .photo-card::after {
+    .photo-card:hover img { transform: scale(1.1); }
+    .photo-card .img-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%);
       pointer-events: none;
     }
 
@@ -297,7 +308,6 @@
     }
     .footer a:hover { color: #f5d060; }
 
-    /* ── Divider ornament ── */
     .ornament {
       text-align: center;
       color: rgba(180,150,60,0.3);
@@ -340,9 +350,7 @@
   <section class="hero">
     <div class="star-row">
       <div class="star-line"></div>
-      <span>✦</span>
-      <span>✦</span>
-      <span>✦</span>
+      <span>✦</span><span>✦</span><span>✦</span>
       <div class="star-line"></div>
     </div>
     <h1 class="hero-title">XRPCOWBOYS</h1>
@@ -360,12 +368,11 @@
     <span class="badge">Western Spirit</span>
   </div>
 
-  <!-- COMMUNITY SECTION -->
+  <!-- COMMUNITY -->
   <section class="section" id="community">
     <p class="section-label">Who We Are</p>
     <h2 class="section-title">Making New Friends</h2>
     <p class="section-body">True heroes who represented the XRP Family from day one. Where it all started — the riders, the holders, the believers.</p>
-
     <div class="feature-grid">
       <div class="feature-card">
         <span class="feature-icon">🤠</span>
@@ -383,16 +390,14 @@
         <p>The frontier never scared us. We ride toward the horizon with the same grit and determination as the cowboys of old.</p>
       </div>
     </div>
-
     <div class="ornament">— ✦ —</div>
   </section>
 
-  <!-- TECHNOLOGY SECTION -->
+  <!-- TECHNOLOGY -->
   <section class="section" id="technology">
     <p class="section-label">The Infrastructure</p>
     <h2 class="section-title">The Technology</h2>
     <p class="section-body">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet — fast, green, and built for the future.</p>
-
     <div class="feature-grid">
       <div class="feature-card">
         <span class="feature-icon">⚡</span>
@@ -410,7 +415,6 @@
         <p>Over a decade of uninterrupted operation. Proven security. Rock-solid infrastructure the cowboys trust.</p>
       </div>
     </div>
-
     <div class="ornament">— ✦ —</div>
   </section>
 
@@ -419,21 +423,20 @@
     <p class="section-label">The Crew</p>
     <h2 class="section-title">The Roundup</h2>
     <p class="section-body">From meetups to milestones — the XRP Cowboys family in the wild.</p>
-
     <div class="gallery-grid">
-      <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image03.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image05.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image03.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image05.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div></div>
     </div>
   </section>
 
