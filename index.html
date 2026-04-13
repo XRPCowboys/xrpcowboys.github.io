@@ -6,82 +6,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XRPCOWBOYS • Exclusive XRP Community</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; }
-    .hero-bg { 
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1f 50%, #0a0a0a 100%); 
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #0a0a0a;
+      color: #e8e0d0;
+      margin: 0;
     }
 
-    .carved-gold {
-      font-size: 6.5rem;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      background: linear-gradient(145deg, #ffe766 15%, #e8c670 30%, #c9a22e 45%, #a37f1a 60%, #4ade80 78%, #22c55e 92%);
+    /* ── Background ── */
+    .site-bg {
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(30,60,25,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 30% at 50% 100%, rgba(20,40,15,0.4) 0%, transparent 70%),
+        #0a0a0a;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(180,150,60,0.18);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f5d060 0%, #c9921a 50%, #e8b84b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 8px rgba(0,0,0,0.65), 0 -2px 4px rgba(255,255,200,0.45);
+      letter-spacing: 0.04em;
     }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      color: rgba(232,224,208,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #f5d060; }
 
-    .photo-card {
-      transition: all 0.5s ease;
-      overflow: hidden;
-      border-radius: 24px;
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
     }
-    .photo-card:hover {
-      transform: scale(1.45);
-      box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.85);
-    }
-    .photo-card img {
-      width: 100%;
-      height: auto;
+    .hamburger span {
       display: block;
-      transition: transform 0.8s ease;
+      width: 24px;
+      height: 2px;
+      background: #f5d060;
+      border-radius: 2px;
+      transition: all 0.3s;
     }
-    .photo-card:hover img {
-      transform: scale(1.25);
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(10,10,10,0.97);
+      border-top: 1px solid rgba(180,150,60,0.15);
+      padding: 1rem 1.5rem 1.5rem;
+      gap: 1rem;
     }
-  </style>
-</head>
-<body class="hero-bg text-white min-h-screen">
-  <div class="max-w-6xl mx-auto px-6 py-16">
+    .mobile-menu a {
+      color: rgba(232,224,208,0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .mobile-menu.open { display: flex; }
 
-    <div class="text-center mb-20">
-      <h1 class="carved-gold">XRPCOWBOYS</h1>
-      <div class="h-3 w-40 bg-green-400 mx-auto rounded-full mt-6 mb-10"></div>
-      <h2 class="text-5xl md:text-6xl font-semibold text-green-200">Exclusive XRP Ledger Community</h2>
-      <p class="text-xl md:text-2xl text-green-300 max-w-2xl mx-auto">Where it all started... Real holders. Real friends. Real value.</p>
-    </div>
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 6rem 1.5rem 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .star-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      opacity: 0.55;
+    }
+    .star-row span { color: #f5d060; font-size: 1rem; }
+    .star-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #c9921a, transparent);
+    }
 
-    <div class="max-w-3xl mx-auto text-center mb-20">
-      <h3 class="text-5xl font-bold mb-6 text-green-400">The Technology</h3>
-      <p class="text-xl leading-relaxed text-gray-300">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet.</p>
-    </div>
-
-    <div class="max-w-3xl mx-auto text-center mb-20">
-      <h3 class="text-5xl font-bold mb-8 text-green-400">Making New Friends</h3>
-      <p class="text-xl leading-relaxed text-gray-300">True heroes who represented the XRP Family from day one.</p>
-    </div>
-
-    <!-- Gallery -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <div class="photo-card"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image03.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/image05.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div>
-      <div class="photo-card"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div>
-    </div>
-
-    <footer class="text-center text-green-400/60 text-sm mt-24 py-10 border-t border-green-900">
-      © 2026 XRPCowboys — Official landing page for the exclusive XRP community
-    </footer>
-  </div>
-</body>
-</html>
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      background: linear-gradient(150deg, #ffe87a 0%, #f5c842 20%, #c9921a 45%, #a06e10 62%, #4ade80 78%, #22c55e 95%);
