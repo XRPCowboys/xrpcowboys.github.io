@@ -165,8 +165,7 @@
       z-index: 3;
       text-align: center;
       width: 100%;
-      padding: 5rem 1.5rem 4rem;
-      padding-left: 320px; /* clear the 300px cowboy + some breathing room */
+      padding: 5rem 2rem 4rem 320px;
     }
 
     .hero-eyebrow {
@@ -182,7 +181,7 @@
     }
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-size: clamp(3.5rem, 8vw, 8rem);
       font-weight: 900;
       line-height: 1;
       letter-spacing: -0.01em;
@@ -226,36 +225,48 @@
       to   { opacity: 1; transform: translateY(0);    }
     }
 
-    /* ── MOBILE ── */
-    @media (max-width: 640px) {
-      .nav-links  { display: none; }
-      .hamburger  { display: flex; }
-
-      /* On mobile, cowboy sits bottom-right, small, out of the way */
-      .cowboy-corner {
-        width: 110px;
-        top: auto;
-        bottom: 0;
-        left: auto;
-        right: 0;
-        animation: floatCowboy 5s ease-in-out infinite;
-      }
-
-      /* Hero content full width, normal centered, no left padding */
-      .hero-content {
-        padding: 3.5rem 1.25rem 5rem;
-        padding-left: 1.25rem;
-      }
-
-      .hero-title {
-        font-size: clamp(2.8rem, 13vw, 4rem);
-        white-space: normal;
-      }
-    }
-
+    /* ── TABLET ── */
     @media (max-width: 768px) and (min-width: 641px) {
       .cowboy-corner { width: 200px; }
       .hero-content  { padding-left: 220px; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-wrapper {
+        min-height: 500px;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Cowboy bottom-left, medium size */
+      .cowboy-corner {
+        width: 150px;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: auto;
+      }
+
+      /* Full width centered content, no left push */
+      .hero-content {
+        padding: 3rem 1.5rem 6rem 1.5rem;
+        text-align: center;
+      }
+
+      /* Title shrinks to fit on one screen width */
+      .hero-title {
+        font-size: 13vw;
+        white-space: nowrap;
+        overflow: visible;
+      }
+
+      .hero-sub {
+        font-size: 1.1rem;
+      }
     }
 
     /* ── BADGE BAR ── */
