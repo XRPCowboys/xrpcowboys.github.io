@@ -4,398 +4,395 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XRPCOWBOYS • Exclusive XRP Community</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --gold:        #f5d060;
+      --gold-dim:    #c9921a;
+      --gold-dark:   #a06e10;
+      --green:       #4ade80;
+      --green-dim:   #22c55e;
+      --neon-pink:   #ff4d7d;
+      --cream:       #e8e0d0;
+      --bg:          #080808;
+      --bg2:         #0f0f0f;
+      --border:      rgba(180,150,60,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: #0a0a0a;
-      color: #e8e0d0;
-      margin: 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .site-bg {
-      background:
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(30,60,25,0.55) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 30% at 50% 100%, rgba(20,40,15,0.4) 0%, transparent 70%),
-        #0a0a0a;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
     }
 
-    /* ── Nav ── */
     .nav {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(180,150,60,0.18);
+      z-index: 100;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
     .nav-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 62px;
+      padding: 0 2rem;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #f5d060 0%, #c9921a 50%, #e8b84b 100%);
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(120deg, #ffe87a, #c9921a, #f5d060);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: 0.04em;
+      background-clip: text;
+      text-decoration: none;
     }
     .nav-links {
-      display: flex;
-      gap: 2rem;
       list-style: none;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      gap: 2.5rem;
     }
     .nav-links a {
-      color: rgba(232,224,208,0.7);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: rgba(232,224,208,0.55);
+      text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: #f5d060; }
+    .nav-links a:hover { color: var(--gold); }
 
     .hamburger {
       display: none;
       flex-direction: column;
       gap: 5px;
-      cursor: pointer;
       background: none;
       border: none;
+      cursor: pointer;
       padding: 4px;
     }
     .hamburger span {
       display: block;
-      width: 24px;
-      height: 2px;
-      background: #f5d060;
-      border-radius: 2px;
+      width: 22px;
+      height: 1.5px;
+      background: var(--gold);
+      transition: 0.3s;
     }
     .mobile-menu {
       display: none;
       flex-direction: column;
-      background: rgba(10,10,10,0.97);
-      border-top: 1px solid rgba(180,150,60,0.15);
-      padding: 1rem 1.5rem 1.5rem;
-      gap: 1rem;
+      padding: 1.25rem 2rem 1.75rem;
+      gap: 1.1rem;
+      background: rgba(8,8,8,0.98);
+      border-top: 1px solid var(--border);
     }
     .mobile-menu a {
-      color: rgba(232,224,208,0.75);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
+      color: rgba(232,224,208,0.65);
+      text-decoration: none;
     }
     .mobile-menu.open { display: flex; }
 
-    /* ── Hero wrapper ── */
     .hero-wrapper {
       position: relative;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
       overflow: hidden;
     }
+    .hero-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(34,80,28,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-    /* ── Cowboy image top-left ── */
     .cowboy-corner {
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
-      width: 320px;
-      height: 400px;
-      overflow: hidden;
+      width: 300px;
       pointer-events: none;
       z-index: 2;
-      /* Mask: solid on left/top, fades right and bottom sharply at horse feet level */
-      mask-image: 
-        linear-gradient(to right, black 55%, transparent 100%),
-        linear-gradient(to bottom, black 80%, transparent 100%);
-      mask-composite: intersect;
-      -webkit-mask-image: 
-        linear-gradient(to right, black 55%, transparent 100%),
-        linear-gradient(to bottom, black 80%, transparent 100%);
-      -webkit-mask-composite: source-in;
+      animation: floatCowboy 5s ease-in-out infinite;
     }
-
     .cowboy-corner img {
-      position: absolute;
-      width: 520px;
-      /* Pull image up so cowboy/horse sign is fully visible */
-      top: -20px;
-      left: -30px;
-      opacity: 0.92;
-      filter: saturate(1.3) brightness(1.05);
+      width: 100%;
+      display: block;
+      filter: saturate(1.4) brightness(1.15) drop-shadow(0 0 22px rgba(255,80,100,0.45)) drop-shadow(0 0 8px rgba(255,80,100,0.3));
     }
-
-    @media (max-width: 768px) {
-      .cowboy-corner {
-        width: 200px;
-        height: 250px;
-      }
-      .cowboy-corner img {
-        width: 340px;
-        top: -15px;
-        left: -20px;
-      }
+    @keyframes floatCowboy {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
     }
+    @media (max-width: 768px) { .cowboy-corner { width: 190px; } }
+    @media (max-width: 480px) { .cowboy-corner { width: 130px; } }
 
-    @media (max-width: 480px) {
-      .cowboy-corner {
-        width: 140px;
-        height: 175px;
-      }
-      .cowboy-corner img {
-        width: 240px;
-        top: -10px;
-        left: -15px;
-      }
-    }
-
-    /* ── Hero ── */
-    .hero {
-      text-align: center;
-      padding: 6rem 1.5rem 5rem;
-      max-width: 900px;
-      margin: 0 auto;
+    .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 3;
+      text-align: center;
+      width: 100%;
+      padding: 5rem 1.5rem 4rem;
     }
-    .star-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-      opacity: 0.55;
+    .hero-eyebrow {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
     }
-    .star-row span { color: #f5d060; font-size: 1rem; }
-    .star-line {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #c9921a, transparent);
-    }
-
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 9vw, 7rem);
+      font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1;
       letter-spacing: -0.01em;
-      background: linear-gradient(150deg, #ffe87a 0%, #f5c842 20%, #c9921a 45%, #a06e10 62%, #4ade80 78%, #22c55e 95%);
+      background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 0 0 1.5rem;
-      padding: 0 0.25em;
-      white-space: nowrap;
+      background-clip: text;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.35s forwards;
     }
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: clamp(2.4rem, 11vw, 3.5rem);
-        white-space: normal;
-        padding: 0 0.5em;
-      }
-    }
-
     .hero-divider {
-      width: 120px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #f5d060, #4ade80, transparent);
-      margin: 0 auto 2rem;
-      border-radius: 2px;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--green), transparent);
+      margin: 0 auto 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
     }
     .hero-sub {
-      font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+      font-size: clamp(1.1rem, 3vw, 1.9rem);
       font-weight: 300;
-      color: #b8d4a0;
-      letter-spacing: 0.02em;
-      margin: 0 0 1rem;
+      color: rgba(184,212,160,0.9);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
     }
     .hero-tagline {
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      color: rgba(232,224,208,0.55);
-      letter-spacing: 0.12em;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+      font-weight: 300;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin: 0;
+      color: rgba(232,224,208,0.38);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.75s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
     }
 
-    /* ── Badge bar ── */
     .badge-bar {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      padding: 0 1.5rem 4rem;
+      gap: 0.6rem;
+      padding: 0 1.5rem 4.5rem;
     }
     .badge {
-      border: 1px solid rgba(180,150,60,0.3);
-      border-radius: 999px;
-      padding: 0.4rem 1.1rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(245,208,96,0.8);
-      background: rgba(180,150,60,0.07);
+      color: rgba(245,208,96,0.7);
+      border: 1px solid rgba(180,150,60,0.25);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      background: rgba(180,150,60,0.06);
+      transition: border-color 0.2s, color 0.2s;
     }
+    .badge:hover { border-color: rgba(245,208,96,0.5); color: var(--gold); }
 
-    /* ── Sections ── */
     .section {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem 5rem;
+      padding: 0 2rem 6rem;
     }
     .section-label {
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: #4ade80;
-      margin-bottom: 0.75rem;
+      color: var(--green);
+      text-align: center;
+      margin-bottom: 0.6rem;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 700;
-      color: #f5d060;
+      color: var(--gold);
       text-align: center;
-      margin: 0 0 1.25rem;
+      margin-bottom: 1.1rem;
+    }
+    .section-rule {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      margin: 0 auto 3.5rem;
     }
     .section-body {
-      max-width: 640px;
-      margin: 0 auto 3rem;
+      max-width: 600px;
+      margin: 0 auto 3.5rem;
       text-align: center;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: rgba(232,224,208,0.65);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(232,224,208,0.58);
     }
 
-    /* ── Feature cards ── */
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 1.25rem;
       margin-bottom: 5rem;
     }
     .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(180,150,60,0.14);
-      border-radius: 16px;
-      padding: 1.75rem 1.5rem;
-      transition: border-color 0.3s, background 0.3s;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem 1.75rem;
+      transition: transform 0.3s, border-color 0.3s, background 0.3s;
     }
     .feature-card:hover {
-      border-color: rgba(180,150,60,0.35);
-      background: rgba(255,255,255,0.055);
+      transform: translateY(-4px);
+      border-color: rgba(180,150,60,0.32);
+      background: rgba(255,255,255,0.045);
     }
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
+    .feature-icon { font-size: 2.2rem; display: block; margin-bottom: 1.1rem; }
     .feature-card h4 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      color: #f5d060;
-      margin: 0 0 0.6rem;
+      color: var(--gold);
+      margin-bottom: 0.65rem;
     }
     .feature-card p {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: rgba(232,224,208,0.55);
-      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(232,224,208,0.5);
     }
 
-    /* ── Gallery ── */
+    .ornament {
+      text-align: center;
+      color: rgba(180,150,60,0.25);
+      font-size: 1rem;
+      letter-spacing: 0.6em;
+      margin: 0 0 5rem;
+      user-select: none;
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      padding: 0.5rem 0;
+      gap: 12px;
     }
-    @media (min-width: 640px)  { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 600px)  { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .photo-card {
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: visible;
-      border: 1px solid rgba(180,150,60,0.12);
-      position: relative;
+      border: 1px solid rgba(180,150,60,0.1);
       background: #111;
-      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
       cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s, border-color 0.3s;
+      position: relative;
     }
     .photo-card:hover {
-      transform: scale(1.45);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 0 1px rgba(245,208,96,0.25);
-      border-color: rgba(245,208,96,0.4);
+      transform: scale(1.42);
+      box-shadow: 0 28px 56px rgba(0,0,0,0.9), 0 0 0 1px rgba(245,208,96,0.2);
+      border-color: rgba(245,208,96,0.35);
       z-index: 20;
     }
-    .photo-card .img-wrap {
-      border-radius: 14px;
-      overflow: hidden;
-      position: relative;
-    }
+    .photo-card .img-wrap { border-radius: 12px; overflow: hidden; position: relative; }
     .photo-card img {
       width: 100%;
-      height: 180px;
+      height: 175px;
       object-fit: cover;
       display: block;
       transition: transform 0.5s ease;
     }
-    @media (min-width: 768px) { .photo-card img { height: 210px; } }
-    .photo-card:hover img { transform: scale(1.1); }
+    @media (min-width: 768px) { .photo-card img { height: 205px; } }
+    .photo-card:hover img { transform: scale(1.08); }
     .photo-card .img-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
       pointer-events: none;
     }
 
-    /* ── Footer ── */
     .footer {
-      border-top: 1px solid rgba(180,150,60,0.12);
+      border-top: 1px solid var(--border);
       text-align: center;
       padding: 2.5rem 1.5rem;
-      font-size: 0.8rem;
-      color: rgba(232,224,208,0.3);
-      letter-spacing: 0.06em;
     }
-    .ornament {
-      text-align: center;
-      color: rgba(180,150,60,0.3);
-      font-size: 1.1rem;
-      letter-spacing: 0.5em;
-      margin: 0 0 4rem;
-      user-select: none;
+    .footer p {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,0.22);
     }
 
     @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .hero { padding: 4rem 1.25rem 3.5rem; }
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .hero-content { padding: 4rem 1.25rem 3rem; }
     }
   </style>
 </head>
-<body class="site-bg">
+<body>
 
-  <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <span class="nav-logo">✦ XRPCOWBOYS</span>
+      <a href="#" class="nav-logo">✦ XRPCOWBOYS</a>
       <ul class="nav-links">
         <li><a href="#community">Community</a></li>
         <li><a href="#technology">Technology</a></li>
@@ -408,32 +405,23 @@
     <div class="mobile-menu" id="mobileMenu">
       <a href="#community" onclick="toggleMenu()">Community</a>
       <a href="#technology" onclick="toggleMenu()">Technology</a>
-      <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+      <a href="#gallery"   onclick="toggleMenu()">Gallery</a>
     </div>
   </nav>
 
-  <!-- HERO -->
   <div class="hero-wrapper">
-
     <div class="cowboy-corner">
-      <img src="XRPCowboys_files/karsten-winegeart-VaBKpvzVOMI-unsplash.jpg" alt="Cowboy neon sign">
+      <img src="XRPCowboys_files/cowboy_clean.png" alt="Neon cowboy sign">
     </div>
-
-    <section class="hero">
-      <div class="star-row">
-        <div class="star-line"></div>
-        <span>✦</span><span>✦</span><span>✦</span>
-        <div class="star-line"></div>
-      </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Exclusive XRP Ledger Community</p>
       <h1 class="hero-title">XRPCOWBOYS</h1>
       <div class="hero-divider"></div>
-      <p class="hero-sub">Exclusive XRP Ledger Community</p>
+      <p class="hero-sub">The Original Riders of the XRP Ledger</p>
       <p class="hero-tagline">Real holders &nbsp;·&nbsp; Real friends &nbsp;·&nbsp; Real value</p>
-    </section>
-
+    </div>
   </div>
 
-  <!-- BADGES -->
   <div class="badge-bar">
     <span class="badge">XRP Ledger</span>
     <span class="badge">OG Holders</span>
@@ -442,11 +430,11 @@
     <span class="badge">Western Spirit</span>
   </div>
 
-  <!-- COMMUNITY -->
   <section class="section" id="community">
     <p class="section-label">Who We Are</p>
     <h2 class="section-title">Making New Friends</h2>
-    <p class="section-body">True heroes who represented the XRP Family from day one. Where it all started — the riders, the holders, the believers.</p>
+    <div class="section-rule"></div>
+    <p class="section-body">True heroes who represented the XRP family from day one. Where it all started — the riders, the holders, the believers.</p>
     <div class="feature-grid">
       <div class="feature-card">
         <span class="feature-icon">🤠</span>
@@ -467,11 +455,11 @@
     <div class="ornament">— ✦ —</div>
   </section>
 
-  <!-- TECHNOLOGY -->
   <section class="section" id="technology">
     <p class="section-label">The Infrastructure</p>
     <h2 class="section-title">The Technology</h2>
-    <p class="section-body">Built on the speed and power of the XRP Ledger. This is where real community and real utility meet — fast, green, and built for the future.</p>
+    <div class="section-rule"></div>
+    <p class="section-body">Built on the speed and power of the XRP Ledger. Real community and real utility — fast, green, and built for the future.</p>
     <div class="feature-grid">
       <div class="feature-card">
         <span class="feature-icon">⚡</span>
@@ -492,29 +480,28 @@
     <div class="ornament">— ✦ —</div>
   </section>
 
-  <!-- GALLERY -->
   <section class="section" id="gallery">
     <p class="section-label">The Crew</p>
     <h2 class="section-title">The Roundup</h2>
+    <div class="section-rule"></div>
     <p class="section-body">From meetups to milestones — the XRP Cowboys family in the wild.</p>
     <div class="gallery-grid">
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image01.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image02.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image03.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image05.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davejamesguys.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/daveswell.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davetwinsswell.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davehat.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/ny party.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/properparty.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image01.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image02.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image03.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/image05.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davejamesguys.jpg"    alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/daveswell.jpg"        alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davetwinsswell.jpg"   alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/davehat.jpg"          alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/ny party.jpg"         alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/properparty.jpg"      alt="XRP Cowboys"></div></div>
       <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/twinsproperparty.jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrp2025(4).jpg" alt="XRP Cowboys"></div></div>
-      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrppartynight.jpg" alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrp2025(4).jpg"       alt="XRP Cowboys"></div></div>
+      <div class="photo-card"><div class="img-wrap"><img src="XRPCowboys_files/xrppartynight.jpg"    alt="XRP Cowboys"></div></div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <p>✦ &nbsp; © 2026 XRPCowboys &nbsp;·&nbsp; Official landing page for the exclusive XRP community &nbsp; ✦</p>
   </footer>
