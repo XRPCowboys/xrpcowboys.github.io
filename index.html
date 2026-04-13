@@ -39,6 +39,7 @@
       z-index: 999;
     }
 
+    /* ── NAV ── */
     .nav {
       position: sticky;
       top: 0;
@@ -84,7 +85,6 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--gold); }
-
     .hamburger {
       display: none;
       flex-direction: column;
@@ -119,7 +119,7 @@
     }
     .mobile-menu.open { display: flex; }
 
-    /* ── HERO ── */
+    /* ── HERO DESKTOP ── */
     .hero-wrapper {
       position: relative;
       min-height: 580px;
@@ -139,11 +139,10 @@
       pointer-events: none;
     }
 
-    /* Cowboy — moved down so full image shows, shifted right near the title X */
     .cowboy-corner {
       position: absolute;
-      top: 60px;        /* down enough to show full image */
-      left: 20px;       /* slight gap from edge */
+      top: 60px;
+      left: 20px;
       width: 280px;
       pointer-events: none;
       z-index: 2;
@@ -159,7 +158,6 @@
       50%       { transform: translateY(-8px); }
     }
 
-    /* Hero content — less left padding so title is more centered */
     .hero-content {
       position: relative;
       z-index: 3;
@@ -222,7 +220,7 @@
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0);    }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── TABLET ── */
@@ -236,27 +234,49 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
 
-      .hero-wrapper { min-height: 500px; }
+      /* Mobile: stacked layout */
+      .hero-wrapper {
+        min-height: auto;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1.5rem 2.5rem;
+      }
 
+      /* Cowboy centered at top in that black space */
       .cowboy-corner {
-        width: 140px;
+        position: relative;
         top: auto;
-        bottom: 0;
-        left: 0;
-        right: auto;
+        left: auto;
+        width: 160px;
+        margin: 0 auto 1.5rem;
+        animation: floatCowboy 5s ease-in-out infinite;
       }
 
+      /* Text fully centered below cowboy */
       .hero-content {
-        padding: 3rem 1.5rem 6rem 1.5rem;
+        padding: 0;
         text-align: center;
+        width: 100%;
       }
 
+      .hero-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Title centered and fits on screen */
       .hero-title {
-        font-size: 13vw;
+        font-size: 11.5vw;
         white-space: nowrap;
+        margin-bottom: 1rem;
       }
 
-      .hero-sub { font-size: 1.1rem; }
+      .hero-divider { margin: 0 auto 1rem; }
+
+      .hero-sub { font-size: 1rem; }
+
+      .hero-tagline { font-size: 0.62rem; }
     }
 
     /* ── BADGE BAR ── */
@@ -355,7 +375,6 @@
       line-height: 1.75;
       color: rgba(232,224,208,0.5);
     }
-
     .ornament {
       text-align: center;
       color: rgba(180,150,60,0.25);
