@@ -472,7 +472,6 @@
       user-select: none;
     }
 
-    /* ── FOOTER ── */
     .footer { border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; }
     .footer-inner {
       max-width: 1200px;
@@ -744,10 +743,8 @@
       document.getElementById('mobileMenu').classList.toggle('open');
     }
 
-    // ── SUPABASE ──
-    // Replace with your real credentials when ready
-    const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const SUPABASE_URL      = 'https://fbngrpissakvjelrcfaf.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
 
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
