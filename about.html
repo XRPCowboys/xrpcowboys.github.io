@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | XRPCOWBOYS • Exclusive XRP Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #f5d060; --gold-dim: #c9921a; --gold-dark: #a06e10;
+      --green: #4ade80; --cream: #e8e0d0;
+      --bg: #080808; --border: rgba(180,150,60,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg); color: var(--cream); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 999; }
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; letter-spacing: 0.1em; background: linear-gradient(120deg, #ffe87a, #c9921a, #f5d060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-links { list-style: none; display: flex; gap: 1.75rem; align-items: center; }
+    .nav-links a { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.95); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-login-btn { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.95) !important; border: 1px solid rgba(180,150,60,0.4); padding: 0.45rem 1.1rem; border-radius: 999px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .nav-login-btn:hover { border-color: var(--gold); color: var(--gold) !important; }
+    .mob-login { color: rgba(232,224,208,0.8) !important; }
+    .nav-join-btn { color: #080808 !important; background: linear-gradient(135deg, #f5d060, #c9921a); padding: 0.45rem 1.1rem; border-radius: 999px; font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); }
+    .mobile-menu { display: none; flex-direction: column; padding: 1.25rem 2rem 1.75rem; gap: 1.1rem; background: rgba(8,8,8,0.98); border-top: 1px solid var(--border); }
+    .mobile-menu a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,224,208,0.95); text-decoration: none; }
+    .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
+    .mobile-menu.open { display: flex; }
+
+    .page-hero { text-align: center; padding: 5rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(34,80,28,0.28) 0%, transparent 70%); pointer-events: none; }
+    .page-hero-label { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; position: relative; z-index: 1; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 25%, #c9921a 55%, #4ade80 80%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.9s 0.2s forwards; }
+    .page-hero-rule { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 auto 1.25rem; }
+    .page-hero-sub { font-size: 1.1rem; font-weight: 300; color: rgba(232,224,208,0.48); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section { max-width: 900px; margin: 0 auto; padding: 0 2rem 5rem; }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--gold); margin-bottom: 1.25rem; }
+    .section-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 0 2rem; }
+    .body-text { font-size: 1.05rem; font-weight: 300; line-height: 1.9; color: rgba(232,224,208,0.95); margin-bottom: 1.5rem; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; margin: 3rem 0; }
+    .timeline-item { display: flex; gap: 2rem; position: relative; padding-bottom: 2.5rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-left { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+    .timeline-year { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; color: var(--gold); background: rgba(245,208,96,0.08); border: 1px solid rgba(245,208,96,0.2); border-radius: 999px; padding: 0.3rem 0.75rem; white-space: nowrap; }
+    .timeline-line { width: 1px; flex: 1; background: linear-gradient(to bottom, rgba(245,208,96,0.2), transparent); margin-top: 0.5rem; }
+    .timeline-content { padding-top: 0.2rem; }
+    .timeline-content h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem; }
+    .timeline-content p { font-size: 0.95rem; font-weight: 300; color: rgba(232,224,208,0.95); line-height: 1.7; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin: 3rem 0; }
+    .feature-card { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s, border-color 0.3s; }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(180,150,60,0.3); }
+    .feature-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+    .feature-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: rgba(232,224,208,0.95); }
+
+    .ornament { text-align: center; color: rgba(180,150,60,0.25); font-size: 1rem; letter-spacing: 0.6em; margin: 0 0 5rem; user-select: none; }
+
+    .join-banner { background: linear-gradient(135deg, rgba(245,208,96,0.08), rgba(74,222,128,0.06)); border: 1px solid rgba(245,208,96,0.2); border-radius: 20px; padding: 3rem 2rem; text-align: center; max-width: 900px; margin: 0 auto 6rem; }
+    .join-banner h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--gold); margin-bottom: 0.75rem; }
+    .join-banner p { font-size: 1.05rem; font-weight: 300; color: rgba(232,224,208,0.95); max-width: 520px; margin: 0 auto 1.75rem; line-height: 1.8; }
+    .join-banner a { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #080808; background: linear-gradient(135deg, #f5d060, #c9921a); padding: 0.9rem 2.5rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(245,208,96,0.25); }
+    .join-banner a:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,208,96,0.4); }
+
+    .footer { border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 2rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; background: linear-gradient(120deg, #ffe87a, #c9921a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .footer-tagline { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.75); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.90); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; }
+    .footer-bottom p { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.65); }
+
+    @media (max-width: 640px) { .nav-links { display: none; } .hamburger { display: flex; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (async function(){
+      const sb = supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");
+      const {data:{session}} = await sb.auth.getSession();
+      if(!session) window.location.href = "login.html";
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="dispatch.html">Dispatch</a></li><li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="nav-login-btn">Login</a></li>
+          <li><a href="join.html" class="nav-join-btn">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="dispatch.html" onclick="toggleMenu()">Dispatch</a><a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="login.html" onclick="toggleMenu()" class="mob-login">✦ Member Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <p class="page-hero-label">Our Story</p>
+    <h1 class="page-hero-title">ABOUT XRPCOWBOYS</h1>
+    <div class="page-hero-rule"></div>
+    <p class="page-hero-sub">Founded in 2018 by a group of early XRP believers. Operated by Twin BlockChain Technologies LLC.</p>
+  </div>
+
+  <section class="section">
+    <p class="section-label">Who We Are</p>
+    <h2 class="section-title">The XRPCowboys Story</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">XRPCowboys was founded in 2018 as a grassroots community for XRP enthusiasts. What started as informal discussions among early holders has grown into a respected, members-only forum dedicated to the XRP Ledger and its real-world adoption.</p>
+    <p class="body-text">Today, XRPCowboys is operated by Twin BlockChain Technologies LLC and serves as a private space where verified members connect, share insights, attend virtual events, and build lasting relationships. A fun tradition in our community is wearing cowboy hats at conferences and meetups — a symbol of the pioneering spirit we bring to the XRP ecosystem.</p>
+    <p class="body-text">We provide a private forum-style platform where verified members discuss XRP technology, ecosystem developments, regulatory updates, investment strategies, and real-world adoption of the XRP Ledger. Members connect directly with industry leaders, developers, and high-net-worth holders in a moderated, professional environment.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <h4>The Beginning</h4>
+          <p>XRPCowboys founded by a small group of early XRP holders and believers. The cowboy hat tradition begins at our first meetup.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2019</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <h4>Community Grows</h4>
+          <p>Membership expands as the XRP community rallies together through market cycles. First private forum launched.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <h4>Holding Strong</h4>
+          <p>Through the SEC lawsuit and market volatility, XRPCowboys members hold firm and support one another through the storm.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <h4>Twin BlockChain Technologies LLC</h4>
+          <p>XRPCowboys formally incorporated under Twin BlockChain Technologies LLC, establishing official operations and governance.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <h4>Expansion & Events</h4>
+          <p>XRPCowboys hosts and attends major XRP events including Swell, XRP Las Vegas, and community parties worldwide.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-year">2025</div>
+        </div>
+        <div class="timeline-content">
+          <h4>Today</h4>
+          <p>XRPCowboys continues to grow as one of the most respected private communities in the XRP ecosystem. Membership by application only.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornament">— ✦ —</div>
+
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Community Features</h2>
+    <div class="section-rule"></div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">💬</span>
+        <h4>Private Forums</h4>
+        <p>Private discussion forums and threaded conversations covering XRP tech, markets, regulation, and ecosystem news.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎙️</span>
+        <h4>Live AMAs</h4>
+        <p>Member-only live AMAs with XRP ecosystem participants, developers, and industry leaders.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✅</span>
+        <h4>Verified Members</h4>
+        <p>Verified member directory and networking tools. Every member is reviewed and approved by our team.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📰</span>
+        <h4>Curated Research</h4>
+        <p>Curated news, research, and educational resources focused exclusively on the XRP Ledger and ecosystem.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗳️</span>
+        <h4>Governance</h4>
+        <p>Community governance polls and proposals. Members shape the direction of the XRPCowboys community.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🤠</span>
+        <h4>Cowboy Spirit</h4>
+        <p>A fun tradition of wearing cowboy hats at XRP conferences — a symbol of our pioneering community spirit.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="join-banner">
+    <h3>Ready to Ride With Us?</h3>
+    <p>Membership in XRPCowboys is selective and by application only. We're looking for serious, long-term participants in the XRP ecosystem.</p>
+    <a href="join.html">Apply for Membership</a>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">✦ XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join</a>
+        <a href="forum.html">Forum</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="dispatch.html">Dispatch</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Twin BlockChain Technologies LLC &nbsp;·&nbsp; All Rights Reserved &nbsp;·&nbsp; Membership by application only.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
