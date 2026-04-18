@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum • XRPCOWBOYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --gold:        #f5d060;
+      --gold-dim:    #c9921a;
+      --gold-dark:   #a06e10;
+      --green:       #4ade80;
+      --green-dim:   #22c55e;
+      --cream:       #e8e0d0;
+      --bg:          #080808;
+      --bg2:         #0f0f0f;
+      --border:      rgba(180,150,60,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(120deg, #ffe87a, #c9921a, #f5d060);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-links { list-style: none; display: flex; gap: 1.75rem; align-items: center; }
+    .nav-links a {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-join-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #080808 !important;
+      background: linear-gradient(135deg, #f5d060, #c9921a);
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-join-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: 0.3s; }
+    .mobile-menu { display: none; flex-direction: column; padding: 1.25rem 2rem 1.75rem; gap: 1.1rem; background: rgba(8,8,8,0.98); border-top: 1px solid var(--border); }
+    .mobile-menu a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,224,208,0.65); text-decoration: none; }
+    .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
+    .mobile-menu.open { display: flex; }
+    @media (max-width: 640px) { .nav-links { display: none; } .hamburger { display: flex; } }
+    #login-screen {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(34,80,28,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .login-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .login-eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; }
+    .login-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 30%, #c9921a 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; }
+    .login-card > p { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,224,208,0.35); margin-bottom: 2rem; }
+    .login-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 auto 2rem; }
+    .login-card input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--cream); padding: 0.85rem 1.1rem; border-radius: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; margin-bottom: 0.85rem; outline: none; transition: border-color 0.2s; }
+    .login-card input::placeholder { color: rgba(232,224,208,0.25); }
+    .login-card input:focus { border-color: rgba(245,208,96,0.45); }
+    .login-card button { width: 100%; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; border: none; padding: 0.9rem; font-family: 'Oswald', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 999px; cursor: pointer; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(245,208,96,0.2); margin-bottom: 1.1rem; margin-top: 0.25rem; }
+    .login-card button:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(245,208,96,0.35); }
+    .login-toggle { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.55); cursor: pointer; transition: color 0.2s; text-decoration: underline; }
+    .login-toggle:hover { color: var(--gold); }
+    .login-error { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: #ff7070; margin-bottom: 0.85rem; display: none; }
+    #forum-main { display: none; }
+    .forum-hero { position: relative; padding: 4rem 2rem 3rem; text-align: center; overflow: hidden; }
+    .forum-hero::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(34,80,28,0.3) 0%, transparent 70%); pointer-events: none; }
+    .forum-hero-eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; position: relative; z-index: 1; }
+    .forum-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 20%, #c9921a 50%, #4ade80 80%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .forum-hero-rule { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 auto 1rem; }
+    .forum-hero p { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(232,224,208,0.35); position: relative; z-index: 1; }
+    .member-bar { max-width: 1200px; margin: 0 auto; padding: 0.75rem 2rem; display: flex; justify-content: flex-end; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
+    .member-bar span { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.35); }
+    .member-bar span strong { color: var(--gold); font-weight: 400; }
+    .logout-btn { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; background: transparent; border: 1px solid var(--border); color: rgba(232,224,208,0.4); padding: 0.3rem 0.85rem; border-radius: 999px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .logout-btn:hover { border-color: rgba(245,208,96,0.4); color: var(--gold); }
+    .forum-wrap { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .section-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin-bottom: 1.5rem; }
+    .category { margin-bottom: 3rem; }
+    .forum-thread { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.2s; text-decoration: none; }
+    .forum-thread:hover { border-color: rgba(245,208,96,0.3); background: rgba(255,255,255,0.04); transform: translateX(4px); }
+    .thread-icon { width: 40px; height: 40px; background: rgba(180,150,60,0.08); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .thread-info { flex: 1; }
+    .thread-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: rgba(232,224,208,0.88); margin-bottom: 0.25rem; }
+    .thread-meta { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,224,208,0.3); }
+    .thread-meta .author { color: var(--green); }
+    .thread-cat { font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); border-radius: 999px; padding: 0.2rem 0.65rem; white-space: nowrap; flex-shrink: 0; }
+    .thread-replies { text-align: right; flex-shrink: 0; }
+    .thread-replies strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); font-weight: 700; }
+    .thread-replies span { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,224,208,0.3); }
+    .badge-new { display: inline-block; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 500; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle; }
+    .badge-pinned { display: inline-block; background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.3); color: var(--green); font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 500; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle; }
+    .ornament { text-align: center; color: rgba(180,150,60,0.2); font-size: 1rem; letter-spacing: 0.6em; margin: 0 0 2rem; user-select: none; }
+    .footer { border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 2rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; background: linear-gradient(120deg, #ffe87a, #c9921a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .footer-tagline { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.3); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; }
+    .footer-bottom p { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.22); }
+    @media (max-width: 600px) { .forum-thread { flex-wrap: wrap; } .thread-replies { width: 100%; text-align: left; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="forum.html" class="active">Forum</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="dispatch.html">The Dispatch</a></li><li><a href="dispatch.html">The Dispatch</a><a href="contact.html">Contact</a></li>
+        <li><a href="join.html" class="nav-join-btn">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html"   onclick="toggleMenu()">About</a>
+      <a href="forum.html"   onclick="toggleMenu()">Forum</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="dispatch.html" onclick="toggleMenu()">The Dispatch</a><a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="join.html"    onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+    </div>
+  </nav>
+
+  <div id="login-screen">
+    <div class="login-card">
+      <p class="login-eyebrow">Members Only Access</p>
+      <h2>The Corral</h2>
+      <p>Log in to enter the forum</p>
+      <div class="login-divider"></div>
+      <div class="login-error" id="login-error"></div>
+      <input type="email" id="email-input" placeholder="Email Address" />
+      <input type="password" id="password-input" placeholder="Password" />
+      <button id="auth-btn">Log In</button>
+      <div class="login-toggle" id="toggle-mode">Don't have an account? Sign Up</div>
+    </div>
+  </div>
+
+  <div id="forum-main">
+    <div class="forum-hero">
+      <p class="forum-hero-eyebrow">Members Forum</p>
+      <h1>The Corral</h1>
+      <div class="forum-hero-rule"></div>
+      <p>Private Discussions · XRP Ledger · Community</p>
+    </div>
+    <div class="member-bar">
+      <span>Logged in as <strong id="user-email-display">partner</strong></span>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </div>
+    <div class="forum-wrap">
+
+      <div class="category">
+        <p class="section-label">Hot Topics</p>
+        <h2 class="section-title">XRP Market Talk</h2>
+        <div class="section-rule"></div>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">💰</div>
+          <div class="thread-info">
+            <div class="thread-title">XRP hits new milestone — where do we go from here? <span class="badge-new">NEW</span></div>
+            <div class="thread-meta">Posted by <span class="author">RanchRider_TX</span> &nbsp;·&nbsp; 2 hours ago</div>
+          </div>
+          <span class="thread-cat">Market</span>
+          <div class="thread-replies"><strong>47</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">📊</div>
+          <div class="thread-info">
+            <div class="thread-title">Technical analysis thread — April 2026</div>
+            <div class="thread-meta">Posted by <span class="author">CryptoSpurs</span> &nbsp;·&nbsp; 1 day ago</div>
+          </div>
+          <span class="thread-cat">Analysis</span>
+          <div class="thread-replies"><strong>31</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">🔥</div>
+          <div class="thread-info">
+            <div class="thread-title">SEC ruling aftermath — what it means for XRP holders</div>
+            <div class="thread-meta">Posted by <span class="author">LedgerLasso</span> &nbsp;·&nbsp; 3 days ago</div>
+          </div>
+          <span class="thread-cat">Regulation</span>
+          <div class="thread-replies"><strong>88</strong><span>Replies</span></div>
+        </a>
+      </div>
+
+      <div class="category">
+        <p class="section-label">Stay Informed</p>
+        <h2 class="section-title">Ripple & XRPL News</h2>
+        <div class="section-rule"></div>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">⚡</div>
+          <div class="thread-info">
+            <div class="thread-title">Ripple partners with new payment corridor — details inside <span class="badge-new">NEW</span></div>
+            <div class="thread-meta">Posted by <span class="author">SaddleSatoshi</span> &nbsp;·&nbsp; 5 hours ago</div>
+          </div>
+          <span class="thread-cat">Ecosystem News</span>
+          <div class="thread-replies"><strong>19</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">🏦</div>
+          <div class="thread-info">
+            <div class="thread-title">AMM updates on XRPL — what every holder needs to know</div>
+            <div class="thread-meta">Posted by <span class="author">DustTrailDeFi</span> &nbsp;·&nbsp; 2 days ago</div>
+          </div>
+          <span class="thread-cat">XRP Ledger Tech</span>
+          <div class="thread-replies"><strong>24</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">🧠</div>
+          <div class="thread-info">
+            <div class="thread-title">Deep dive: XRPL smart contracts and the EVM sidechain</div>
+            <div class="thread-meta">Posted by <span class="author">IronbootIvan</span> &nbsp;·&nbsp; 4 days ago</div>
+          </div>
+          <span class="thread-cat">XRP Ledger Tech</span>
+          <div class="thread-replies"><strong>41</strong><span>Replies</span></div>
+        </a>
+      </div>
+
+      <div class="category">
+        <p class="section-label">The Community</p>
+        <h2 class="section-title">General Roundup</h2>
+        <div class="section-rule"></div>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">👋</div>
+          <div class="thread-info">
+            <div class="thread-title">Introduce yourself — new members check in here <span class="badge-pinned">PINNED</span></div>
+            <div class="thread-meta">Posted by <span class="author">XRPCowboys_Admin</span></div>
+          </div>
+          <span class="thread-cat">Member Introductions</span>
+          <div class="thread-replies"><strong>112</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">🗳️</div>
+          <div class="thread-info">
+            <div class="thread-title">Community poll: Should we host a 2026 meetup in Nashville?</div>
+            <div class="thread-meta">Posted by <span class="author">XRPCowboys_Admin</span> &nbsp;·&nbsp; 1 week ago</div>
+          </div>
+          <span class="thread-cat">Governance</span>
+          <div class="thread-replies"><strong>63</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">🛡️</div>
+          <div class="thread-info">
+            <div class="thread-title">Community rules & code of conduct <span class="badge-pinned">PINNED</span></div>
+            <div class="thread-meta">Posted by <span class="author">XRPCowboys_Admin</span></div>
+          </div>
+          <span class="thread-cat">Announcements</span>
+          <div class="thread-replies"><strong>5</strong><span>Replies</span></div>
+        </a>
+        <a href="#" class="forum-thread">
+          <div class="thread-icon">💬</div>
+          <div class="thread-info">
+            <div class="thread-title">Best wallets for XRPL in 2026 — community recommendations</div>
+            <div class="thread-meta">Posted by <span class="author">WildWestWallet</span> &nbsp;·&nbsp; 5 days ago</div>
+          </div>
+          <span class="thread-cat">Resources</span>
+          <div class="thread-replies"><strong>36</strong><span>Replies</span></div>
+        </a>
+      </div>
+
+      <div class="ornament">— ✦ —</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">✦ XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join</a>
+        <a href="forum.html">Forum</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="dispatch.html">The Dispatch</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Twin BlockChain Technologies LLC &nbsp;·&nbsp; All Rights Reserved &nbsp;·&nbsp; <a href="https://xrpcowboys.com" style="color:rgba(245,208,96,0.4);text-decoration:none;">xrpcowboys.com</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    const SUPABASE_URL      = 'https://fbngrpissakvjelrcfaf.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const loginScreen   = document.getElementById('login-screen');
+    const forumMain     = document.getElementById('forum-main');
+    const emailInput    = document.getElementById('email-input');
+    const passwordInput = document.getElementById('password-input');
+    const authBtn       = document.getElementById('auth-btn');
+    const loginError    = document.getElementById('login-error');
+    const toggleMode    = document.getElementById('toggle-mode');
+    const logoutBtn     = document.getElementById('logout-btn');
+    const userDisplay   = document.getElementById('user-email-display');
+
+    let isSignUp = false;
+
+    sb.auth.getSession().then(({ data: { session } }) => {
+      if (session) showForum(session.user);
+    });
+
+    toggleMode.addEventListener('click', () => {
+      isSignUp = !isSignUp;
+      authBtn.textContent    = isSignUp ? 'Sign Up' : 'Log In';
+      toggleMode.textContent = isSignUp ? 'Already have an account? Log In' : "Don't have an account? Sign Up";
+      loginError.style.display = 'none';
+    });
+
+    authBtn.addEventListener('click', async () => {
+      const email    = emailInput.value.trim();
+      const password = passwordInput.value;
+      loginError.style.display = 'none';
+
+      if (!email || !password) {
+        loginError.textContent   = 'Please enter your email and password.';
+        loginError.style.display = 'block';
+        return;
+      }
+
+      const result = isSignUp
+        ? await sb.auth.signUp({ email, password })
+        : await sb.auth.signInWithPassword({ email, password });
+
+      if (result.error) {
+        loginError.textContent   = result.error.message;
+        loginError.style.display = 'block';
+      } else {
+        showForum(result.data.user);
+      }
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      await sb.auth.signOut();
+      forumMain.style.display   = 'none';
+      loginScreen.style.display = 'flex';
+    });
+
+    passwordInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') authBtn.click();
+    });
+
+    function showForum(user) {
+      loginScreen.style.display = 'none';
+      forumMain.style.display   = 'block';
+      userDisplay.textContent   = user.email;
+    }
+  </script>
+
+</body>
+</html>
