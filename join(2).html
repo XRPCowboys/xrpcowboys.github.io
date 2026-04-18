@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join | XRPCOWBOYS • Exclusive XRP Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #f5d060; --gold-dim: #c9921a; --gold-dark: #a06e10;
+      --green: #4ade80; --green-dim: #22c55e; --cream: #e8e0d0;
+      --bg: #080808; --bg2: #0f0f0f; --border: rgba(180,150,60,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg); color: var(--cream); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 999; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; letter-spacing: 0.1em; background: linear-gradient(120deg, #ffe87a, #c9921a, #f5d060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-links { list-style: none; display: flex; gap: 1.75rem; align-items: center; }
+    .nav-links a { font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.55); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-join-btn { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #080808 !important; background: linear-gradient(135deg, #f5d060, #c9921a); padding: 0.45rem 1.1rem; border-radius: 999px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+    .nav-join-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: 0.3s; }
+    .mobile-menu { display: none; flex-direction: column; padding: 1.25rem 2rem 1.75rem; gap: 1.1rem; background: rgba(8,8,8,0.98); border-top: 1px solid var(--border); }
+    .mobile-menu a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,224,208,0.65); text-decoration: none; }
+    .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
+    .mobile-menu.open { display: flex; }
+
+    /* PAGE HERO */
+    .page-hero { text-align: center; padding: 5rem 2rem 3rem; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(34,80,28,0.28) 0%, transparent 70%); pointer-events: none; }
+    .page-hero-label { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; position: relative; z-index: 1; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: 0.05em; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 25%, #c9921a 55%, #4ade80 80%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.9s 0.2s forwards; }
+    .page-hero-rule { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 auto 1.25rem; }
+    .page-hero-sub { font-size: 1.1rem; font-weight: 300; color: rgba(232,224,208,0.48); letter-spacing: 0.04em; max-width: 560px; margin: 0 auto; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* FORM WRAPPER */
+    .form-outer { max-width: 780px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+    /* FORM BOX */
+    .form-box {
+      position: relative;
+      background: linear-gradient(145deg, rgba(245,208,96,0.05), rgba(10,10,10,0.9));
+      border: 1px solid rgba(245,208,96,0.22);
+      border-radius: 24px;
+      padding: 3rem 3rem 3.5rem;
+      overflow: hidden;
+    }
+    .form-box::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(245,208,96,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .form-box::after {
+      content: '';
+      position: absolute;
+      top: 16px; left: 16px; right: 16px; bottom: 16px;
+      border: 1px solid rgba(245,208,96,0.07);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    /* FORM HEADER */
+    .form-header { text-align: center; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+    .form-header .star { font-size: 1.8rem; display: block; margin-bottom: 0.75rem; }
+    .form-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .form-header p { font-size: 0.95rem; font-weight: 300; color: rgba(232,224,208,0.45); letter-spacing: 0.03em; line-height: 1.7; }
+    .form-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 1rem auto 0; }
+
+    /* SECTION LABELS */
+    .form-section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin: 2rem 0 1rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .form-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(74,222,128,0.2), transparent);
+    }
+
+    /* FIELD ROWS */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+    .field-row.single { grid-template-columns: 1fr; }
+    .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* FIELD */
+    .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .field label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245,208,96,0.65);
+    }
+    .field .required { color: var(--green); margin-left: 2px; }
+    .field input,
+    .field select,
+    .field textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(180,150,60,0.22);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(232,224,208,0.22); font-style: italic; }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(245,208,96,0.5);
+      background: rgba(245,208,96,0.04);
+    }
+    .field select { cursor: pointer; }
+    .field select option { background: #111; color: var(--cream); }
+    .field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+    /* CHECKBOX ROW */
+    .checkbox-field { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .checkbox-field input[type="checkbox"] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
+    .checkbox-field label { font-size: 0.9rem; font-weight: 300; color: rgba(232,224,208,0.55); line-height: 1.5; cursor: pointer; }
+    .checkbox-field label a { color: var(--gold); text-decoration: none; }
+    .checkbox-field label a:hover { text-decoration: underline; }
+
+    /* SUBMIT BTN */
+    .submit-wrap { text-align: center; margin-top: 2rem; position: relative; z-index: 1; }
+    .submit-btn {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #080808;
+      background: linear-gradient(135deg, #f5d060, #c9921a);
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 24px rgba(245,208,96,0.3);
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,208,96,0.45); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-note { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.25); margin-top: 1rem; }
+
+    /* SUCCESS MESSAGE */
+    .success-msg { display: none; text-align: center; padding: 2rem; }
+    .success-msg .checkmark { font-size: 3rem; margin-bottom: 1rem; }
+    .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 0.75rem; }
+    .success-msg p { font-size: 1rem; font-weight: 300; color: rgba(232,224,208,0.55); line-height: 1.7; }
+
+    /* REQUIREMENTS BOX */
+    .req-box {
+      background: rgba(74,222,128,0.04);
+      border: 1px solid rgba(74,222,128,0.15);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .req-box p { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(74,222,128,0.7); line-height: 1.8; }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 2rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; background: linear-gradient(120deg, #ffe87a, #c9921a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .footer-tagline { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.3); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; }
+    .footer-bottom p { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.22); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-box { padding: 2rem 1.5rem 2.5rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .field-row.triple { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="dispatch.html">Dispatch</a></li><li><a href="contact.html">Contact</a></li>
+        <li><a href="join.html" class="nav-join-btn active">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html"   onclick="toggleMenu()">About</a>
+      <a href="forum.html"   onclick="toggleMenu()">Forum</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="dispatch.html" onclick="toggleMenu()">Dispatch</a><a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="join.html"    onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <p class="page-hero-label">Membership Application</p>
+    <h1 class="page-hero-title">RIDE WITH US</h1>
+    <div class="page-hero-rule"></div>
+    <p class="page-hero-sub">XRPCowboys is a private, members-only community. Applications are reviewed by our team and membership is granted by approval only.</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-outer">
+    <div class="form-box">
+
+      <div class="form-header">
+        <span class="star">🤠</span>
+        <h2>Apply for Membership</h2>
+        <p>Fill out the form below. Our team will review your application and contact you within 3–5 business days.</p>
+        <div class="form-divider"></div>
+      </div>
+
+      <div class="req-box">
+        <p>✦ &nbsp; Membership is selective and limited to serious XRP ecosystem participants &nbsp; ✦ &nbsp; All fields marked with * are required &nbsp; ✦ &nbsp; Your information is kept strictly private</p>
+      </div>
+
+      <form id="joinForm" action="https://formspree.io/f/xrerppjq" method="POST">
+
+        <!-- Hidden fields for Formspree -->
+        <input type="hidden" name="_subject" value="New XRPCowboys Membership Application">
+        <input type="hidden" name="_replyto" value="">
+
+        <p class="form-section-label">Personal Information</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label>First Name <span class="required">*</span></label>
+            <input type="text" name="first_name" placeholder="John" required>
+          </div>
+          <div class="field">
+            <label>Last Name <span class="required">*</span></label>
+            <input type="text" name="last_name" placeholder="Smith" required>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" name="email" placeholder="john@example.com" required>
+          </div>
+          <div class="field">
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required>
+          </div>
+        </div>
+
+        <p class="form-section-label">Mailing Address</p>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>Street Address <span class="required">*</span></label>
+            <input type="text" name="address_street" placeholder="123 Main Street" required>
+          </div>
+        </div>
+
+        <div class="field-row triple">
+          <div class="field">
+            <label>City <span class="required">*</span></label>
+            <input type="text" name="address_city" placeholder="Nashville" required>
+          </div>
+          <div class="field">
+            <label>State / Province <span class="required">*</span></label>
+            <input type="text" name="address_state" placeholder="TN" required>
+          </div>
+          <div class="field">
+            <label>ZIP / Postal Code <span class="required">*</span></label>
+            <input type="text" name="address_zip" placeholder="37201" required>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>Country <span class="required">*</span></label>
+            <select name="country" required>
+              <option value="" disabled selected>Select your country</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>United Kingdom</option>
+              <option>Australia</option>
+              <option>Germany</option>
+              <option>France</option>
+              <option>Japan</option>
+              <option>Singapore</option>
+              <option>UAE</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="form-section-label">XRP & Community Info</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label>How long have you held XRP? <span class="required">*</span></label>
+            <select name="xrp_holder_duration" required>
+              <option value="" disabled selected>Select duration</option>
+              <option>Less than 1 year</option>
+              <option>1–2 years</option>
+              <option>3–5 years</option>
+              <option>5+ years (OG Holder)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>How did you hear about us? <span class="required">*</span></label>
+            <select name="referral_source" required>
+              <option value="" disabled selected>Select one</option>
+              <option>Referred by a member</option>
+              <option>X (Twitter)</option>
+              <option>YouTube</option>
+              <option>Podcast</option>
+              <option>XRP Event</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>Your X (Twitter) Handle</label>
+            <input type="text" name="twitter_handle" placeholder="@yourhandle">
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>Why do you want to join XRPCowboys? <span class="required">*</span></label>
+            <textarea name="why_join" placeholder="Tell us about your involvement in the XRP ecosystem and why you'd like to be part of our community..." required></textarea>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>Anything else you'd like us to know?</label>
+            <textarea name="additional_info" placeholder="Optional — share any additional background, experience, or questions..."></textarea>
+          </div>
+        </div>
+
+        <p class="form-section-label">Agreements</p>
+
+        <div class="checkbox-field">
+          <input type="checkbox" id="agree_rules" name="agree_rules" required>
+          <label for="agree_rules">I agree to abide by the XRPCowboys community rules and code of conduct. I understand membership is selective and can be revoked for violations. <span class="required">*</span></label>
+        </div>
+
+        <div class="checkbox-field">
+          <input type="checkbox" id="agree_privacy" name="agree_privacy" required>
+          <label for="agree_privacy">I understand my personal information will be kept private and used only for membership verification purposes. <span class="required">*</span></label>
+        </div>
+
+        <div class="checkbox-field">
+          <input type="checkbox" id="agree_age" name="agree_age" required>
+          <label for="agree_age">I confirm that I am 18 years of age or older. <span class="required">*</span></label>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn">✦ Submit Application ✦</button>
+          <p class="submit-note">Applications are reviewed manually · Response within 3–5 business days · Membership by approval only</p>
+        </div>
+
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="checkmark">🤠</div>
+        <h3>Application Received!</h3>
+        <p>Much obliged, partner. Your application has been submitted to the XRPCowboys team.<br><br>We review all applications personally and will be in touch within 3–5 business days. Keep your eyes on your email — and welcome to the trail.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">✦ XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join</a>
+        <a href="forum.html">Forum</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="dispatch.html">Dispatch</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Twin BlockChain Technologies LLC &nbsp;·&nbsp; All Rights Reserved &nbsp;·&nbsp; Membership by application only.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    document.getElementById('joinForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch('https://formspree.io/f/xrerppjq', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+        } else {
+          btn.textContent = '✦ Submit Application ✦';
+          btn.disabled = false;
+          alert('Something went wrong. Please try again or email us directly.');
+        }
+      } catch (err) {
+        btn.textContent = '✦ Submit Application ✦';
+        btn.disabled = false;
+        alert('Network error. Please try again.');
+      }
+    });
+  </script>
+
+</body>
+</html>
