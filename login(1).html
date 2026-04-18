@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Login | XRPCOWBOYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--gold:#f5d060;--gold-dim:#c9921a;--green:#4ade80;--cream:#e8e0d0;--bg:#080808;--border:rgba(180,150,60,0.15);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;}
+
+    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#ffe87a,#c9921a,#f5d060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--gold);}
+    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
+    .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(8,8,8,0.98);border-top:1px solid var(--border);}
+    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .mobile-menu .mob-join{color:var(--gold)!important;font-weight:500;}
+    .mobile-menu.open{display:flex;}
+
+    .login-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem;position:relative;}
+    .login-wrap::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(34,80,28,0.2) 0%,transparent 70%);pointer-events:none;}
+
+    .login-box{width:100%;max-width:480px;background:linear-gradient(145deg,rgba(245,208,96,0.05),rgba(10,10,10,0.95));border:1px solid rgba(245,208,96,0.22);border-radius:24px;padding:3rem;position:relative;z-index:1;}
+
+    .login-header{text-align:center;margin-bottom:2.5rem;}
+    .login-header .star{font-size:2.5rem;display:block;margin-bottom:1rem;}
+    .login-header h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#c9921a 50%,#4ade80 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .login-header p{font-size:0.95rem;font-weight:300;color:rgba(232,224,208,0.85);}
+    .login-divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:1rem auto 0;}
+
+    .field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+    .field label{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,208,96,0.95);}
+    .field input{background:rgba(255,255,255,0.04);border:1px solid rgba(180,150,60,0.3);border-radius:8px;padding:0.85rem 1rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;color:#fff;outline:none;width:100%;transition:border-color 0.2s,background 0.2s;}
+    .field input::placeholder{color:rgba(232,224,208,0.45);font-style:italic;}
+    .field input:focus{border-color:rgba(245,208,96,0.6);background:rgba(245,208,96,0.04);}
+
+    .error-msg{background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);border-radius:8px;padding:0.75rem 1rem;font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.08em;color:#ff8080;margin-bottom:1.25rem;display:none;}
+
+    .login-btn{width:100%;font-family:'Oswald',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);border:none;padding:1rem;border-radius:999px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 24px rgba(245,208,96,0.3);margin-bottom:1.25rem;}
+    .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,208,96,0.45);}
+    .login-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+    .toggle-mode{text-align:center;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;color:rgba(232,224,208,0.6);}
+    .toggle-mode a{color:var(--gold);text-decoration:none;cursor:pointer;}
+    .toggle-mode a:hover{text-decoration:underline;}
+
+    .forgot-pw{text-align:center;margin-top:0.75rem;}
+    .forgot-pw a{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;color:rgba(232,224,208,0.45);text-decoration:none;cursor:pointer;}
+    .forgot-pw a:hover{color:rgba(232,224,208,0.8);}
+
+    .members-note{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+    .members-note p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.4);}
+    .members-note a{color:var(--gold);text-decoration:none;}
+    .members-note a:hover{text-decoration:underline;}
+
+    .footer{border-top:1px solid var(--border);padding:2rem;}
+    .footer-bottom{max-width:1200px;margin:0 auto;text-align:center;}
+    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.65);}
+
+    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.login-box{padding:2rem 1.5rem;}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="dispatch.html">The Dispatch</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="join.html" class="nav-join-btn">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="dispatch.html" onclick="toggleMenu()">The Dispatch</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+    </div>
+  </nav>
+
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="star">🤠</span>
+        <h1>MEMBER LOGIN</h1>
+        <p>Welcome back, partner. Sign in to access the members-only forum.</p>
+        <div class="login-divider"></div>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="emailInput" placeholder="your@email.com">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="Your password">
+      </div>
+
+      <button class="login-btn" id="authBtn">Sign In</button>
+
+      <div class="toggle-mode" id="toggleMode">
+        Don't have an account? <a onclick="toggleSignUp()">Sign Up</a>
+      </div>
+      <div class="forgot-pw">
+        <a onclick="resetPassword()">Forgot your password?</a>
+      </div>
+
+      <div class="members-note">
+        <p>Not a member yet? <a href="join.html">Apply here →</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2025 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
+    </div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = 'https://fbngrpissakvjelrcfaf.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let isSignUp = false;
+
+    function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+    function toggleSignUp(){
+      isSignUp = !isSignUp;
+      document.getElementById('authBtn').textContent = isSignUp ? 'Create Account' : 'Sign In';
+      document.getElementById('toggleMode').innerHTML = isSignUp
+        ? 'Already have an account? <a onclick="toggleSignUp()">Sign In</a>'
+        : "Don't have an account? <a onclick=\"toggleSignUp()\">Sign Up</a>";
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    async function resetPassword(){
+      const email = document.getElementById('emailInput').value.trim();
+      if(!email){ showError('Please enter your email address first.'); return; }
+      const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: window.location.origin + '/login.html'});
+      if(error){ showError(error.message); }
+      else { showError('Password reset email sent! Check your inbox.'); document.getElementById('errorMsg').style.color='#4ade80'; }
+    }
+
+    function showError(msg){
+      const el = document.getElementById('errorMsg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      el.style.color = '#ff8080';
+    }
+
+    document.getElementById('authBtn').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value;
+      const btn = document.getElementById('authBtn');
+      document.getElementById('errorMsg').style.display = 'none';
+
+      if(!email || !password){ showError('Please enter your email and password.'); return; }
+
+      btn.textContent = isSignUp ? 'Creating Account...' : 'Signing In...';
+      btn.disabled = true;
+
+      const result = isSignUp
+        ? await sb.auth.signUp({email, password})
+        : await sb.auth.signInWithPassword({email, password});
+
+      if(result.error){
+        showError(result.error.message);
+        btn.textContent = isSignUp ? 'Create Account' : 'Sign In';
+        btn.disabled = false;
+      } else {
+        if(isSignUp){
+          showError('Account created! Please check your email to verify, then sign in.');
+          document.getElementById('errorMsg').style.color = '#4ade80';
+          btn.textContent = 'Sign In';
+          btn.disabled = false;
+          isSignUp = false;
+        } else {
+          window.location.href = 'forum.html';
+        }
+      }
+    });
+
+    document.getElementById('passwordInput').addEventListener('keydown', e => {
+      if(e.key === 'Enter') document.getElementById('authBtn').click();
+    });
+
+    // Check if already logged in
+    sb.auth.getSession().then(({data:{session}}) => {
+      if(session) window.location.href = 'forum.html';
+    });
+  </script>
+</body>
+</html>
