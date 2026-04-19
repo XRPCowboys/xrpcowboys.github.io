@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Corral | XRPCOWBOYS • Hot Topics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --dark: #0d0b07;
+      --card-bg: rgba(10, 8, 4, 0.82);
+      --card-border: rgba(201,168,76,0.25);
+      --text: #f0e8d5;
+      --muted: #a89878;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      color: var(--text);
+      background: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── HERO BACKGROUND ── */
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: url('XRPCowboys_files/lucia-macedo-xXLT52bAzkk-unsplash.jpg') center center / cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,8,4,0.55) 0%,
+        rgba(10,8,4,0.45) 40%,
+        rgba(10,8,4,0.70) 80%,
+        rgba(10,8,4,0.92) 100%
+      );
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      background: rgba(10,8,4,0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-join {
+      background: var(--gold);
+      color: var(--dark) !important;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+    .nav-join:hover { background: var(--gold-light) !important; color: var(--dark) !important; }
+
+    /* ── MAIN CONTENT ── */
+    .page-wrap {
+      position: relative;
+      z-index: 10;
+      padding-top: 64px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+    }
+    .page-header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+    .page-header .sub {
+      margin-top: 0.9rem;
+      color: var(--muted);
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* ── CONTENT CONTAINER ── */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.4rem;
+    }
+    .section-label h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .section-label .line {
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    /* ── HOT TOPICS LIST ── */
+    .hot-topics {
+      margin-bottom: 2.5rem;
+    }
+    .hot-topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--gold);
+      backdrop-filter: blur(8px);
+      margin-bottom: 0.6rem;
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .hot-topic-item:hover {
+      background: rgba(201,168,76,0.08);
+      border-left-color: var(--gold-light);
+    }
+    .hot-topic-flame { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .hot-topic-text .tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .hot-topic-text strong {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.35;
+      display: block;
+    }
+
+    /* ── FEATURED ARTICLE BOX ── */
+    .featured-box {
+      background: var(--card-bg);
+      border: 1px solid var(--gold);
+      backdrop-filter: blur(12px);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+      text-decoration: none;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .featured-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 56px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.15);
+    }
+    .featured-box-inner {
+      padding: 2rem 2.2rem;
+    }
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 1px;
+      margin-bottom: 1.2rem;
+    }
+    .featured-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+    .featured-box h2 em {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+    .featured-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+    }
+    .featured-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+    .featured-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ── ARTICLE GRID ── */
+    .articles-grid {
+      display: grid;
+      gap: 1px;
+      border: 1px solid var(--card-border);
+      background: var(--card-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .article-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      padding: 1.4rem 1.6rem;
+      text-decoration: none;
+      display: block;
+      transition: background 0.18s;
+    }
+    .article-card:hover { background: rgba(201,168,76,0.07); }
+    .article-card .tag {
+      font-size: 0.67rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .article-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+      margin-bottom: 0.45rem;
+    }
+    .article-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .article-card .meta {
+      font-size: 0.72rem;
+      color: rgba(168,152,120,0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(10,8,4,0.95);
+      border-top: 1px solid var(--card-border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.9rem;
+    }
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    footer .footer-links a:hover { color: var(--gold); }
+    footer .copy {
+      font-size: 0.72rem;
+      color: rgba(168,152,120,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links li:nth-child(n+4) { display: none; }
+      .featured-box-inner { padding: 1.4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="hero-bg"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="forum.html">The Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dispatch.html">Horse Power Wire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="join.html" class="nav-join">Join</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page -->
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header class="page-header">
+      <p class="eyebrow">XRP News · Hot Topics · Community</p>
+      <h1>THE CORRAL</h1>
+      <p class="sub">Breaking news, hot takes, and deep dives from inside the XRP ecosystem — curated by XRPCowboys.</p>
+    </header>
+
+    <div class="content">
+
+      <!-- HOT TOPICS -->
+      <div class="section-label">
+        <h2>🔥 Hot Topics</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="hot-topics">
+        <a href="vegas_article.html" class="hot-topic-item">
+          <span class="hot-topic-flame">🔥</span>
+          <div class="hot-topic-text">
+            <div class="tag">Las Vegas 2026 · Featured</div>
+            <strong>Vegas Baby — XRP Takes The Strip</strong>
+          </div>
+        </a>
+        <a href="forum.html" class="hot-topic-item">
+          <span class="hot-topic-flame">⚡</span>
+          <div class="hot-topic-text">
+            <div class="tag">Market · Members Only</div>
+            <strong>XRP breaks key resistance — what the charts are saying right now</strong>
+          </div>
+        </a>
+        <a href="forum.html" class="hot-topic-item">
+          <span class="hot-topic-flame">🔒</span>
+          <div class="hot-topic-text">
+            <div class="tag">Regulation · Members Only</div>
+            <strong>Post-SEC Clarity: Where Does XRP Stand Legally in 2026?</strong>
+          </div>
+        </a>
+        <a href="forum.html" class="hot-topic-item">
+          <span class="hot-topic-flame">🔒</span>
+          <div class="hot-topic-text">
+            <div class="tag">XRPL Tech · Members Only</div>
+            <strong>AMM liquidity pools — what every holder should know</strong>
+          </div>
+        </a>
+      </div>
+
+      <!-- FEATURED ARTICLE -->
+      <div class="section-label">
+        <h2>📌 Featured Story</h2>
+        <div class="line"></div>
+      </div>
+
+      <a href="vegas_article.html" class="featured-box">
+        <div class="featured-box-inner">
+          <div class="featured-badge">🔥 Las Vegas 2026</div>
+          <h2>Vegas Baby — <em>XRP Takes The Strip</em></h2>
+          <p>
+            The XRP community descends on Las Vegas April 29–May 1 for the biggest XRP event in the world.
+            Ripple leadership, institutional moves, community bonds, and announcements that could change everything.
+            Don't miss a word of it.
+          </p>
+          <span class="read-more">Read Full Story →</span>
+          <div class="featured-meta">
+            <span>📅 April 18, 2026</span>
+            <span>✍️ XRPCowboys Editorial</span>
+            <span>📍 Las Vegas, NV</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- LATEST ARTICLES -->
+      <div class="section-label">
+        <h2>📰 Latest from the Herd</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="articles-grid">
+
+        <a href="dispatch.html" class="article-card">
+          <div class="tag">Ecosystem News</div>
+          <h3>XRP Surges as Ripple Eyes Institutional Expansion in 2026</h3>
+          <p>Ripple continues its push into institutional corridors as XRP ledger adoption accelerates — new partnerships, new corridors, and a market watching every move.</p>
+          <div class="meta">April 2026 · XRPCowboys Staff</div>
+        </a>
+
+        <a href="dispatch.html" class="article-card">
+          <div class="tag">Ecosystem News</div>
+          <h3>Ripple's Expanding Payment Corridors — What It Means for XRP Holders</h3>
+          <p>New banking partnerships expand XRP-powered payment corridors across Southeast Asia and the Middle East, opening significant new volume channels.</p>
+          <div class="meta">April 2026 · XRPCowboys Editorial</div>
+        </a>
+
+        <a href="forum.html" class="article-card">
+          <div class="tag">XRP Ledger Tech 🔒</div>
+          <h3>AMM Updates on the XRPL — A Deep Dive</h3>
+          <p>The Automated Market Maker protocol is live on the XRP Ledger. We break down what it means for liquidity, DeFi, and long-term holders.</p>
+          <div class="meta">March 2026 · Tech Desk · Members Only</div>
+        </a>
+
+        <a href="forum.html" class="article-card">
+          <div class="tag">Regulation 🔒</div>
+          <h3>Post-SEC Clarity: Where Does XRP Stand Legally?</h3>
+          <p>With the SEC case largely resolved, we examine the regulatory landscape for XRP globally and what it means for institutional adoption going forward.</p>
+          <div class="meta">March 2026 · XRPCowboys Editorial · Members Only</div>
+        </a>
+
+        <a href="forum.html" class="article-card">
+          <div class="tag">Community 🔒</div>
+          <h3>XRP Las Vegas 2025 Recap — Cowboys in the Desert</h3>
+          <p>Our crew showed up deep to XRP Las Vegas 2025. Full recap of panels, meetups, and the most memorable moments of the year.</p>
+          <div class="meta">February 2026 · Community Desk · Members Only</div>
+        </a>
+
+        <a href="forum.html" class="article-card">
+          <div class="tag">XRP Ledger Tech 🔒</div>
+          <h3>XRPL Smart Contracts & the EVM Sidechain Explained</h3>
+          <p>The EVM-compatible sidechain opens up a new world for XRPL developers. Everything explained in plain English for holders and builders alike.</p>
+          <div class="meta">January 2026 · Tech Desk · Members Only</div>
+        </a>
+
+        <a href="forum.html" class="article-card">
+          <div class="tag">Market 🔒</div>
+          <h3>XRP Price Analysis — Key Levels to Watch</h3>
+          <p>Our member analysts break down current XRP price action, support and resistance levels, and on-chain data pointing to what comes next.</p>
+          <div class="meta">April 2026 · Market Desk · Members Only</div>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">✦ XRPCOWBOYS</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="join.html">Join</a>
+      <a href="forum.html">The Corral</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="dispatch.html">Horse Power Wire</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="copy">© 2025 Twin BlockChain Technologies LLC · All Rights Reserved · xrpcowboys.com</p>
+  </footer>
+
+</body>
+</html>
