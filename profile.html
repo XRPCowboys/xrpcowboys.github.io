@@ -3,330 +3,291 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member Profile | XRPCOWBOYS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>My Profile | XRPCOWBOYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    :root{--gold:#f5d060;--gold-dim:#c9921a;--green:#4ade80;--cream:#e8e0d0;--bg:#080808;--border:rgba(180,150,60,0.15);}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
-    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--card-bg:rgba(15,12,6,0.85);--card-border:rgba(201,146,26,0.18);--border:rgba(201,146,26,0.15);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;}
+    .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg') center center/cover no-repeat;}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(10,8,4,0.82);}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#ffe87a,#c9921a,#f5d060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
-    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover{color:var(--gold);}
-    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;}
+    .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
-    .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(8,8,8,0.98);border-top:1px solid var(--border);}
-    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
-    .mobile-menu .mob-join{color:var(--gold)!important;font-weight:500;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
+    .mobile-menu{display:none;flex-direction:column;background:rgba(8,8,8,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
     .mobile-menu.open{display:flex;}
-
-    .page-hero{text-align:center;padding:4rem 2rem 2.5rem;position:relative;}
-    .page-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(34,80,28,0.28) 0%,transparent 70%);pointer-events:none;}
-    .page-hero-label{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;}
-    .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 25%,#c9921a 55%,#4ade80 80%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
-    .page-hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto 1rem;}
-    .page-hero-sub{font-size:1rem;font-weight:300;color:rgba(232,224,208,0.9);max-width:560px;margin:0 auto;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-
-    .approved-badge{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin:1rem auto 0;width:fit-content;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);border-radius:999px;padding:0.4rem 1.25rem;}
-    .approved-badge span{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);}
-
-    .form-outer{max-width:780px;margin:0 auto;padding:0 2rem 6rem;}
-    .form-box{background:linear-gradient(145deg,rgba(245,208,96,0.05),rgba(10,10,10,0.9));border:1px solid rgba(245,208,96,0.22);border-radius:24px;padding:3rem;position:relative;}
-
-    .section-label{font-family:'Oswald',sans-serif;font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--green);margin:2rem 0 1.25rem;display:flex;align-items:center;gap:0.75rem;}
-    .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(74,222,128,0.2),transparent);}
-    .section-label:first-child{margin-top:0;}
-
-    /* PHOTO UPLOAD */
-    .photo-upload-wrap{display:flex;align-items:center;gap:2rem;margin-bottom:1.5rem;}
-    .photo-preview{width:100px;height:100px;border-radius:50%;border:2px solid rgba(245,208,96,0.3);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;cursor:pointer;}
-    .photo-preview img{width:100%;height:100%;object-fit:cover;display:none;}
-    .photo-preview .photo-icon{font-size:2.5rem;opacity:0.4;}
-    .photo-upload-text h4{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,208,96,0.95);margin-bottom:0.3rem;}
-    .photo-upload-text p{font-size:0.85rem;color:rgba(232,224,208,0.7);line-height:1.5;}
-    .photo-upload-btn{display:inline-block;font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,208,96,0.3);padding:0.4rem 1rem;border-radius:999px;cursor:pointer;margin-top:0.5rem;transition:border-color 0.2s;}
-    .photo-upload-btn:hover{border-color:var(--gold);}
-    #photoInput{display:none;}
-
-    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-    .field-row.single{grid-template-columns:1fr;}
-    .field-row.triple{grid-template-columns:1fr 1fr 1fr;}
-    .field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
-    .field label{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,208,96,0.95);}
-    .required{color:var(--green);margin-left:2px;}
-    .field input,.field select,.field textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(180,150,60,0.3);border-radius:8px;padding:0.85rem 1rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;color:#fff;transition:border-color 0.2s,background 0.2s;outline:none;width:100%;}
-    .field input::placeholder,.field textarea::placeholder{color:rgba(232,224,208,0.5);font-style:italic;}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(245,208,96,0.6);background:rgba(245,208,96,0.04);}
-    .field select{cursor:pointer;}
-    .field select option{background:#111;color:var(--cream);}
-    .field textarea{resize:vertical;min-height:100px;line-height:1.6;}
-
-    .checkbox-field{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1rem;}
-    .checkbox-field input[type="checkbox"]{width:16px;height:16px;margin-top:3px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
-    .checkbox-field label{font-size:0.95rem;font-weight:300;color:rgba(232,224,208,0.95);line-height:1.5;cursor:pointer;}
-
-    .submit-wrap{text-align:center;margin-top:2rem;}
-    .submit-btn{font-family:'Oswald',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);border:none;padding:1rem 3rem;border-radius:999px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 24px rgba(245,208,96,0.3);}
-    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,208,96,0.45);}
-    .submit-note{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.6);margin-top:1rem;}
-
-    .success-msg{display:none;text-align:center;padding:2rem;}
-    .success-msg .checkmark{font-size:3rem;margin-bottom:1rem;}
-    .success-msg h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:0.75rem;}
-    .success-msg p{font-size:1rem;font-weight:300;color:rgba(232,224,208,0.95);line-height:1.7;}
-
-    .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
-    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
-    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg,#ffe87a,#c9921a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
-    .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.75);}
-    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
-    .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
-    .footer-links a:hover{color:var(--gold);}
-    .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
-    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.65);}
-
-    @media(max-width:640px){
-      .nav-links{display:none;}.hamburger{display:flex;}
-      .form-box{padding:2rem 1.5rem;}
-      .field-row,.field-row.triple{grid-template-columns:1fr;}
-      .photo-upload-wrap{flex-direction:column;align-items:flex-start;}
+    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;background:linear-gradient(120deg,#f5c842,#c9921a 50%,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem;}
+    .page-sub{color:var(--muted);font-size:0.9rem;margin-bottom:2rem;font-family:'Oswald',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
+    .card{background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(18px);border-radius:4px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+    .card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid var(--card-border);}
+    /* Avatar */
+    .avatar-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;}
+    .avatar-img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;}
+    .avatar-upload-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--card-border);color:var(--muted);padding:0.5rem 1rem;border-radius:2px;cursor:pointer;transition:border-color 0.2s,color 0.2s;}
+    .avatar-upload-btn:hover{border-color:var(--gold);color:var(--gold);}
+    /* Form */
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .form-field{display:flex;flex-direction:column;gap:0.4rem;}
+    .form-field.full{grid-column:1/-1;}
+    .form-field label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+    .form-field input,.form-field textarea,.form-field select{background:rgba(255,255,255,0.04);border:1px solid var(--card-border);color:var(--text);font-family:'Source Serif 4',serif;font-size:0.92rem;padding:0.65rem 0.9rem;border-radius:2px;outline:none;transition:border-color 0.2s;}
+    .form-field input:focus,.form-field textarea:focus{border-color:var(--gold-dim);}
+    .form-field textarea{min-height:80px;resize:vertical;}
+    .form-field input::placeholder,.form-field textarea::placeholder{color:var(--muted);}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;}
+    .toggle-label{font-family:'Oswald',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);}
+    .toggle-desc{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;}
+    .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+    .toggle input{opacity:0;width:0;height:0;}
+    .toggle-slider{position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:24px;cursor:pointer;transition:background 0.2s;}
+    .toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform 0.2s;}
+    .toggle input:checked + .toggle-slider{background:var(--gold-dim);}
+    .toggle input:checked + .toggle-slider::before{transform:translateX(20px);}
+    .save-btn{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;padding:0.7rem 2rem;border-radius:999px;cursor:pointer;transition:opacity 0.2s;margin-top:1rem;}
+    .save-btn:hover{opacity:0.85;}
+    .save-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .status{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;margin-top:0.6rem;min-height:1rem;}
+    .status.ok{color:var(--green);}
+    .status.err{color:#f87171;}
+    /* Photo gallery */
+    .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-top:1rem;}
+    .photo-item{position:relative;aspect-ratio:1;border-radius:3px;overflow:hidden;border:1px solid var(--card-border);}
+    .photo-item img{width:100%;height:100%;object-fit:cover;}
+    .photo-item .photo-actions{position:absolute;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;gap:0.5rem;flex-direction:column;}
+    .photo-item:hover .photo-actions{display:flex;}
+    .photo-action-btn{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;border:none;padding:0.4rem 0.8rem;border-radius:2px;cursor:pointer;}
+    .btn-share{background:var(--green);color:#080808;}
+    .btn-delete{background:#f87171;color:#fff;}
+    .btn-shared{background:rgba(74,222,128,0.3);color:var(--green);border:1px solid var(--green);}
+    .upload-zone{border:2px dashed var(--card-border);border-radius:3px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-top:1rem;}
+    .upload-zone:hover{border-color:var(--gold-dim);}
+    .upload-zone p{color:var(--muted);font-size:0.88rem;}
+    .upload-zone .upload-icon{font-size:2rem;margin-bottom:0.5rem;}
+    .view-profile-link{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;transition:color 0.2s;}
+    .view-profile-link:hover{color:var(--gold);}
+    @media(max-width:768px){
+      .nav-links,.nav-login-btn,.nav-join-btn{display:none;}
+      .hamburger{display:flex;}
+      .form-grid{grid-template-columns:1fr;}
+      .photo-grid{grid-template-columns:repeat(2,1fr);}
+      .page{padding:1.5rem 1rem 3rem;}
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
-      <ul class="nav-links">
-        <li><a href="about.html">About</a></li>
-        <li><a href="forum.html">Forum</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="dispatch.html">The Dispatch</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="join.html" class="nav-join-btn">Join</a></li>
-      </ul>
-      <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="forum.html" onclick="toggleMenu()">Forum</a>
-      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">The Dispatch</a>
-      <a href="contact.html" onclick="toggleMenu()">Contact</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
-    </div>
-  </nav>
-
-  <div class="page-hero">
-    <p class="page-hero-label">Approved Member</p>
-    <h1 class="page-hero-title">YOUR PROFILE</h1>
-    <div class="page-hero-rule"></div>
-    <p class="page-hero-sub">Welcome to the herd! Complete your member profile below so the community knows who you are.</p>
-    <div class="approved-badge"><span>✦ Approved Member — Complete Your Profile</span></div>
+<div class="hero-bg"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="forum.html">The Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">The Posse</a></li>
+      <li><a href="dispatch.html">Horse Power Wire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" class="nav-login-btn">Logout</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
-
-  <div class="form-outer">
-    <div class="form-box">
-
-      <form id="profileForm" action="https://formspree.io/f/xrerppjq" method="POST">
-        <input type="hidden" name="_subject" value="XRPCowboys Member Profile Submission">
-
-        <!-- PROFILE PHOTO -->
-        <p class="section-label">Profile Photo</p>
-        <div class="photo-upload-wrap">
-          <div class="photo-preview" onclick="document.getElementById('photoInput').click()">
-            <img id="photoPreviewImg" src="" alt="Preview">
-            <span class="photo-icon">🤠</span>
-          </div>
-          <div class="photo-upload-text">
-            <h4>Upload Your Photo</h4>
-            <p>A clear photo helps other members recognize you at events. JPG or PNG, max 5MB.</p>
-            <label class="photo-upload-btn" for="photoInput">Choose Photo</label>
-            <input type="file" id="photoInput" name="profile_photo" accept="image/*" onchange="previewPhoto(this)">
-          </div>
-        </div>
-
-        <!-- PERSONAL INFO -->
-        <p class="section-label">Personal Information</p>
-        <div class="field-row">
-          <div class="field">
-            <label>First Name <span class="required">*</span></label>
-            <input type="text" name="first_name" placeholder="John" required>
-          </div>
-          <div class="field">
-            <label>Last Name <span class="required">*</span></label>
-            <input type="text" name="last_name" placeholder="Smith" required>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Email Address <span class="required">*</span></label>
-            <input type="email" name="email" placeholder="john@example.com" required>
-          </div>
-          <div class="field">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" placeholder="+1 (555) 000-0000">
-          </div>
-        </div>
-        <div class="field-row single">
-          <div class="field">
-            <label>X (Twitter) Handle</label>
-            <input type="text" name="twitter_handle" placeholder="@yourhandle">
-          </div>
-        </div>
-
-        <!-- MAILING ADDRESS -->
-        <p class="section-label">Mailing Address</p>
-        <div class="field-row single">
-          <div class="field">
-            <label>Street Address <span class="required">*</span></label>
-            <input type="text" name="address_street" placeholder="123 Main Street" required>
-          </div>
-        </div>
-        <div class="field-row triple">
-          <div class="field">
-            <label>City <span class="required">*</span></label>
-            <input type="text" name="address_city" placeholder="Nashville" required>
-          </div>
-          <div class="field">
-            <label>State / Province <span class="required">*</span></label>
-            <input type="text" name="address_state" placeholder="TN" required>
-          </div>
-          <div class="field">
-            <label>ZIP / Postal Code <span class="required">*</span></label>
-            <input type="text" name="address_zip" placeholder="37201" required>
-          </div>
-        </div>
-        <div class="field-row single">
-          <div class="field">
-            <label>Country <span class="required">*</span></label>
-            <select name="country" required>
-              <option value="" disabled selected>Select your country</option>
-              <option>United States</option><option>Canada</option><option>United Kingdom</option>
-              <option>Australia</option><option>Germany</option><option>France</option>
-              <option>Japan</option><option>Singapore</option><option>UAE</option><option>Other</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- XRP INFO -->
-        <p class="section-label">XRP & Community Info</p>
-        <div class="field-row">
-          <div class="field">
-            <label>How long have you held XRP? <span class="required">*</span></label>
-            <select name="xrp_holder_duration" required>
-              <option value="" disabled selected>Select duration</option>
-              <option>Less than 1 year</option>
-              <option>1–2 years</option>
-              <option>3–5 years</option>
-              <option>5+ years (OG Holder)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Your role in the XRP ecosystem</label>
-            <select name="xrp_role">
-              <option value="" disabled selected>Select one</option>
-              <option>Holder / Investor</option>
-              <option>Developer / Builder</option>
-              <option>Trader</option>
-              <option>Content Creator</option>
-              <option>Business / Enterprise</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row single">
-          <div class="field">
-            <label>Why do you want to join XRPCowboys? <span class="required">*</span></label>
-            <textarea name="why_join" placeholder="Tell us about your involvement in the XRP ecosystem and why you'd like to be part of our community..." required></textarea>
-          </div>
-        </div>
-        <div class="field-row single">
-          <div class="field">
-            <label>Anything else you'd like us to know?</label>
-            <textarea name="additional_info" placeholder="Optional — share any additional background, experience, or questions..."></textarea>
-          </div>
-        </div>
-
-        <!-- AGREEMENTS -->
-        <p class="section-label">Agreements</p>
-        <div class="checkbox-field">
-          <input type="checkbox" id="agree_rules" name="agree_rules" required>
-          <label for="agree_rules">I agree to abide by the XRPCowboys community rules and code of conduct. I understand membership can be revoked for violations. <span class="required">*</span></label>
-        </div>
-        <div class="checkbox-field">
-          <input type="checkbox" id="agree_privacy" name="agree_privacy" required>
-          <label for="agree_privacy">I understand my personal information will be kept private and used only for membership verification. <span class="required">*</span></label>
-        </div>
-        <div class="checkbox-field">
-          <input type="checkbox" id="agree_age" name="agree_age" required>
-          <label for="agree_age">I confirm that I am 18 years of age or older. <span class="required">*</span></label>
-        </div>
-
-        <div class="submit-wrap">
-          <button type="submit" class="submit-btn">✦ Submit Profile ✦</button>
-          <p class="submit-note">Your information is kept strictly private · Members only</p>
-        </div>
-      </form>
-
-      <div class="success-msg" id="successMsg">
-        <div class="checkmark">🤠</div>
-        <h3>Profile Complete!</h3>
-        <p>Welcome to the XRPCowboys community, partner.<br><br>Your profile has been submitted. You'll receive a confirmation email shortly with your full member access details.</p>
-      </div>
-
-    </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html">About</a>
+    <a href="forum.html">The Corral</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="members.html">The Posse</a>
+    <a href="dispatch.html">Horse Power Wire</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" onclick="logout()">Logout</a>
   </div>
+</nav>
 
-  <footer class="footer">
-    <div class="footer-inner">
+<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">
+    <h1 class="page-title">My Profile</h1>
+    <a href="#" id="view-public-link" class="view-profile-link">View Public Profile →</a>
+  </div>
+  <p class="page-sub">🤠 Member since <span id="joined-date">...</span></p>
+
+  <!-- Avatar & Basic Info -->
+  <div class="card">
+    <div class="card-title">Profile Info</div>
+    <div class="avatar-row">
+      <div class="avatar-img" id="avatar-display">🤠</div>
       <div>
-        <div class="footer-brand">✦ XRPCOWBOYS</div>
-        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">Home</a><a href="about.html">About</a><a href="join.html">Join</a>
-        <a href="forum.html">Forum</a><a href="gallery.html">Gallery</a>
-        <a href="dispatch.html">The Dispatch</a><a href="contact.html">Contact</a>
+        <button class="avatar-upload-btn" onclick="document.getElementById('avatar-input').click()">Change Avatar</button>
+        <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
+        <p style="color:var(--muted);font-size:0.78rem;margin-top:0.4rem;">JPG or PNG, max 2MB</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Handle / Cowboy Name</label>
+        <input type="text" id="f-handle" placeholder="e.g. DesertRider_XRP" maxlength="30">
+      </div>
+      <div class="form-field">
+        <label>Full Name</label>
+        <input type="text" id="f-name" placeholder="Your name">
+      </div>
+      <div class="form-field">
+        <label>Location</label>
+        <input type="text" id="f-location" placeholder="e.g. Texas, USA">
+      </div>
+      <div class="form-field">
+        <label>XRP Wallet Address</label>
+        <input type="text" id="f-wallet" placeholder="rXXXXXXXXXXXXXXXXXXXXXXX">
+      </div>
+      <div class="form-field full">
+        <label>Bio</label>
+        <textarea id="f-bio" placeholder="Tell the posse about yourself..."></textarea>
+      </div>
     </div>
-  </footer>
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Public Profile</div>
+        <div class="toggle-desc">Anyone can view your profile page</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="f-public" checked><span class="toggle-slider"></span></label>
+    </div>
+    <button class="save-btn" onclick="saveProfile()">Save Profile ✦</button>
+    <div class="status" id="profile-status"></div>
+  </div>
 
-  <script>
-    function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+  <!-- Photo Gallery -->
+  <div class="card">
+    <div class="card-title">My Photos</div>
+    <div class="upload-zone" onclick="document.getElementById('photo-input').click()">
+      <div class="upload-icon">📸</div>
+      <p>Click to upload photos</p>
+      <p style="font-size:0.75rem;margin-top:0.3rem;">JPG or PNG · Max 5MB each</p>
+    </div>
+    <input type="file" id="photo-input" accept="image/*" multiple style="display:none" onchange="uploadPhotos(this)">
+    <div class="status" id="photo-status"></div>
+    <div class="photo-grid" id="photo-grid"></div>
+  </div>
+</div>
 
-    function previewPhoto(input){
-      if(input.files && input.files[0]){
-        const reader=new FileReader();
-        reader.onload=function(e){
-          const img=document.getElementById('photoPreviewImg');
-          const icon=document.querySelector('.photo-icon');
-          img.src=e.target.result;
-          img.style.display='block';
-          icon.style.display='none';
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
+<script>
+const SUPABASE_URL='https://fbngrpissakvjelrcfaf.supabase.co';
+const SUPABASE_KEY='sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let currentUser=null;
 
-    document.getElementById('profileForm').addEventListener('submit',async function(e){
-      e.preventDefault();
-      const form=e.target;
-      const btn=form.querySelector('.submit-btn');
-      btn.textContent='Submitting...';btn.disabled=true;
-      try{
-        const r=await fetch('https://formspree.io/f/xrerppjq',{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-        if(r.ok){form.style.display='none';document.getElementById('successMsg').style.display='block';}
-        else{btn.textContent='✦ Submit Profile ✦';btn.disabled=false;alert('Something went wrong. Please try again.');}
-      }catch(err){btn.textContent='✦ Submit Profile ✦';btn.disabled=false;alert('Network error. Please try again.');}
-    });
-  </script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+async function logout(){await sb.auth.signOut();window.location.href='login.html';}
+
+async function init(){
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session){window.location.href='login.html';return;}
+  currentUser=session.user;
+  document.getElementById('view-public-link').href=`public_profile.html?id=${currentUser.id}`;
+  await loadProfile();
+  await loadPhotos();
+}
+
+async function loadProfile(){
+  const{data}=await sb.from('profiles').select('*').eq('id',currentUser.id).single();
+  if(!data)return;
+  document.getElementById('f-handle').value=data.handle||'';
+  document.getElementById('f-name').value=data.full_name||'';
+  document.getElementById('f-location').value=data.location||'';
+  document.getElementById('f-wallet').value=data.xrp_wallet||'';
+  document.getElementById('f-bio').value=data.bio||'';
+  document.getElementById('f-public').checked=data.is_public!==false;
+  if(data.joined_at) document.getElementById('joined-date').textContent=new Date(data.joined_at).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  if(data.avatar_url){
+    const av=document.getElementById('avatar-display');
+    av.innerHTML=`<img src="${data.avatar_url}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">`;
+  }
+}
+
+async function saveProfile(){
+  const btn=document.querySelector('.save-btn');
+  const status=document.getElementById('profile-status');
+  btn.disabled=true; btn.textContent='Saving...';
+  const{error}=await sb.from('profiles').upsert({
+    id:currentUser.id,
+    handle:document.getElementById('f-handle').value.trim()||null,
+    full_name:document.getElementById('f-name').value.trim()||null,
+    location:document.getElementById('f-location').value.trim()||null,
+    xrp_wallet:document.getElementById('f-wallet').value.trim()||null,
+    bio:document.getElementById('f-bio').value.trim()||null,
+    is_public:document.getElementById('f-public').checked
+  });
+  btn.disabled=false; btn.textContent='Save Profile ✦';
+  if(error){status.textContent='Error: '+error.message;status.className='status err';}
+  else{status.textContent='Profile saved! 🤠';status.className='status ok';}
+}
+
+async function uploadAvatar(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){alert('Image must be under 2MB');return;}
+  const ext=file.name.split('.').pop();
+  const path=`avatars/${currentUser.id}.${ext}`;
+  const{error}=await sb.storage.from('member-photos').upload(path,file,{upsert:true});
+  if(error){alert('Upload failed: '+error.message);return;}
+  const{data:{publicUrl}}=sb.storage.from('member-photos').getPublicUrl(path);
+  await sb.from('profiles').upsert({id:currentUser.id,avatar_url:publicUrl});
+  const av=document.getElementById('avatar-display');
+  av.innerHTML=`<img src="${publicUrl}?t=${Date.now()}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">`;
+}
+
+async function uploadPhotos(input){
+  const files=Array.from(input.files);
+  const status=document.getElementById('photo-status');
+  status.textContent=`Uploading ${files.length} photo(s)...`;status.className='status ok';
+  for(const file of files){
+    if(file.size>5*1024*1024){status.textContent='One file exceeds 5MB, skipped.';status.className='status err';continue;}
+    const path=`photos/${currentUser.id}/${Date.now()}_${file.name}`;
+    const{error}=await sb.storage.from('member-photos').upload(path,file);
+    if(error){status.textContent='Upload error: '+error.message;status.className='status err';continue;}
+    const{data:{publicUrl}}=sb.storage.from('member-photos').getPublicUrl(path);
+    await sb.from('member_photos').insert({user_id:currentUser.id,photo_url:publicUrl});
+  }
+  status.textContent='Photos uploaded! 📸';status.className='status ok';
+  await loadPhotos();
+}
+
+async function loadPhotos(){
+  const{data}=await sb.from('member_photos').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
+  const grid=document.getElementById('photo-grid');
+  if(!data||data.length===0){grid.innerHTML='<p style="color:var(--muted);font-size:0.88rem;font-style:italic;grid-column:1/-1;padding:1rem 0;">No photos yet. Upload some!</p>';return;}
+  grid.innerHTML=data.map(p=>`
+    <div class="photo-item">
+      <img src="${p.photo_url}" loading="lazy">
+      <div class="photo-actions">
+        <button class="photo-action-btn ${p.shared_to_corral?'btn-shared':'btn-share'}" onclick="toggleShare('${p.id}',${p.shared_to_corral})">
+          ${p.shared_to_corral?'✓ In Corral':'Share to Corral'}
+        </button>
+        <button class="photo-action-btn btn-delete" onclick="deletePhoto('${p.id}','${p.photo_url}')">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+async function toggleShare(id,current){
+  await sb.from('member_photos').update({shared_to_corral:!current}).eq('id',id);
+  await loadPhotos();
+}
+
+async function deletePhoto(id,url){
+  if(!confirm('Delete this photo?'))return;
+  const path=url.split('/member-photos/')[1];
+  await sb.storage.from('member-photos').remove([path]);
+  await sb.from('member_photos').delete().eq('id',id);
+  await loadPhotos();
+}
+
+init();
+</script>
 </body>
 </html>
