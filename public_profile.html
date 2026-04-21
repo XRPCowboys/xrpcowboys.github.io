@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cowboy Profile | XRPCOWBOYS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--card-bg:rgba(15,12,6,0.85);--card-border:rgba(201,146,26,0.18);--border:rgba(201,146,26,0.15);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;}
+    .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg') center center/cover no-repeat;}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(10,8,4,0.82);}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--gold);}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
+    .mobile-menu{display:none;flex-direction:column;background:rgba(8,8,8,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
+    .card{background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(18px);border-radius:4px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+    .profile-header{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;}
+    .profile-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0;}
+    .profile-avatar img{width:110px;height:110px;border-radius:50%;object-fit:cover;}
+    .profile-handle{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;margin-bottom:0.2rem;}
+    .profile-name{font-family:'Oswald',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;}
+    .profile-meta{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:0.8rem;}
+    .profile-meta span{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:0.3rem;}
+    .profile-bio{font-size:1rem;line-height:1.75;color:var(--text);margin-top:0.8rem;}
+    .wallet-box{background:rgba(201,146,26,0.06);border:1px solid var(--card-border);border-radius:2px;padding:0.6rem 1rem;margin-top:0.8rem;font-family:monospace;font-size:0.82rem;color:var(--gold-dim);word-break:break-all;}
+    .card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid var(--card-border);}
+    .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+    .photo-item{aspect-ratio:1;border-radius:3px;overflow:hidden;border:1px solid var(--card-border);}
+    .photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.2s;}
+    .photo-item img:hover{transform:scale(1.05);}
+    .back-link{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;margin-bottom:1.5rem;transition:color 0.2s;}
+    .back-link:hover{color:var(--gold);}
+    .not-found{text-align:center;padding:4rem 2rem;color:var(--muted);font-style:italic;}
+    @media(max-width:768px){
+      .nav-links,.nav-login-btn{display:none;}
+      .hamburger{display:flex;}
+      .photo-grid{grid-template-columns:repeat(2,1fr);}
+      .profile-avatar{width:80px;height:80px;font-size:2rem;}
+      .profile-avatar img{width:80px;height:80px;}
+    }
+  </style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="forum.html">The Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">The Posse</a></li>
+      <li><a href="dispatch.html">Horse Power Wire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="profile.html" class="nav-login-btn">My Profile</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html">About</a>
+    <a href="forum.html">The Corral</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="members.html">The Posse</a>
+    <a href="dispatch.html">Horse Power Wire</a>
+    <a href="contact.html">Contact</a>
+    <a href="profile.html">My Profile</a>
+  </div>
+</nav>
+
+<div class="page" id="page-content">
+  <a href="members.html" class="back-link">← Back to The Posse</a>
+  <div id="profile-content"><p class="not-found">Loading profile...</p></div>
+</div>
+
+<script>
+const SUPABASE_URL='https://fbngrpissakvjelrcfaf.supabase.co';
+const SUPABASE_KEY='sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function init(){
+  const params=new URLSearchParams(window.location.search);
+  const userId=params.get('id');
+  if(!userId){document.getElementById('profile-content').innerHTML='<p class="not-found">No profile specified.</p>';return;}
+
+  const{data:profile}=await sb.from('profiles').select('*').eq('id',userId).single();
+  if(!profile){document.getElementById('profile-content').innerHTML='<p class="not-found">Profile not found or is private.</p>';return;}
+
+  document.title=`${profile.handle||'Cowboy'} | XRPCOWBOYS`;
+
+  const{data:photos}=await sb.from('member_photos').select('*').eq('user_id',userId).order('created_at',{ascending:false});
+
+  document.getElementById('profile-content').innerHTML=`
+    <div class="card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          ${profile.avatar_url?`<img src="${esc(profile.avatar_url)}">`:'🤠'}
+        </div>
+        <div style="flex:1;">
+          <h1 class="profile-handle">${esc(profile.handle||'Cowboy')}</h1>
+          ${profile.full_name?`<div class="profile-name">${esc(profile.full_name)}</div>`:''}
+          <div class="profile-meta">
+            ${profile.location?`<span>📍 ${esc(profile.location)}</span>`:''}
+            <span>🗓 Riding since ${profile.joined_at?new Date(profile.joined_at).toLocaleDateString('en-US',{month:'long',year:'numeric'}):'-'}</span>
+          </div>
+          ${profile.bio?`<p class="profile-bio">${esc(profile.bio)}</p>`:''}
+          ${profile.xrp_wallet?`<div class="wallet-box">💳 ${esc(profile.xrp_wallet)}</div>`:''}
+        </div>
+      </div>
+    </div>
+    ${photos&&photos.length>0?`
+    <div class="card">
+      <div class="card-title">📸 Photos</div>
+      <div class="photo-grid">
+        ${photos.map(p=>`<div class="photo-item"><img src="${esc(p.photo_url)}" loading="lazy"></div>`).join('')}
+      </div>
+    </div>`:''}
+  `;
+}
+
+init();
+</script>
+</body>
+</html>
