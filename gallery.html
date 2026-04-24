@@ -97,7 +97,7 @@
     .join-prompt-bar a { background:linear-gradient(135deg,#f5d060,#c9921a); color:#080808; font-family:'Oswald',sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; padding:0.6rem 2rem; border-radius:999px; text-decoration:none; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>(async function(){const sb=supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");const{data:{session}}=await sb.auth.getSession();if(!session)window.location.href="login.html";}());</script>
+  
 </head>
 <body>
 <div class="parallax-bg"></div>
@@ -133,7 +133,7 @@
     <div class="page-hero-rule"></div>
     <p class="page-hero-sub">From meetups to milestones — the XRP Cowboys family in the wild.</p>
   </div>
-  <div class="public-preview" id="public-preview" style="display:none;">
+  <div class="public-preview" id="public-preview" style="display:none;" aria-hidden="true">
     <p class="section-label" style="text-align:center;">Community Moments</p>
     <h2 class="section-title" style="text-align:center;">The Herd in Action</h2>
     <div class="section-rule" style="margin:0 auto 2rem;"></div>
@@ -225,9 +225,9 @@
     };
     let currentPhotos=[],currentIndex=0;
     function buildUrl(cat,file){return BASE+'/'+categories[cat].folder+'/'+file;}
-    function makeCard(src,index,photoArray){const card=document.createElement('div');card.className='photo-card';card.onclick=()=>openLightbox(index,photoArray);const wrap=document.createElement('div');wrap.className='img-wrap';const img=document.createElement('img');img.alt='XRP Cowboys';img.loading='lazy';img.onload=()=>img.classList.add('loaded');img.onerror=()=>{card.style.display='none';};img.src=src;wrap.appendChild(img);card.appendChild(wrap);return card;}
+    function makeCard(src,index,photoArray){const card=document.createElement('div');card.className='photo-card';card.onclick=()=>{if(!currentUser){window.location.href='join.html';}else{openLightbox(index,photoArray);}};const wrap=document.createElement('div');wrap.className='img-wrap';const img=document.createElement('img');img.alt='XRP Cowboys';img.loading='lazy';img.onload=()=>img.classList.add('loaded');img.onerror=()=>{card.style.display='none';};img.src=src;wrap.appendChild(img);card.appendChild(wrap);return card;}
     function populateGrids(){const allPhotos=[];Object.keys(categories).forEach(cat=>{const catPhotos=categories[cat].files.map(f=>buildUrl(cat,f));const grid=document.getElementById('grid-'+cat);catPhotos.forEach((src,i)=>{grid.appendChild(makeCard(src,i,catPhotos));allPhotos.push(src);});});const allGrid=document.getElementById('grid-all');allPhotos.forEach((src,i)=>{allGrid.appendChild(makeCard(src,i,allPhotos));});}
-    function showTab(name,e){document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('visible'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('visible');e.target.classList.add('active');window.scrollTo({top:220,behavior:'smooth'});}
+    function showTab(name,e){if(!currentUser){window.location.href='join.html';return;}document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('visible'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('visible');e.target.classList.add('active');window.scrollTo({top:220,behavior:'smooth'});}
     function openLightbox(index,photos){currentPhotos=photos;currentIndex=index;updateLightbox();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
     function updateLightbox(){document.getElementById('lightbox-img').src=currentPhotos[currentIndex];document.getElementById('lightbox-counter').textContent=(currentIndex+1)+' / '+currentPhotos.length;}
     function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
