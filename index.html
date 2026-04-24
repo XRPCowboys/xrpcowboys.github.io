@@ -16,6 +16,7 @@
 <meta name="twitter:description" content="Exclusive XRP Ledger Community · Est. 2018" />
 <meta name="twitter:image" content="https://xrpcowboys.com/XRPCowboys_files/og-preview-v2.jpg" />
 <title>XRPCOWBOYS • Exclusive XRP Community</title>
+<link rel="stylesheet" href="shared.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -175,13 +176,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-(async function(){
-const sb = supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");
-const {data:{session}} = await sb.auth.getSession();
-if(!session) window.location.href = "login.html";
-})();
-</script>
+<!-- Auth state managed in body script -->
 </head>
 <body>
 <div class="parallax-bg"></div>
@@ -194,7 +189,7 @@ if(!session) window.location.href = "login.html";
       <li><a href="about.html">About</a></li>
       <li><a href="forum.html">The Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="dispatch.html">Horse Power Wire</a></li>
+      <li><a href="dispatch.html">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
@@ -375,7 +370,7 @@ if(!session) window.location.href = "login.html";
       <a href="join.html">Join</a>
       <a href="forum.html">The Corral</a>
       <a href="gallery.html">Gallery</a>
-      <a href="dispatch.html">HorsePower Wire</a>
+      <a href="dispatch.html">Forum</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
