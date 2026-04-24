@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="shared.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async function(){
+  const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+  const {data:{session}} = await sb.auth.getSession();
+  if(!session) window.location.href='login.html';
+})();
+</script>
   <style>
     :root {--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.97);--muted:rgba(232,224,208,0.82);--card-bg:rgba(22,16,6,0.88);--card-border:rgba(201,146,26,0.28);--border:rgba(201,146,26,0.25);}
     *{margin:0;padding:0;box-sizing:border-box;}
