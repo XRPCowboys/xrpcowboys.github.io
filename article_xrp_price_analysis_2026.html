@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XRP Price Analysis — Key Levels to Watch | XRPCOWBOYS</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.97);--muted:rgba(232,224,208,0.82);--card-bg:rgba(22,16,6,0.88);--card-border:rgba(201,146,26,0.28);--border:rgba(201,146,26,0.25);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;}
+    .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg') center center/cover no-repeat;}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,8,4,0.38) 0%,rgba(10,8,4,0.28) 40%,rgba(10,8,4,0.55) 80%,rgba(10,8,4,0.80) 100%);}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 50%,#c9921a 74%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
+    .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
+    .mobile-menu{display:none;flex-direction:column;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .mobile-menu .mob-join{color:var(--gold)!important;font-weight:500;}
+    .article-hero{position:relative;z-index:1;min-height:360px;display:flex;align-items:flex-end;padding:0 2rem 3rem;max-width:860px;margin:0 auto;}
+    .article-tag{display:inline-flex;align-items:center;font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);border:1px solid rgba(74,222,128,0.35);padding:0.3rem 0.8rem;border-radius:2px;margin-bottom:1.2rem;}
+    .article-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.08;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.8);}
+    .article-meta{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.82);display:flex;gap:1rem;margin-top:0.9rem;flex-wrap:wrap;}
+    .article-wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 1.5rem 4rem;}
+    .article-card{background:rgba(22,16,6,0.88);border:1px solid var(--card-border);backdrop-filter:blur(18px);border-radius:4px;padding:2.5rem 3rem;box-shadow:0 16px 64px rgba(0,0,0,0.6);}
+    .article-body{font-size:1.08rem;line-height:1.85;color:var(--text);}
+    .article-body p{margin-bottom:1.5rem;}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);margin:2rem 0 1rem;}
+    .article-body h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin:1.5rem 0 0.7rem;}
+    .article-body blockquote{border-left:3px solid var(--gold-dim);padding:0.8rem 1.5rem;margin:1.5rem 0;background:rgba(201,146,26,0.07);font-style:italic;}
+    .article-divider{border:none;border-top:1px solid var(--card-border);margin:2rem 0;}
+    .back-link{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
+    .back-link:hover{color:var(--gold);}
+    .comments-section{margin-top:2.5rem;}
+    .comments-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem;}
+    .comment-count{font-size:0.9rem;color:rgba(232,224,208,0.82);font-family:'Oswald',sans-serif;font-weight:400;}
+    .comment-form{background:rgba(201,146,26,0.06);border:1px solid var(--card-border);border-radius:3px;padding:1.5rem;margin-bottom:2rem;}
+    .comment-form input,.comment-form textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);color:var(--text);font-family:'Source Serif 4',serif;font-size:0.92rem;padding:0.7rem 1rem;border-radius:2px;margin-bottom:0.8rem;outline:none;transition:border-color 0.2s;}
+    .comment-form input:focus,.comment-form textarea:focus{border-color:var(--gold-dim);}
+    .comment-form textarea{min-height:100px;resize:vertical;}
+    .comment-form input::placeholder,.comment-form textarea::placeholder{color:rgba(232,224,208,0.82);}
+    .comment-submit{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;padding:0.65rem 1.8rem;border-radius:999px;cursor:pointer;transition:opacity 0.2s;}
+    .comment-submit:hover{opacity:0.85;} .comment-submit:disabled{opacity:0.5;cursor:not-allowed;}
+    .comments-list{display:flex;flex-direction:column;gap:1rem;}
+    .comment-item{background:rgba(201,146,26,0.06);border:1px solid var(--card-border);border-left:3px solid var(--gold-dim);border-radius:2px;padding:1rem 1.2rem;animation:fadeIn 0.3s ease;}
+    .reply-item{background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.15);border-left:3px solid rgba(74,222,128,0.4);border-radius:2px;padding:0.8rem 1.2rem;margin-top:0.6rem;margin-left:1.5rem;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+    .comment-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.4rem;}
+    .comment-author{font-family:'Oswald',sans-serif;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+    .comment-date{font-family:'Oswald',sans-serif;font-size:0.65rem;color:rgba(232,224,208,0.82);}
+    .comment-text{font-size:0.92rem;line-height:1.65;color:var(--text);margin-bottom:0.5rem;}
+    .reply-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:rgba(232,224,208,0.82);cursor:pointer;padding:0;transition:color 0.2s;}
+    .reply-btn:hover{color:var(--gold);}
+    .reply-form{margin-top:0.75rem;display:none;}
+    .reply-form textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--card-border);color:var(--text);font-family:'Source Serif 4',serif;font-size:0.88rem;padding:0.6rem 0.9rem;border-radius:2px;outline:none;min-height:70px;resize:vertical;margin-bottom:0.5rem;}
+    .reply-submit{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;padding:0.5rem 1.2rem;border-radius:999px;cursor:pointer;}
+    .no-comments{color:rgba(232,224,208,0.82);font-style:italic;font-size:0.92rem;}
+    .comment-status{font-family:'Oswald',sans-serif;font-size:0.72rem;margin-top:0.5rem;min-height:1.2rem;}
+    .comment-status.ok{color:var(--green);} .comment-status.err{color:#f87171;}
+    @media(max-width:768px){.nav-links{display:none;}.hamburger{display:flex;}.article-hero{min-height:260px;padding:0 1rem 2rem;}.article-card{padding:1.5rem 1.2rem;}.article-wrap{padding:0 0.8rem 3rem;}}
+  </style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="forum.html" class="active">The Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dispatch.html">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn">Join</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="forum.html" onclick="toggleMenu()">The Corral</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()">Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+  </div>
+</nav>
+<div class="article-hero">
+  <div>
+    <div class="article-tag">✦ Market</div>
+    <h1 class="article-title">XRP Price Analysis — Key Levels to Watch</h1>
+    <div class="article-meta"><span>April 2026</span><span>•</span><span>Market Desk</span></div>
+  </div>
+</div>
+<div class="article-wrap">
+  <div class="article-card">
+    <a href="forum.html" class="back-link">← Back to The Corral</a>
+    <div class="article-body"><p>Our member analysts break down current XRP price action, key support and resistance levels, and on-chain data pointing to what comes next. This is community analysis, not financial advice — always do your own research.</p><h2>Current Price Structure</h2><p>XRP has established a series of higher lows since the SEC resolution, building what technical analysts call a bullish structure. Key support has formed at levels that previously acted as resistance — a classic sign of trend continuation.</p><h2>On-Chain Data</h2><p>XRPL transaction counts remain elevated, wallet growth continues steadily, and exchange outflows suggest holders are moving XRP into self-custody — historically a bullish signal as it reduces available sell-side supply.</p><blockquote>"Price follows utility. We've always believed that. The on-chain data is starting to tell that story." — Market Desk</blockquote><p>Share your own analysis in the comments. The herd thinks together. 🤠</p></div>
+    <hr class="article-divider">
+    <div class="comments-section">
+      <div class="comments-title">💬 Comments <span class="comment-count" id="comment-count"></span></div>
+      <div class="comment-form">
+        <input type="text" id="comment-name" placeholder="Your handle or name" maxlength="40">
+        <textarea id="comment-text" placeholder="Share your thoughts..."></textarea>
+        <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
+        <div class="comment-status" id="comment-status"></div>
+      </div>
+      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+const ARTICLE_ID = 'xrp_price_analysis_2026';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function timeAgo(d){const diff=Math.floor((Date.now()-new Date(d))/1000);if(diff<60)return'just now';if(diff<3600)return Math.floor(diff/60)+'m ago';if(diff<86400)return Math.floor(diff/3600)+'h ago';return Math.floor(diff/86400)+'d ago';}
+function toggleReply(id){const rf=document.getElementById('reply-form-'+id);rf.style.display=rf.style.display==='block'?'none':'block';if(rf.style.display==='block')rf.querySelector('textarea').focus();}
+async function submitReply(cid){
+  const ta=document.getElementById('reply-text-'+cid);const text=ta.value.trim();if(!text)return;
+  const name=document.getElementById('comment-name').value.trim()||'Cowboy';
+  await sb.from('article_comments').insert([{article_id:ARTICLE_ID,name,comment:text,parent_id:cid}]);
+  ta.value='';document.getElementById('reply-form-'+cid).style.display='none';await loadComments();
+}
+async function loadComments(){
+  const {data,error}=await sb.from('article_comments').select('*').eq('article_id',ARTICLE_ID).order('created_at',{ascending:true});
+  const list=document.getElementById('comments-list');const countEl=document.getElementById('comment-count');
+  if(error||!data){list.innerHTML='<p class="no-comments">Could not load comments.</p>';return;}
+  const top=data.filter(c=>!c.parent_id);const replies=data.filter(c=>c.parent_id);
+  countEl.textContent=data.length>0?'('+data.length+')':'';
+  if(top.length===0){list.innerHTML='<p class="no-comments">Be the first to comment. The trail\'s wide open. 🤠</p>';return;}
+  list.innerHTML=top.map(c=>{
+    const cReplies=replies.filter(r=>r.parent_id===c.id);
+    return `<div class="comment-item">
+      <div class="comment-header"><span class="comment-author">🤠 ${esc(c.name)}</span><span class="comment-date">${timeAgo(c.created_at)}</span></div>
+      <p class="comment-text">${esc(c.comment)}</p>
+      <button class="reply-btn" onclick="toggleReply('${c.id}')">↩ Reply</button>
+      ${cReplies.map(r=>`<div class="reply-item"><div class="comment-header"><span class="comment-author" style="color:var(--green);">↩ ${esc(r.name)}</span><span class="comment-date">${timeAgo(r.created_at)}</span></div><p class="comment-text">${esc(r.comment)}</p></div>`).join('')}
+      <div class="reply-form" id="reply-form-${c.id}"><textarea id="reply-text-${c.id}" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('${c.id}')">Post Reply ✦</button></div>
+    </div>`;
+  }).join('');
+}
+async function submitComment(){
+  const name=document.getElementById('comment-name').value.trim();
+  const comment=document.getElementById('comment-text').value.trim();
+  const btn=document.getElementById('submit-btn');const status=document.getElementById('comment-status');
+  if(!name){status.textContent='Please enter your handle.';status.className='comment-status err';return;}
+  if(!comment){status.textContent='Please write a comment.';status.className='comment-status err';return;}
+  btn.disabled=true;btn.textContent='Posting...';
+  const {error}=await sb.from('article_comments').insert([{article_id:ARTICLE_ID,name,comment}]);
+  if(error){status.textContent='Could not post. Try again.';status.className='comment-status err';btn.disabled=false;btn.textContent='Post Comment ✦';return;}
+  document.getElementById('comment-text').value='';
+  status.textContent='Comment posted! 🤠';status.className='comment-status ok';
+  btn.disabled=false;btn.textContent='Post Comment ✦';
+  await loadComments();
+}
+(async function(){
+  try{
+    const {data:{session}}=await sb.auth.getSession();
+    if(session){
+      const {data:profile}=await sb.from('profiles').select('handle,full_name').eq('id',session.user.id).single();
+      if(profile&&(profile.handle||profile.full_name))document.getElementById('comment-name').value=profile.handle||profile.full_name;
+      const p=document.getElementById('nav-profile-btn');const l=document.getElementById('nav-login-btn');const mp=document.getElementById('mob-profile-btn');
+      if(p)p.style.display='inline-block';if(l)l.style.display='none';if(mp)mp.style.display='block';
+    }
+  }catch(e){}
+})();
+loadComments();
+</script>
+</body>
+</html>
