@@ -15,7 +15,7 @@
     .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(10,8,4,0.82);}
     .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 50%,#c9921a 78%,#4ade80 85%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
     .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover{color:var(--gold);}
@@ -143,10 +143,6 @@
         <label>Location</label>
         <input type="text" id="f-location" placeholder="e.g. Texas, USA">
       </div>
-      <div class="form-field">
-        <label>XRP Wallet Address</label>
-        <input type="text" id="f-wallet" placeholder="rXXXXXXXXXXXXXXXXXXXXXXX">
-      </div>
       <div class="form-field full">
         <label>Bio</label>
         <textarea id="f-bio" placeholder="Tell the posse about yourself..."></textarea>
@@ -201,7 +197,6 @@ async function loadProfile(){
   document.getElementById('f-handle').value=data.handle||'';
   document.getElementById('f-name').value=data.full_name||'';
   document.getElementById('f-location').value=data.location||'';
-  document.getElementById('f-wallet').value=data.xrp_wallet||'';
   document.getElementById('f-bio').value=data.bio||'';
   document.getElementById('f-public').checked=data.is_public!==false;
   if(data.joined_at) document.getElementById('joined-date').textContent=new Date(data.joined_at).toLocaleDateString('en-US',{month:'long',year:'numeric'});
@@ -220,7 +215,6 @@ async function saveProfile(){
     handle:document.getElementById('f-handle').value.trim()||null,
     full_name:document.getElementById('f-name').value.trim()||null,
     location:document.getElementById('f-location').value.trim()||null,
-    xrp_wallet:document.getElementById('f-wallet').value.trim()||null,
     bio:document.getElementById('f-bio').value.trim()||null,
     is_public:document.getElementById('f-public').checked
   });
