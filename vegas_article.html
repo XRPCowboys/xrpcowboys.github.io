@@ -235,6 +235,8 @@ async function loadComments() {
 }
 
 async function submitComment() {
+    const authCheck = await sb.auth.getSession();
+    if (!authCheck.data.session) { window.location.href = 'join.html'; return; }
   const name    = document.getElementById('comment-name').value.trim();
   const comment = document.getElementById('comment-text').value.trim();
   const btn     = document.getElementById('submit-btn');
