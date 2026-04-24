@@ -118,7 +118,43 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 DesertRiderXRP</span>
+            <span class="comment-date">3 days ago</span>
+          </div>
+          <p class="comment-text">This is exactly what we have been waiting for since 2018. The institutions are finally moving and the infrastructure is ready. Nobody is going to be able to ignore XRP after this year.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 LonghornLedger</span>
+            <span class="comment-date">2 days ago</span>
+          </div>
+          <p class="comment-text">ODL volume numbers are looking really strong. When the pipes are flowing money through XRP it changes everything for the price long term.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="reply-item" style="margin-left:1.5rem;">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--green)">↩ SilverSpurSam</span>
+            <span class="comment-date">2 days ago</span>
+          </div>
+          <p class="comment-text">@LonghornLedger 100% agree. Utility always wins in the end. The patient holders are going to be rewarded.</p>
+          
+          
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 James Tyler</span>
+            <span class="comment-date">1 day ago</span>
+          </div>
+          <p class="comment-text">We have been saying this since day one. The fundamentals never changed — only the noise around us did. Hold the line cowboys. 🤠</p>
+          <button class="reply-btn" onclick="toggleReply('seed3')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed3"><textarea id="reply-text-seed3" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed3')">Post Reply ✦</button></div>
+        </div></div>
     </div>
   </div>
 </div>

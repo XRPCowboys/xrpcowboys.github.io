@@ -118,7 +118,43 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 FrontierDevXRP</span>
+            <span class="comment-date">3 months ago</span>
+          </div>
+          <p class="comment-text">As someone who has been building in the Ethereum ecosystem for years, the EVM sidechain is huge news. My entire toolchain works. I can deploy to XRPL without relearning everything.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 OutpostOliver</span>
+            <span class="comment-date">3 months ago</span>
+          </div>
+          <p class="comment-text">The bridge mechanism is what I keep coming back to. XRP as gas on the sidechain creates real direct utility that a lot of people have not fully thought through yet.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 TrailheadTrevor</span>
+            <span class="comment-date">2 months ago</span>
+          </div>
+          <p class="comment-text">This is not just a technical upgrade — it is a developer acquisition strategy. Millions of ETH developers can now build on XRPL without friction.</p>
+          <button class="reply-btn" onclick="toggleReply('seed2')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed2"><textarea id="reply-text-seed2" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed2')">Post Reply ✦</button></div>
+        </div>
+        <div class="reply-item" style="margin-left:1.5rem;">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--green)">↩ FrontierDevXRP</span>
+            <span class="comment-date">2 months ago</span>
+          </div>
+          <p class="comment-text">@TrailheadTrevor Exactly. The tooling compatibility is the moat. Solidity devs can come straight over.</p>
+          
+          
+        </div></div>
     </div>
   </div>
 </div>

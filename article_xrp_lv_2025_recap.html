@@ -118,7 +118,52 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 BigSkyBronco</span>
+            <span class="comment-date">3 months ago</span>
+          </div>
+          <p class="comment-text">Vegas 2025 was absolutely electric. Meeting people in person who I had only known online for years was an experience I will never forget. The cowboy hat crew was legendary.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 PintoTrailPaul</span>
+            <span class="comment-date">3 months ago</span>
+          </div>
+          <p class="comment-text">The side event was the highlight for me. Real conversations with serious holders and builders. Nothing like it in the XRP space.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 ChapparalChad</span>
+            <span class="comment-date">2 months ago</span>
+          </div>
+          <p class="comment-text">Already booked my flights for Vegas 2026. April 30 cannot come soon enough. Who else is going to be at the Silverton?</p>
+          <button class="reply-btn" onclick="toggleReply('seed2')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed2"><textarea id="reply-text-seed2" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed2')">Post Reply ✦</button></div>
+        </div>
+        <div class="reply-item" style="margin-left:1.5rem;">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--green)">↩ BigSkyBronco</span>
+            <span class="comment-date">2 months ago</span>
+          </div>
+          <p class="comment-text">@ChapparalChad See you there brother! Cowboy hats mandatory 🤠</p>
+          
+          
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 Dave Goodman</span>
+            <span class="comment-date">1 month ago</span>
+          </div>
+          <p class="comment-text">Vegas 2025 was a moment. Vegas 2026 is going to be even bigger. The momentum in this ecosystem right now is something else entirely.</p>
+          <button class="reply-btn" onclick="toggleReply('seed4')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed4"><textarea id="reply-text-seed4" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed4')">Post Reply ✦</button></div>
+        </div></div>
     </div>
   </div>
 </div>

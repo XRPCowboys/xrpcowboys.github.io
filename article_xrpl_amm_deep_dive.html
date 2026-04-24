@@ -118,7 +118,43 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 TumbleweedTech</span>
+            <span class="comment-date">1 week ago</span>
+          </div>
+          <p class="comment-text">Finally a breakdown that explains AMM in plain English. Been trying to wrap my head around the liquidity pool mechanics for months. This helped a lot.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 RidgelineRippler</span>
+            <span class="comment-date">6 days ago</span>
+          </div>
+          <p class="comment-text">The hybrid routing between AMM and the existing DEX is the part that most people are sleeping on. Best of both worlds on one ledger.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="reply-item" style="margin-left:1.5rem;">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--green)">↩ TumbleweedTech</span>
+            <span class="comment-date">6 days ago</span>
+          </div>
+          <p class="comment-text">@RidgelineRippler Exactly — getting the best price automatically without having to manually pick a route is huge for adoption.</p>
+          
+          
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 SagebrushStacker</span>
+            <span class="comment-date">5 days ago</span>
+          </div>
+          <p class="comment-text">Passive income on XRP holdings through LP fees is something I never expected to see on the XRPL. The ledger keeps evolving.</p>
+          <button class="reply-btn" onclick="toggleReply('seed3')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed3"><textarea id="reply-text-seed3" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed3')">Post Reply ✦</button></div>
+        </div></div>
     </div>
   </div>
 </div>

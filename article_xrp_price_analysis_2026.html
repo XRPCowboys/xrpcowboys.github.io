@@ -118,7 +118,52 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 WagonWheelWayne</span>
+            <span class="comment-date">1 week ago</span>
+          </div>
+          <p class="comment-text">The higher low structure on the weekly chart is very encouraging. Each pullback is getting bought up faster than the last. Classic accumulation pattern.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 DustBowlDave</span>
+            <span class="comment-date">6 days ago</span>
+          </div>
+          <p class="comment-text">Exchange outflows are the metric I watch most closely. When holders move coins to cold storage it takes sell pressure off the market. The numbers look good right now.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 HighPlainsHolder</span>
+            <span class="comment-date">5 days ago</span>
+          </div>
+          <p class="comment-text">I have been stacking since $0.20. Not selling until at least $10. The fundamentals support it and then some.</p>
+          <button class="reply-btn" onclick="toggleReply('seed2')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed2"><textarea id="reply-text-seed2" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed2')">Post Reply ✦</button></div>
+        </div>
+        <div class="reply-item" style="margin-left:1.5rem;">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--green)">↩ WagonWheelWayne</span>
+            <span class="comment-date">5 days ago</span>
+          </div>
+          <p class="comment-text">@HighPlainsHolder Strong hands win in the long run. The utility case for XRP is stronger than it has ever been.</p>
+          
+          
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 CanyonlandsCrypto</span>
+            <span class="comment-date">4 days ago</span>
+          </div>
+          <p class="comment-text">Not financial advice but the on chain data combined with institutional adoption news is about as bullish a setup as I have seen in 6 years of watching this ledger.</p>
+          <button class="reply-btn" onclick="toggleReply('seed4')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed4"><textarea id="reply-text-seed4" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed4')">Post Reply ✦</button></div>
+        </div></div>
     </div>
   </div>
 </div>

@@ -118,7 +118,43 @@
         <button class="comment-submit" id="submit-btn" onclick="submitComment()">Post Comment ✦</button>
         <div class="comment-status" id="comment-status"></div>
       </div>
-      <div class="comments-list" id="comments-list"><p class="no-comments">Loading comments...</p></div>
+      <div class="comments-list" id="comments-list">
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 IronwoodXRP</span>
+            <span class="comment-date">2 weeks ago</span>
+          </div>
+          <p class="comment-text">We held through the darkest days of that lawsuit. Watching exchanges relist and institutions come back in has been incredibly vindicating.</p>
+          <button class="reply-btn" onclick="toggleReply('seed0')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed0"><textarea id="reply-text-seed0" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed0')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 MesaRidgeMike</span>
+            <span class="comment-date">2 weeks ago</span>
+          </div>
+          <p class="comment-text">The global picture is the real story here. US clarity aligning with Japan, UAE, and Singapore makes cross border institutional XRP use so much simpler legally.</p>
+          <button class="reply-btn" onclick="toggleReply('seed1')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed1"><textarea id="reply-text-seed1" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed1')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 RedRockRoller</span>
+            <span class="comment-date">1 week ago</span>
+          </div>
+          <p class="comment-text">Diamond hands from 2020 through the lawsuit. Every single day was worth it. This community kept me from selling at the bottom.</p>
+          <button class="reply-btn" onclick="toggleReply('seed2')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed2"><textarea id="reply-text-seed2" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed2')">Post Reply ✦</button></div>
+        </div>
+        <div class="comment-item" style="">
+          <div class="comment-header">
+            <span class="comment-author" style="color:var(--gold)">🤠 James Tyler</span>
+            <span class="comment-date">1 week ago</span>
+          </div>
+          <p class="comment-text">This community carried each other through the storm. That is what XRPCowboys is all about. We rode it out together and we are still here. 🤠</p>
+          <button class="reply-btn" onclick="toggleReply('seed3')">↩ Reply</button>
+          <div class="reply-form" id="reply-form-seed3"><textarea id="reply-text-seed3" placeholder="Write a reply..."></textarea><button class="reply-submit" onclick="submitReply('seed3')">Post Reply ✦</button></div>
+        </div></div>
     </div>
   </div>
 </div>
