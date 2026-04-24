@@ -166,6 +166,8 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function timeAgo(d){const diff=Math.floor((Date.now()-new Date(d))/1000);if(diff<60)return'just now';if(diff<3600)return Math.floor(diff/60)+'m ago';if(diff<86400)return Math.floor(diff/3600)+'h ago';return Math.floor(diff/86400)+'d ago';}
 function toggleReply(id){const rf=document.getElementById('reply-form-'+id);rf.style.display=rf.style.display==='block'?'none':'block';if(rf.style.display==='block')rf.querySelector('textarea').focus();}
 async function submitReply(cid){
+  const authCheck=await sb.auth.getSession();
+  if(!authCheck.data.session){window.location.href='join.html';return;}
   const ta=document.getElementById('reply-text-'+cid);const text=ta.value.trim();if(!text)return;
   const name=document.getElementById('comment-name').value.trim()||'Cowboy';
   await sb.from('article_comments').insert([{article_id:ARTICLE_ID,name,comment:text,parent_id:cid}]);
@@ -190,6 +192,8 @@ async function loadComments(){
   }).join('');
 }
 async function submitComment(){
+  const authCheck=await sb.auth.getSession();
+  if(!authCheck.data.session){window.location.href='join.html';return;}
   const name=document.getElementById('comment-name').value.trim();
   const comment=document.getElementById('comment-text').value.trim();
   const btn=document.getElementById('submit-btn');const status=document.getElementById('comment-status');

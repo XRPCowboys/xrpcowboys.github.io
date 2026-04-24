@@ -221,6 +221,8 @@
     loadAlbumPhotos('xrplv2026', 'grid-xrplv2026');
 
     async function uploadGalleryPhotos(input, album) {
+      const authCheck = await sb.auth.getSession();
+      if (!authCheck.data.session) { window.location.href = 'join.html'; return; }
       const files = Array.from(input.files);
       const status = document.getElementById(album === 'xrplv2026' ? 'lv2026-status' : 'status');
       if (!currentUser) { if(status){status.textContent='Please log in to upload.';status.className='upload-status err';} return; }
