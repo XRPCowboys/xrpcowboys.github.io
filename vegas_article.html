@@ -270,6 +270,20 @@ async function submitComment() {
   await loadComments();
 }
 
+// Auto-fill handle from logged-in profile
+(async function() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      const { data: profile } = await sb.from('profiles').select('handle, full_name').eq('id', session.user.id).single();
+      const nameField = document.getElementById('comment-name');
+      if (profile && (profile.handle || profile.full_name)) {
+        nameField.value = profile.handle || profile.full_name;
+      }
+    }
+  } catch(e) {}
+})();
+
 loadComments();
 </script>
 </body>
