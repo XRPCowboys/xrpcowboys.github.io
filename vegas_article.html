@@ -26,7 +26,7 @@
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
     .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
     .nav-login-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;text-decoration:none;transition:border-color 0.2s;}
     .nav-login-btn:hover{border-color:var(--gold);}
@@ -43,7 +43,7 @@
     .article-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);border:1px solid rgba(74,222,128,0.35);padding:0.3rem 0.8rem;border-radius:2px;margin-bottom:1.2rem;}
     .article-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.05;margin-bottom:0.4rem;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.8);}
     .article-title em{font-style:italic;color:var(--gold);}
-    .article-meta{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:flex;gap:1rem;align-items:center;margin-top:0.9rem;flex-wrap:wrap;}
+    .article-meta{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.80);display:flex;gap:1rem;align-items:center;margin-top:0.9rem;flex-wrap:wrap;}
 
     /* Floating card */
     .article-wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 1.5rem 4rem;}
@@ -52,7 +52,7 @@
     .article-body p{margin-bottom:1.5rem;}
     .article-body h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);margin:2rem 0 1rem;}
     .article-body h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin:1.5rem 0 0.7rem;}
-    .article-body blockquote{border-left:3px solid var(--gold-dim);padding:0.8rem 1.5rem;margin:1.5rem 0;background:rgba(201,146,26,0.07);font-style:italic;color:rgba(232,224,208,0.75);border-radius:0 2px 2px 0;}
+    .article-body blockquote{border-left:3px solid var(--gold-dim);padding:0.8rem 1.5rem;margin:1.5rem 0;background:rgba(201,146,26,0.07);font-style:italic;color:rgba(232,224,208,0.92);border-radius:0 2px 2px 0;}
     .article-divider{border:none;border-top:1px solid var(--card-border);margin:2rem 0;}
     .back-link{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
     .back-link:hover{color:var(--gold);}
@@ -60,12 +60,12 @@
     /* Comments */
     .comments-section{margin-top:2.5rem;}
     .comments-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem;}
-    .comment-count{font-size:0.9rem;color:var(--muted);font-family:'Oswald',sans-serif;font-weight:400;}
+    .comment-count{font-size:0.9rem;color:rgba(232,224,208,0.80);font-family:'Oswald',sans-serif;font-weight:400;}
     .comment-form{background:rgba(201,146,26,0.06);border:1px solid var(--card-border);border-radius:3px;padding:1.5rem;margin-bottom:2rem;}
     .comment-form input,.comment-form textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);color:var(--text);font-family:'Source Serif 4',serif;font-size:0.92rem;padding:0.7rem 1rem;border-radius:2px;margin-bottom:0.8rem;outline:none;transition:border-color 0.2s;}
     .comment-form input:focus,.comment-form textarea:focus{border-color:var(--gold-dim);}
     .comment-form textarea{min-height:100px;resize:vertical;}
-    .comment-form input::placeholder,.comment-form textarea::placeholder{color:var(--muted);}
+    .comment-form input::placeholder,.comment-form textarea::placeholder{color:rgba(232,224,208,0.80);}
     .comment-submit{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;padding:0.65rem 1.8rem;border-radius:999px;cursor:pointer;transition:opacity 0.2s;}
     .comment-submit:hover{opacity:0.85;}
     .comment-submit:disabled{opacity:0.5;cursor:not-allowed;}
@@ -74,9 +74,9 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
     .comment-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.4rem;}
     .comment-author{font-family:'Oswald',sans-serif;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
-    .comment-date{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+    .comment-date{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.80);}
     .comment-text{font-size:0.92rem;line-height:1.65;color:var(--text);}
-    .no-comments{color:var(--muted);font-style:italic;font-size:0.92rem;}
+    .no-comments{color:rgba(232,224,208,0.80);font-style:italic;font-size:0.92rem;}
     .comment-status{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;margin-top:0.5rem;min-height:1.2rem;}
     .comment-status.ok{color:var(--green);}
     .comment-status.err{color:#f87171;}

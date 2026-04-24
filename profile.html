@@ -17,7 +17,7 @@
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
     .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover{color:var(--gold);}
     .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;}
     .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;}
@@ -28,26 +28,26 @@
     .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
     .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
     .page-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;background:linear-gradient(120deg,#f5c842,#c9921a 50%,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem;}
-    .page-sub{color:var(--muted);font-size:0.9rem;margin-bottom:2rem;font-family:'Oswald',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
+    .page-sub{color:rgba(232,224,208,0.80);font-size:0.9rem;margin-bottom:2rem;font-family:'Oswald',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
     .card{background:rgba(22,16,6,0.78);border:1px solid var(--card-border);backdrop-filter:blur(18px);border-radius:4px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
     .card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid var(--card-border);}
     /* Avatar */
     .avatar-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;}
     .avatar-img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;}
-    .avatar-upload-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--card-border);color:var(--muted);padding:0.5rem 1rem;border-radius:2px;cursor:pointer;transition:border-color 0.2s,color 0.2s;}
+    .avatar-upload-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--card-border);color:rgba(232,224,208,0.80);padding:0.5rem 1rem;border-radius:2px;cursor:pointer;transition:border-color 0.2s,color 0.2s;}
     .avatar-upload-btn:hover{border-color:var(--gold);color:var(--gold);}
     /* Form */
     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
     .form-field{display:flex;flex-direction:column;gap:0.4rem;}
     .form-field.full{grid-column:1/-1;}
-    .form-field label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+    .form-field label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.80);}
     .form-field input,.form-field textarea,.form-field select{background:rgba(201,146,26,0.07);border:1px solid var(--card-border);color:var(--text);font-family:'Source Serif 4',serif;font-size:0.92rem;padding:0.65rem 0.9rem;border-radius:2px;outline:none;transition:border-color 0.2s;}
     .form-field input:focus,.form-field textarea:focus{border-color:var(--gold-dim);}
     .form-field textarea{min-height:80px;resize:vertical;}
-    .form-field input::placeholder,.form-field textarea::placeholder{color:var(--muted);}
+    .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(232,224,208,0.80);}
     .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;}
     .toggle-label{font-family:'Oswald',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);}
-    .toggle-desc{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;}
+    .toggle-desc{font-size:0.78rem;color:rgba(232,224,208,0.80);margin-top:0.2rem;}
     .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
     .toggle input{opacity:0;width:0;height:0;}
     .toggle-slider{position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:24px;cursor:pointer;transition:background 0.2s;}
@@ -72,7 +72,7 @@
     .btn-shared{background:rgba(74,222,128,0.3);color:var(--green);border:1px solid var(--green);}
     .upload-zone{border:2px dashed var(--card-border);border-radius:3px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-top:1rem;}
     .upload-zone:hover{border-color:var(--gold-dim);}
-    .upload-zone p{color:var(--muted);font-size:0.88rem;}
+    .upload-zone p{color:rgba(232,224,208,0.80);font-size:0.88rem;}
     .upload-zone .upload-icon{font-size:2rem;margin-bottom:0.5rem;}
     .view-profile-link{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;transition:color 0.2s;}
     .view-profile-link:hover{color:var(--gold);}
@@ -127,7 +127,7 @@
       <div>
         <button class="avatar-upload-btn" onclick="document.getElementById('avatar-input').click()">Change Avatar</button>
         <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
-        <p style="color:var(--muted);font-size:0.78rem;margin-top:0.4rem;">JPG or PNG, max 2MB</p>
+        <p style="color:rgba(232,224,208,0.80);font-size:0.78rem;margin-top:0.4rem;">JPG or PNG, max 2MB</p>
       </div>
     </div>
     <div class="form-grid">
@@ -256,7 +256,7 @@ async function uploadPhotos(input){
 async function loadPhotos(){
   const{data}=await sb.from('member_photos').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
   const grid=document.getElementById('photo-grid');
-  if(!data||data.length===0){grid.innerHTML='<p style="color:var(--muted);font-size:0.88rem;font-style:italic;grid-column:1/-1;padding:1rem 0;">No photos yet. Upload some!</p>';return;}
+  if(!data||data.length===0){grid.innerHTML='<p style="color:rgba(232,224,208,0.80);font-size:0.88rem;font-style:italic;grid-column:1/-1;padding:1rem 0;">No photos yet. Upload some!</p>';return;}
   grid.innerHTML=data.map(p=>`
     <div class="photo-item">
       <img src="${p.photo_url}" loading="lazy">
