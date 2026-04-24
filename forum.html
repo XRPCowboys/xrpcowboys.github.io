@@ -46,6 +46,11 @@
     .hot-topics { margin-bottom: 2.5rem; }
     .hot-topic-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; background: rgba(22,16,6,0.78); border: 1px solid var(--card-border); border-left: 3px solid var(--gold-dim); backdrop-filter: blur(8px); margin-bottom: 0.6rem; border-radius: 2px; text-decoration: none; color: var(--text); transition: background 0.2s, border-color 0.2s; }
     .hot-topic-item:hover { background: rgba(201,168,76,0.08); border-left-color: var(--gold); }
+    .hot-topic-item { cursor: pointer; flex-direction: column; }
+    .hot-topic-row { display: flex; align-items: flex-start; gap: 1rem; width: 100%; }
+    .hot-topic-expand { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; font-size: 0.92rem; line-height: 1.65; color: rgba(232,224,208,0.90); padding-left: 2.1rem; }
+    .hot-topic-expand.open { max-height: 200px; padding-top: 0.6rem; }
+    .expand-hint { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.45); margin-left: auto; padding-top: 3px; flex-shrink: 0; }
     .hot-topic-flame { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
     .hot-topic-text .tag { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
     .hot-topic-text strong { font-size: 0.95rem; font-weight: 600; color: #fff; line-height: 1.35; display: block; }
@@ -180,11 +185,11 @@
     const flames = ['🔥','⚡','📡','🚀','💥'];
 
     const fallback = [
-      { title: 'XRP breaks key resistance — analysts watch critical price levels', source: 'Market Watch', date: 'Today' },
-      { title: 'Ripple continues institutional expansion as XRP Ledger adoption accelerates in 2026', source: 'Ecosystem News', date: 'Today' },
-      { title: 'Post-SEC clarity: XRP regulatory landscape opens new doors for institutions', source: 'Regulation', date: 'This Week' },
-      { title: 'XRP Las Vegas 2026 — the biggest XRP event of the year kicks off April 30', source: 'Community', date: 'This Week' },
-      { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week' },
+      { title: 'XRP breaks key resistance — analysts watch critical price levels', source: 'Market Watch', date: 'Today', summary: 'XRP has broken above a key technical resistance level that has been watched closely by the community. On-chain data shows rising transaction volume and exchange outflows suggesting holders are accumulating. The next resistance level is being closely monitored.' },
+      { title: 'Ripple continues institutional expansion as XRP Ledger adoption accelerates in 2026', source: 'Ecosystem News', date: 'Today', summary: 'Ripple's On-Demand Liquidity corridors continue expanding across Southeast Asia, the Middle East, and Europe. Several major financial institutions have completed XRP pilot programs and are moving toward full deployment, driving real utility and volume through the XRPL.' },
+      { title: 'Post-SEC clarity: XRP regulatory landscape opens new doors for institutions', source: 'Regulation', date: 'This Week', summary: 'With the SEC litigation largely resolved, exchanges have relisted XRP and institutional players are actively building XRP-powered products. Legal clarity has aligned the US framework more closely with global norms, making cross-border institutional deployment significantly easier.' },
+      { title: 'XRP Las Vegas 2026 — the biggest XRP event of the year kicks off April 30', source: 'Community', date: 'This Week', summary: 'The XRP community descends on Las Vegas April 30 – May 1 for the most anticipated XRP gathering of the year. XRPCowboys will have a strong presence. Ripple leadership, institutional announcements, and community side events — don't miss it. See the Vegas article for full details.' },
+      { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available, deepening liquidity across the decentralized exchange.' },
     ];
 
     let stories = [];
@@ -203,7 +208,8 @@
             stories.push({
               title: item.title,
               source: item.author || 'XRP News',
-              date: pub
+              date: pub,
+              summary: item.description ? item.description.replace(/<[^>]+>/g,'').slice(0,200)+'...' : ''
             });
           });
         }
@@ -213,14 +219,18 @@
     if (stories.length === 0) stories = fallback;
     stories = stories.slice(0, 5);
 
-    // Render as plain cards with NO external links - just the headline displayed inline
+    // Render as expandable cards - click to read summary inline
     container.innerHTML = stories.map((s, i) => `
-      <div class="hot-topic-item" style="cursor:default;">
-        <span class="hot-topic-flame">${flames[i % flames.length]}</span>
-        <div class="hot-topic-text">
-          <div class="tag">${s.source} · ${s.date}</div>
-          <strong>${s.title}</strong>
+      <div class="hot-topic-item" onclick="toggleNews(this)">
+        <div class="hot-topic-row">
+          <span class="hot-topic-flame">${flames[i % flames.length]}</span>
+          <div class="hot-topic-text">
+            <div class="tag">${s.source} · ${s.date}</div>
+            <strong>${s.title}</strong>
+          </div>
+          <span class="expand-hint">TAP TO READ ▾</span>
         </div>
+        <div class="hot-topic-expand">${s.summary || 'Stay tuned to The Corral for the latest developments in the XRP ecosystem.'}</div>
       </div>
     `).join('');
   })();
