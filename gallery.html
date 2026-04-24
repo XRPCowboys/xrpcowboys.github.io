@@ -16,7 +16,7 @@
     .site-wrap{position:relative;z-index:1;}
     .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 50%,#c9921a 78%,#4ade80 85%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
     .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
@@ -73,7 +73,7 @@
     .join-banner a:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,208,96,0.4);}
     .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
     .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
-    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg,#f5c842 0%,#c9921a 50%,#c9921a 78%,#4ade80 85%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
     .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.75);}
     .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
     .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.90);text-decoration:none;transition:color 0.2s;}
@@ -81,6 +81,11 @@
     .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.65);}
     @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.gallery-section{padding:0 1rem 3rem;}.tab-bar{padding:0 1rem 2rem;}}
+
+    .member-upload-box{border:2px dashed rgba(245,208,96,0.3);border-radius:14px;padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;margin-bottom:1.5rem;background:rgba(245,208,96,0.03);}
+    .member-upload-box:hover{border-color:var(--gold);background:rgba(245,208,96,0.07);}
+    .upload-status{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;min-height:1.2rem;}
+    .upload-status.ok{color:#4ade80;} .upload-status.err{color:#f87171;}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>(async function(){const sb=supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");const{data:{session}}=await sb.auth.getSession();if(!session)window.location.href="login.html";}());</script>
@@ -126,6 +131,8 @@
     <button class="tab-btn" onclick="showTab('xrplv2024',event)">XRP Las Vegas 2024</button>
     <button class="tab-btn" onclick="showTab('xrplv2025',event)">XRP Las Vegas 2025</button>
     <button class="tab-btn" onclick="showTab('swell2025',event)">Swell 2025</button>
+    <button class="tab-btn" onclick="showTab('xrplv2026',event)">XRP Las Vegas 2026</button>
+    <button class="tab-btn" onclick="showTab('swell2026',event)">Swell 2026</button>
   </div>
   <section class="gallery-section visible" id="tab-all"><div class="cat-title-box"><p class="cat-title-eyebrow">XRP Cowboys Gallery</p><h2 class="cat-title-text">All Photos</h2><div class="cat-title-rule"></div><p class="cat-title-count">38 photos across all events</p></div><div class="gallery-grid" id="grid-all"></div></section>
   <section class="gallery-section" id="tab-podcastors"><div class="cat-title-box"><p class="cat-title-eyebrow">XRP Cowboys Gallery</p><h2 class="cat-title-text">Podcastors Cowboys</h2><div class="cat-title-rule"></div><p class="cat-title-count">13 photos</p></div><div class="gallery-grid" id="grid-podcastors"></div></section>
@@ -133,6 +140,35 @@
   <section class="gallery-section" id="tab-xrplv2024"><div class="cat-title-box"><p class="cat-title-eyebrow">XRP Cowboys Gallery</p><h2 class="cat-title-text">XRP Las Vegas 2024</h2><div class="cat-title-rule"></div><p class="cat-title-count">Photos coming soon</p></div><div class="gallery-grid" id="grid-xrplv2024"></div></section>
   <section class="gallery-section" id="tab-xrplv2025"><div class="cat-title-box"><p class="cat-title-eyebrow">XRP Cowboys Gallery</p><h2 class="cat-title-text">XRP Las Vegas 2025</h2><div class="cat-title-rule"></div><p class="cat-title-count">9 photos</p></div><div class="gallery-grid" id="grid-xrplv2025"></div></section>
   <section class="gallery-section" id="tab-swell2025"><div class="cat-title-box"><p class="cat-title-eyebrow">XRP Cowboys Gallery</p><h2 class="cat-title-text">Swell 2025</h2><div class="cat-title-rule"></div><p class="cat-title-count">11 photos</p></div><div class="gallery-grid" id="grid-swell2025"></div></section>
+  <section class="gallery-section" id="tab-xrplv2026">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">XRP Las Vegas 2026</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count" id="lv2026-count">Members can upload their photos here!</p>
+    </div>
+    <div id="upload-prompt-lv2026" style="max-width:600px;margin:0 auto 2rem;">
+      <div class="member-upload-box" onclick="document.getElementById('lv2026-file-input').click()">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">📸</div>
+        <p style="font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Add Your Vegas Photos</p>
+        <p style="font-size:0.88rem;color:rgba(232,224,208,0.55);">JPG or PNG · Max 10MB each · Share your memories with the herd</p>
+      </div>
+      <input type="file" id="lv2026-file-input" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'xrplv2026')">
+      <div class="upload-status" id="lv2026-status"></div>
+    </div>
+    <div class="gallery-grid" id="grid-xrplv2026"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-swell2026">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">Swell 2026</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">Coming soon — check back after the event!</p>
+    </div>
+    <div class="gallery-grid" id="grid-swell2026"></div>
+  </section>
+
   <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="" alt="Gallery photo"/>
@@ -175,6 +211,43 @@
     function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')prevPhoto();if(e.key==='ArrowRight')nextPhoto();});
     populateGrids();
+
+    // Load member-uploaded Vegas 2026 photos
+    let currentUser = null;
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (session) currentUser = session.user;
+    });
+    loadAlbumPhotos('xrplv2026', 'grid-xrplv2026');
+
+    async function uploadGalleryPhotos(input, album) {
+      const files = Array.from(input.files);
+      const status = document.getElementById(album === 'xrplv2026' ? 'lv2026-status' : 'status');
+      if (!currentUser) { if(status){status.textContent='Please log in to upload.';status.className='upload-status err';} return; }
+      if(status){status.textContent='Uploading '+files.length+' photo(s)...';status.className='upload-status ok';}
+      for (const file of files) {
+        if (file.size > 10 * 1024 * 1024) { if(status){status.textContent='File too large (max 10MB): '+file.name;status.className='upload-status err';} continue; }
+        const path = `gallery/${album}/${currentUser.id}_${Date.now()}_${file.name}`;
+        const { error } = await sb.storage.from('member-photos').upload(path, file);
+        if (error) { if(status){status.textContent='Upload error: '+error.message;status.className='upload-status err';} continue; }
+        const { data: { publicUrl } } = sb.storage.from('member-photos').getPublicUrl(path);
+        await sb.from('gallery_photos').insert({ user_id: currentUser.id, album: album, photo_url: publicUrl });
+      }
+      if(status){status.textContent='Photos uploaded! Yeehaw 🤠';status.className='upload-status ok';}
+      await loadAlbumPhotos('xrplv2026', 'grid-xrplv2026');
+    }
+
+    async function loadAlbumPhotos(album, gridId) {
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      const { data, error } = await sb.from('gallery_photos').select('photo_url').eq('album', album).order('created_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        data.forEach((p, i) => { grid.appendChild(makeCard(p.photo_url, i, data.map(x => x.photo_url))); });
+        const countEl = document.getElementById('lv2026-count');
+        if (countEl) countEl.textContent = data.length + ' photo' + (data.length !== 1 ? 's' : '') + ' from the herd';
+      }
+    }
+
   </script>
 </div>
   <script>
