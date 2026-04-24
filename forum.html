@@ -177,7 +177,17 @@
     </div>
     <div class="footer-bottom"><p>&copy; 2025 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p></div>
   </footer>
-  <script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}</script>
+  <script>
+  function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+  function toggleNews(el){
+    const exp = el.querySelector('.hot-topic-expand');
+    const hint = el.querySelector('.expand-hint');
+    const isOpen = exp.classList.contains('open');
+    document.querySelectorAll('.hot-topic-expand').forEach(e => e.classList.remove('open'));
+    document.querySelectorAll('.expand-hint').forEach(e => e.textContent = 'TAP TO READ ▾');
+    if(!isOpen){ exp.classList.add('open'); if(hint) hint.textContent = 'CLOSE ▴'; }
+  }
+</script>
   <script>
   // XRP News - curated stories, expandable inline
   (function() {
