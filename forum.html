@@ -179,47 +179,17 @@
   </footer>
   <script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}</script>
   <script>
-  // Live XRP News - displays headlines inline, no external links
-  (async function() {
+  // XRP News - curated stories, expandable inline
+  (function() {
     const container = document.getElementById('live-news');
     const flames = ['🔥','⚡','📡','🚀','💥'];
-
-    const fallback = [
-      { title: 'XRP breaks key resistance — analysts watch critical price levels', source: 'Market Watch', date: 'Today', summary: 'XRP has broken above a key technical resistance level that has been watched closely by the community. On-chain data shows rising transaction volume and exchange outflows suggesting holders are accumulating. The next resistance level is being closely monitored.' },
-      { title: 'Ripple continues institutional expansion as XRP Ledger adoption accelerates in 2026', source: 'Ecosystem News', date: 'Today', summary: 'Ripple's On-Demand Liquidity corridors continue expanding across Southeast Asia, the Middle East, and Europe. Several major financial institutions have completed XRP pilot programs and are moving toward full deployment, driving real utility and volume through the XRPL.' },
-      { title: 'Post-SEC clarity: XRP regulatory landscape opens new doors for institutions', source: 'Regulation', date: 'This Week', summary: 'With the SEC litigation largely resolved, exchanges have relisted XRP and institutional players are actively building XRP-powered products. Legal clarity has aligned the US framework more closely with global norms, making cross-border institutional deployment significantly easier.' },
-      { title: 'XRP Las Vegas 2026 — the biggest XRP event of the year kicks off April 30', source: 'Community', date: 'This Week', summary: 'The XRP community descends on Las Vegas April 30 – May 1 for the most anticipated XRP gathering of the year. XRPCowboys will have a strong presence. Ripple leadership, institutional announcements, and community side events — don't miss it. See the Vegas article for full details.' },
-      { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available, deepening liquidity across the decentralized exchange.' },
+    const stories = [
+      { title: 'XRP breaks key resistance — analysts watch critical price levels', source: 'Market Watch', date: 'Today', summary: 'XRP has broken above a key technical resistance level watched closely by the community. On-chain data shows rising transaction volume and exchange outflows suggesting holders are accumulating. The next resistance level is being closely monitored.' },
+      { title: 'Ripple continues institutional expansion as XRP Ledger adoption accelerates', source: 'Ecosystem News', date: 'Today', summary: "Ripple's On-Demand Liquidity corridors continue expanding across Southeast Asia, the Middle East, and Europe. Several major financial institutions have completed XRP pilot programs and are moving toward full deployment, driving real utility and volume through the XRPL." },
+      { title: 'Post-SEC clarity: XRP regulatory landscape opens new doors for institutions', source: 'Regulation', date: 'This Week', summary: 'With the SEC litigation largely resolved, exchanges have relisted XRP and institutional players are actively building XRP-powered products. Legal clarity has aligned the US framework more closely with global norms.' },
+      { title: 'XRP Las Vegas 2026 — the biggest XRP event of the year kicks off April 30', source: 'Community', date: 'This Week', summary: "The XRP community descends on Las Vegas April 30–May 1. XRPCowboys will have a strong presence throughout. Ripple leadership, institutional announcements, and community side events — don't miss it." },
+      { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available.' },
     ];
-
-    let stories = [];
-
-    try {
-      // RSS2JSON proxy - returns clean JSON from public XRP RSS feeds, no redirect
-      const res = await fetch(
-        'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fcryptopanic.com%2Fnews%2Fxrp%2Frss%2F&api_key=public&count=6',
-        { signal: AbortSignal.timeout(6000) }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        if (data.items && data.items.length) {
-          data.items.slice(0, 5).forEach(item => {
-            const pub = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Latest';
-            stories.push({
-              title: item.title,
-              source: item.author || 'XRP News',
-              date: pub,
-              summary: item.description ? item.description.replace(/<[^>]+>/g,'').slice(0,200)+'...' : ''
-            });
-          });
-        }
-      }
-    } catch(e) { console.log('News feed unavailable, using curated stories'); }
-
-    if (stories.length === 0) stories = fallback;
-    stories = stories.slice(0, 5);
-
-    // Render as expandable cards - click to read summary inline
     container.innerHTML = stories.map((s, i) => `
       <div class="hot-topic-item" onclick="toggleNews(this)">
         <div class="hot-topic-row">
@@ -230,7 +200,7 @@
           </div>
           <span class="expand-hint">TAP TO READ ▾</span>
         </div>
-        <div class="hot-topic-expand">${s.summary || 'Stay tuned to The Corral for the latest developments in the XRP ecosystem.'}</div>
+        <div class="hot-topic-expand">${s.summary}</div>
       </div>
     `).join('');
   })();
