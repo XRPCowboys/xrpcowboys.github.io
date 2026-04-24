@@ -44,12 +44,13 @@
     .section-label h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
     .section-label .line { flex: 1; height: 1px; background: var(--card-border); }
     .hot-topics { margin-bottom: 2.5rem; }
-    .hot-topic-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; background: rgba(22,16,6,0.78); border: 1px solid var(--card-border); border-left: 3px solid var(--gold-dim); backdrop-filter: blur(8px); margin-bottom: 0.6rem; border-radius: 2px; text-decoration: none; color: var(--text); transition: background 0.2s, border-color 0.2s; }
-    .hot-topic-item:hover { background: rgba(201,168,76,0.08); border-left-color: var(--gold); }
-    .hot-topic-item { cursor: pointer; flex-direction: column; }
-    .hot-topic-row { display: flex; align-items: flex-start; gap: 1rem; width: 100%; }
-    .hot-topic-expand { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; font-size: 0.92rem; line-height: 1.65; color: rgba(232,224,208,0.90); padding-left: 2.1rem; }
-    .hot-topic-expand.open { max-height: 200px; padding-top: 0.6rem; }
+    .hot-topic-item { background: rgba(22,16,6,0.78); border: 1px solid var(--card-border); border-left: 3px solid var(--gold-dim); backdrop-filter: blur(8px); margin-bottom: 0.6rem; border-radius: 2px; overflow: hidden; transition: border-color 0.2s; }
+    .hot-topic-item:hover { border-left-color: var(--gold); }
+    .ht-label { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; width: 100%; }
+    .ht-label:hover { background: rgba(201,168,76,0.08); }
+    .hot-topic-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 0.92rem; line-height: 1.65; color: rgba(232,224,208,0.90); padding: 0 1.2rem; }
+    .ht-toggle:checked ~ .ht-label ~ .hot-topic-expand { max-height: 200px; padding: 0.6rem 1.2rem 1rem 3.5rem; }
+    .ht-toggle:checked ~ .ht-label .expand-hint { content: 'CLOSE ▴'; }
     .expand-hint { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.45); margin-left: auto; padding-top: 3px; flex-shrink: 0; }
     .hot-topic-flame { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
     .hot-topic-text .tag { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
@@ -201,15 +202,16 @@
       { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available.' },
     ];
     container.innerHTML = stories.map((s, i) => `
-      <div class="hot-topic-item" onclick="toggleNews(this)">
-        <div class="hot-topic-row">
+      <div class="hot-topic-item">
+        <input type="checkbox" id="ht${i}" class="ht-toggle" style="display:none">
+        <label for="ht${i}" class="ht-label">
           <span class="hot-topic-flame">${flames[i % flames.length]}</span>
           <div class="hot-topic-text">
             <div class="tag">${s.source} · ${s.date}</div>
             <strong>${s.title}</strong>
           </div>
           <span class="expand-hint">TAP TO READ ▾</span>
-        </div>
+        </label>
         <div class="hot-topic-expand">${s.summary}</div>
       </div>
     `).join('');
