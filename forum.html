@@ -39,7 +39,12 @@
     .page-header .eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
     .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 900; line-height: 1; letter-spacing: 0.04em; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .page-header .sub { margin-top: 0.9rem; color: rgba(232,224,208,0.80); font-size: 1rem; font-style: italic; }
-    .content { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+    .content { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+    /* Intro paragraph */
+    .forum-intro { background: rgba(22,16,6,0.72); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold-dim); border-radius: 4px; padding: 1.5rem 1.75rem; margin-bottom: 2.5rem; backdrop-filter: blur(8px); }
+    .forum-intro p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.05rem; line-height: 1.8; color: rgba(232,224,208,0.97); }
+
     .section-label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.4rem; }
     .section-label h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
     .section-label .line { flex: 1; height: 1px; background: var(--card-border); }
@@ -64,13 +69,40 @@
     .featured-meta { display: flex; flex-wrap: wrap; gap: 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.75rem; color: rgba(232,224,208,0.80); letter-spacing: 0.06em; border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 0.5rem; }
     .featured-meta span { display: flex; align-items: center; gap: 0.3rem; }
     .read-more { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--gold); font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
-    .articles-grid { display: grid; gap: 1px; border: 1px solid var(--card-border); background: var(--card-border); border-radius: 3px; overflow: hidden; }
+    .articles-grid { display: grid; gap: 1px; border: 1px solid var(--card-border); background: var(--card-border); border-radius: 3px; overflow: hidden; margin-bottom: 3rem; }
     .article-card { background: rgba(22,16,6,0.78); backdrop-filter: blur(8px); padding: 1.4rem 1.6rem; text-decoration: none; display: block; transition: background 0.18s; }
     .article-card:hover { background: rgba(201,168,76,0.07); }
     .article-card .tag { font-family: 'Oswald', sans-serif; font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.4rem; }
     .article-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.45rem; }
     .article-card p { font-size: 0.85rem; color: rgba(232,224,208,0.80); line-height: 1.55; margin-bottom: 0.6rem; }
     .article-card .meta { font-family: 'Oswald', sans-serif; font-size: 0.72rem; color: rgba(232,224,208,0.75); letter-spacing: 0.05em; }
+
+    /* Feature cards grid — matches main page style */
+    .cards-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+    .cards-grid-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 2.5rem; }
+    @media(max-width:640px){ .cards-grid-inner { grid-template-columns: 1fr; } }
+    .feature-card { background: rgba(201,146,26,0.06); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s, background 0.3s; backdrop-filter: blur(6px); }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(180,150,60,0.32); background: rgba(201,146,26,0.09); }
+    .feature-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .feature-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.88rem; font-weight: 300; line-height: 1.65; color: rgba(232,224,208,0.92); }
+
+    /* Latest discussions threads */
+    .threads-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .thread-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--card-border); border-radius: 4px; overflow: hidden; margin-bottom: 1.25rem; }
+    .thread-row { display: flex; align-items: center; justify-content: space-between; background: rgba(22,16,6,0.78); backdrop-filter: blur(8px); padding: 1rem 1.4rem; border-bottom: 1px solid rgba(201,168,76,0.12); text-decoration: none; transition: background 0.18s; gap: 1rem; }
+    .thread-row:last-child { border-bottom: none; }
+    .thread-row:hover { background: rgba(201,168,76,0.07); }
+    .thread-num { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(245,208,96,0.3); min-width: 20px; flex-shrink: 0; }
+    .thread-body { flex: 1; min-width: 0; }
+    .thread-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 0.25rem; }
+    .thread-meta { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,224,208,0.55); }
+    .thread-meta span { color: rgba(245,208,96,0.6); }
+    .thread-lock { font-size: 0.8rem; color: rgba(245,208,96,0.3); flex-shrink: 0; }
+    .thread-login-note { text-align: center; background: rgba(245,208,96,0.05); border: 1px solid rgba(245,208,96,0.15); border-radius: 8px; padding: 1rem 1.5rem; font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,224,208,0.70); }
+    .thread-login-note a { color: var(--gold); text-decoration: none; }
+    .thread-login-note a:hover { text-decoration: underline; }
+
     footer { position: relative; z-index: 10; background: rgba(14,10,3,0.88); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; backdrop-filter: blur(8px); }
     .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
     .footer-tagline { font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.90); }
@@ -86,6 +118,8 @@
       .featured-box-inner { padding: 1.4rem 1.2rem; }
       .page-header { padding: 2.5rem 1rem 1.5rem; }
       .content { padding: 0 1rem 4rem; }
+      .cards-section { padding: 0 1rem 2rem; }
+      .threads-section { padding: 0 1rem 3rem; }
     }
     @media (max-width: 480px) {
       .hero-bg { background-size: 500% auto; background-position: 35% top; background-attachment: scroll; }
@@ -129,7 +163,14 @@
       <h1>THE CORRAL</h1>
       <p class="sub">Breaking news, hot takes, and deep dives from inside the XRP ecosystem — curated by XRPCowboys.</p>
     </header>
+
     <div class="content">
+
+      <!-- Intro paragraph -->
+      <div class="forum-intro">
+        <p>The Official Discussion Forum of XRPCowboys. Welcome to the Horsepower Wire — our private, members-only discussion forum dedicated to the XRP Ledger and its growing ecosystem. Here, verified members discuss technology updates, regulatory developments, real-world adoption, upcoming events, and everything else happening in the XRP community.</p>
+      </div>
+
       <div class="section-label"><h2>🔥 Hot Topics</h2><div class="line"></div></div>
       <div class="hot-topics" id="live-news">
         <div class="hot-topic-item"><span class="hot-topic-flame">⏳</span><div class="hot-topic-text"><div class="tag">Loading live XRP news...</div><strong>Fetching latest stories from the wire...</strong></div></div>
@@ -162,6 +203,77 @@
         <a href="#" onclick="checkAndGo('article_xrpl_evm_sidechain.html')" class="article-card"><div class="tag">XRP Ledger Tech</div><h3>XRPL Smart Contracts &amp; the EVM Sidechain Explained</h3><p>The EVM-compatible sidechain opens up a new world for XRPL developers. Everything explained in plain English for holders and builders alike.</p><div class="meta">January 2026 · Tech Desk · Members Only</div></a>
         <a href="#" onclick="checkAndGo('article_xrp_price_analysis_2026.html')" class="article-card"><div class="tag">Market</div><h3>XRP Price Analysis — Key Levels to Watch</h3><p>Our member analysts break down current XRP price action, support and resistance levels, and on-chain data pointing to what comes next.</p><div class="meta">April 2026 · Market Desk · Members Only</div></a>
       </div>
+    </div>
+  </div>
+
+  <!-- Feature Cards Section -->
+  <div class="cards-section">
+    <div class="section-label"><h2>✦ What We Offer</h2><div class="line"></div></div>
+    <div class="cards-grid-inner">
+      <div class="feature-card"><div class="feature-card-icon">&#9741;</div><h4>XRP Ledger Tech</h4><p>Deep protocol knowledge and technical discussion among verified members.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9883;</div><h4>Ecosystem News</h4><p>Stay ahead with curated XRP and Ripple updates from trusted sources.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9733;</div><h4>Member Events</h4><p>Virtual and in-person gatherings that bring the community together.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9812;</div><h4>OG Holders</h4><p>A space built by early believers, for true long-term believers in XRP.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9784;</div><h4>Governance</h4><p>Members have a real voice in how this community grows and operates.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9993;</div><h4>Members Only</h4><p>Application-based membership keeps quality, trust, and signal high.</p></div>
+    </div>
+  </div>
+
+  <!-- Latest Discussions -->
+  <div class="threads-section">
+    <div class="section-label"><h2>💬 Latest Discussions</h2><div class="line"></div></div>
+    <div class="thread-list">
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">01</div>
+        <div class="thread-body">
+          <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 2 hours ago</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">02</div>
+        <div class="thread-body">
+          <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · Yesterday</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">03</div>
+        <div class="thread-body">
+          <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 3 days ago</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">04</div>
+        <div class="thread-body">
+          <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 5 days ago</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">05</div>
+        <div class="thread-body">
+          <div class="thread-title">Horsepower Wire Member Spotlight – Share Your Story</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 1 week ago</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-num">06</div>
+        <div class="thread-body">
+          <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 2 weeks ago</div>
+        </div>
+        <div class="thread-lock">🔒</div>
+      </a>
+    </div>
+    <div class="thread-login-note">
+      <a href="login.html">Login</a> or <a href="join.html">apply for membership</a> to post replies and start new threads.
     </div>
   </div>
 
