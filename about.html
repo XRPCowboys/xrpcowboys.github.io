@@ -28,6 +28,9 @@
 
     .section { max-width: 1100px; margin: 0 auto; padding: 0 3rem 5rem; }
 
+    /* Footer brand — exactly matches nav-logo */
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900; letter-spacing: 0.1em; background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; }
+
     @media (max-width: 768px) { .section { padding: 0 1.25rem 3rem; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -64,7 +67,7 @@
       <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-      <a href="login.html" onclick="toggleMenu()" id="nav-login-btn-mob">Login</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
       <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
     </div>
   </nav>
@@ -149,7 +152,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
+      <p>© 2018–2026 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
     </div>
   </footer>
 
@@ -164,9 +167,11 @@
       const p = document.getElementById('nav-profile-btn');
       const l = document.getElementById('nav-login-btn');
       const mp = document.getElementById('mob-profile-btn');
+      const ml = document.getElementById('mob-login-btn');
       if (p) p.style.display = 'inline-block';
       if (l) l.style.display = 'none';
       if (mp) mp.style.display = 'block';
+      if (ml) ml.style.display = 'none';
     }
   })();
 </script>
