@@ -49,8 +49,7 @@
     .ht-label { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; width: 100%; }
     .ht-label:hover { background: rgba(201,168,76,0.08); }
     .hot-topic-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 0.92rem; line-height: 1.65; color: rgba(232,224,208,0.90); padding: 0 1.2rem; }
-    .ht-toggle:checked ~ .ht-label ~ .hot-topic-expand { max-height: 200px; padding: 0.6rem 1.2rem 1rem 3.5rem; }
-    .ht-toggle:checked ~ .ht-label .expand-hint { content: 'CLOSE ▴'; }
+    .hot-topic-expand.open { max-height: 200px; padding: 0.6rem 1.2rem 1rem 3.5rem; }
     .expand-hint { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.45); margin-left: auto; padding-top: 3px; flex-shrink: 0; }
     .hot-topic-flame { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
     .hot-topic-text .tag { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
@@ -120,7 +119,7 @@
       <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-      <a href="login.html" onclick="toggleMenu()" id="nav-login-btn-mob">Login</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
       <a href="join.html" onclick="toggleMenu()" class="mob-join">&#10022; Join the Community</a>
     </div>
   </nav>
@@ -176,10 +175,10 @@
         <a href="dispatch.html">Forum</a><a href="contact.html">Contact</a>
       </div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2025 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p></div>
+    <div class="footer-bottom"><p>&copy; 2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p></div>
   </footer>
-  <script>
 
+  <script>
   function checkAndGo(url) {
     const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
     sb.auth.getSession().then(({data:{session}}) => {
@@ -207,7 +206,8 @@
     document.querySelectorAll('.expand-hint').forEach(e => e.textContent = 'TAP TO READ ▾');
     if(!isOpen){ exp.classList.add('open'); if(hint) hint.textContent = 'CLOSE ▴'; }
   }
-</script>
+  </script>
+
   <script>
   // XRP News - curated stories, expandable inline
   (function() {
@@ -235,18 +235,24 @@
     `).join('');
   })();
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
   (async function(){
     if(typeof supabase === 'undefined') return;
     const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
     const {data:{session}} = await sb.auth.getSession();
     if(session){
+      // Desktop nav
       const p = document.getElementById('nav-profile-btn');
       const l = document.getElementById('nav-login-btn');
-      const mp = document.getElementById('mob-profile-btn');
       if(p) p.style.display='inline-block';
       if(l) l.style.display='none';
+      // Mobile menu — fixed: was 'nav-login-btn-mob', now 'mob-login-btn'
+      const mp = document.getElementById('mob-profile-btn');
+      const ml = document.getElementById('mob-login-btn');
       if(mp) mp.style.display='block';
+      if(ml) ml.style.display='none';
     }
   })();
   </script>
