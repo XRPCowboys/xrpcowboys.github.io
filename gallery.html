@@ -51,6 +51,8 @@
     @media(min-width:1024px){.gallery-grid{grid-template-columns:repeat(4,1fr);}}
     .photo-card{border-radius:12px;overflow:visible;border:1px solid rgba(201,146,26,0.22);background:#111;cursor:pointer;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.4s,border-color 0.3s;position:relative;}
     .photo-card:hover{transform:scale(1.42);box-shadow:0 28px 56px rgba(0,0,0,0.9),0 0 0 1px rgba(245,208,96,0.2);border-color:rgba(245,208,96,0.75);z-index:20;}
+    /* Disable zoom on touch devices */
+    @media(hover:none){.photo-card:hover{transform:none;box-shadow:none;border-color:rgba(201,146,26,0.22);z-index:auto;}}
     .photo-card .img-wrap{border-radius:12px;overflow:hidden;position:relative;}
     .photo-card img{width:100%;height:auto;max-height:420px;object-fit:contain;object-position:center top;display:block;background:#0a0a0a;transition:transform 0.5s ease,opacity 0.4s;opacity:0;}
     .photo-card img.loaded{opacity:1;}
@@ -91,6 +93,7 @@
     .guest-blur-overlay::after { content:'🔒 Members Only'; position:absolute; inset:0; background:rgba(8,6,2,0.55); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); cursor:pointer; border-radius:12px; }
     .public-preview { max-width:1200px; margin:0 auto; padding:0 2rem 3rem; }
     .public-preview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.5rem; }
+    @media(max-width:480px){ .public-preview-grid { grid-template-columns:1fr; } }
     .public-preview-grid img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:12px; border:1px solid rgba(201,146,26,0.28); display:block; }
     .join-prompt-bar { text-align:center; background:linear-gradient(135deg,rgba(245,208,96,0.08),rgba(74,222,128,0.05)); border:1px solid rgba(201,146,26,0.25); border-radius:12px; padding:1.5rem 2rem; margin-bottom:2rem; }
     .join-prompt-bar p { font-family:'Oswald',sans-serif; font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(232,224,208,0.85); margin-bottom:0.75rem; }
@@ -133,7 +136,9 @@
     <div class="page-hero-rule"></div>
     <p class="page-hero-sub">From meetups to milestones — the XRP Cowboys family in the wild.</p>
   </div>
-  <div class="public-preview" id="public-preview" style="display:none;" aria-hidden="true">
+
+  <!-- PUBLIC PREVIEW: shown by default, hidden only if user is a logged-in member -->
+  <div class="public-preview" id="public-preview">
     <p class="section-label" style="text-align:center;">Community Moments</p>
     <h2 class="section-title" style="text-align:center;">The Herd in Action</h2>
     <div class="section-rule" style="margin:0 auto 2rem;"></div>
@@ -148,6 +153,7 @@
     </div>
   </div>
 
+  <!-- MEMBERS GALLERY: hidden by default, shown only after auth confirms login -->
   <div id="members-gallery" style="display:none;">
   <div class="tab-bar">
     <button class="tab-btn active" onclick="showTab('all',event)">All Photos</button>
@@ -212,7 +218,7 @@
       <div><div class="footer-brand">✦ XRPCOWBOYS</div><div class="footer-tagline">Exclusive XRP Community · Est. 2018</div></div>
       <div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="join.html">Join</a><a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a><a href="dispatch.html">Forum</a><a href="contact.html">Contact</a></div>
     </div>
-    <div class="footer-bottom"><p>© 2026 Twin BlockChain Technologies LLC · All Rights Reserved · <a href="https://xrpcowboys.com" style="color:rgba(245,208,96,0.4);text-decoration:none;">xrpcowboys.com</a></p></div>
+    <div class="footer-bottom"><p>© 2026 Twin BlockChain Technologies LLC · All Rights Reserved · <a href="https://xrpcowboys.com" style="color:rgba(245,208,60,0.4);text-decoration:none;">xrpcowboys.com</a></p></div>
   </footer>
   <script>
     const BASE='XRPCowboys_files';
@@ -239,19 +245,33 @@
 
     let currentUser = null;
     const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+
+    // Show guest view immediately — no blank screen on mobile
+    document.getElementById('public-preview').style.display = 'block';
+    document.getElementById('members-gallery').style.display = 'none';
+
+    // Timeout fallback: if Supabase takes >5s, stay on guest view
+    const authTimeout = setTimeout(() => {
+      document.getElementById('public-preview').style.display = 'block';
+      document.getElementById('members-gallery').style.display = 'none';
+    }, 5000);
+
     sb.auth.getSession().then(({data:{session}}) => {
+      clearTimeout(authTimeout);
       if (session) {
         currentUser = session.user;
-        // Member - show full gallery
+        // Member: show full gallery
         document.getElementById('members-gallery').style.display = 'block';
         document.getElementById('public-preview').style.display = 'none';
         populateGrids();
         loadAlbumPhotos('xrplv2026', 'grid-xrplv2026');
         // Update nav
-        const p=document.getElementById('nav-profile-btn');const l=document.getElementById('nav-login-btn');
-        if(p)p.style.display='inline-block';if(l)l.style.display='none';
+        const p=document.getElementById('nav-profile-btn');
+        const l=document.getElementById('nav-login-btn');
+        if(p)p.style.display='inline-block';
+        if(l)l.style.display='none';
       } else {
-        // Guest - show public preview only
+        // Guest: show public preview
         document.getElementById('public-preview').style.display = 'block';
         document.getElementById('members-gallery').style.display = 'none';
       }
