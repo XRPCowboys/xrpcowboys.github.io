@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════
    XRPCOWBOYS — Shared Styles
-   © 2026 Twin BlockChain Technologies LLC
+   © 2018–2026 Twin BlockChain Technologies LLC
    ═══════════════════════════════════════════════ */
 
 /* ── VARIABLES ── */
@@ -324,8 +324,9 @@ body {
 }
 .footer-brand {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 900;
+  letter-spacing: 0.1em;
   background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
