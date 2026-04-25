@@ -187,6 +187,18 @@
     });
   }
   function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+  function checkAuthAndExpand(el){
+    const sb2 = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb2.auth.getSession().then(({data:{session}})=>{
+      if(!session){ window.location.href='login.html'; return; }
+      const exp=el.querySelector('.hot-topic-expand');
+      const hint=el.querySelector('.expand-hint');
+      const isOpen=exp.classList.contains('open');
+      document.querySelectorAll('.hot-topic-expand').forEach(e=>e.classList.remove('open'));
+      document.querySelectorAll('.expand-hint').forEach(e=>e.textContent='TAP TO READ ▾');
+      if(!isOpen){exp.classList.add('open');if(hint)hint.textContent='CLOSE ▴';}
+    });
+  }
   function toggleNews(el){
     const exp = el.querySelector('.hot-topic-expand');
     const hint = el.querySelector('.expand-hint');
@@ -209,16 +221,15 @@
       { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available.' },
     ];
     container.innerHTML = stories.map((s, i) => `
-      <div class="hot-topic-item">
-        <input type="checkbox" id="ht${i}" class="ht-toggle" style="display:none">
-        <label for="ht${i}" class="ht-label">
+      <div class="hot-topic-item" onclick="checkAuthAndExpand(this)">
+        <div class="ht-label">
           <span class="hot-topic-flame">${flames[i % flames.length]}</span>
           <div class="hot-topic-text">
             <div class="tag">${s.source} · ${s.date}</div>
             <strong>${s.title}</strong>
           </div>
           <span class="expand-hint">TAP TO READ ▾</span>
-        </label>
+        </div>
         <div class="hot-topic-expand">${s.summary}</div>
       </div>
     `).join('');
