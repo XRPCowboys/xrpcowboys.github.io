@@ -93,6 +93,7 @@
           <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
           <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
           <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+          <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
         </ul>
         <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
       </div>
@@ -183,15 +184,22 @@
       const p = document.getElementById('nav-profile-btn');
       const l = document.getElementById('nav-login-btn');
       const j = document.getElementById('nav-join-btn');
+      const lo = document.getElementById('nav-logout-btn');
       const mp = document.getElementById('mob-profile-btn');
       const ml = document.getElementById('mob-login-btn');
       if(p) p.style.display='inline-block';
       if(l) l.style.display='none';
       if(j) j.style.display='none';
+      if(lo) lo.style.display='inline-block';
       if(mp) mp.style.display='block';
       if(ml) ml.style.display='none';
     }
   })();
+  function handleLogout(e){
+    e.preventDefault();
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.signOut().then(()=>{ window.location.href='index.html'; });
+  }
   </script>
 </body>
 </html>
