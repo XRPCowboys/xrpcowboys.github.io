@@ -66,6 +66,7 @@
       .contact-item a { font-size: 0.78rem; }
     }
   </style>
+<script src="shared.js"></script>
 </head>
 <body>
 <div class="parallax-bg"></div>
@@ -82,7 +83,7 @@
         <li><a href="contact.html" class="active">Contact</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-        <li><a href="join.html" class="nav-join-btn">Join</a></li>
+        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
       </ul>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -96,7 +97,7 @@
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
       <a href="login.html" onclick="toggleMenu()">✦ Member Login</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
     </div>
   </nav>
 
