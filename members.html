@@ -59,6 +59,7 @@
       .member-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
     }
   </style>
+<script src="shared.js"></script>
 </head>
 <body>
 <div class="hero-bg"></div>
@@ -72,7 +73,9 @@
       <li><a href="members.html" class="active">The Posse</a></li>
       <li><a href="forum.html">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn">My Profile</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
     </ul>
     <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
@@ -81,9 +84,11 @@
     <a href="forum.html" onclick="toggleMenu()">The Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="members.html" onclick="toggleMenu()">The Posse</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
-    <a href="profile.html" onclick="toggleMenu()">My Profile</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">✦ Member Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
   </div>
 </nav>
 
