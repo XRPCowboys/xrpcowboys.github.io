@@ -38,9 +38,7 @@
     if (navJoin) {
       navJoin.textContent = 'Log Out';
       navJoin.href = '#';
-      navJoin.style.background = 'linear-gradient(135deg,#f5d060,#c9921a)';
-      navJoin.style.color = '#080808';
-      navJoin.style.border = 'none';
+      navJoin.setAttribute('style', 'background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px!important;border-radius:999px!important;font-family:Oswald,sans-serif!important;font-size:0.72rem!important;font-weight:600!important;letter-spacing:0.15em!important;text-transform:uppercase!important;text-decoration:none!important;border:none!important;cursor:pointer!important;');
       navJoin.onclick = function(e) {
         e.preventDefault();
         sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
