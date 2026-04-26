@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forum | XRPCOWBOYS</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #f5d060; --gold-dim: #c9921a; --gold-dark: #a06e10;
+      --green: #4ade80; --cream: #e8e0d0; --bg: #080808;
+      --border: rgba(201,146,26,0.28);
+      --card-bg: rgba(22,16,6,0.78); --card-border: rgba(201,168,76,0.25);
+      --text: #f0e8d5; --muted: rgba(232,224,208,0.82);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+    .hero-bg { position: fixed; inset: 0; z-index: 0; background: url('XRPCowboys_files/background picture.jpg') center center / cover no-repeat; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,8,4,0.35) 0%, rgba(10,8,4,0.28) 40%, rgba(10,8,4,0.50) 80%, rgba(10,8,4,0.72) 100%); }
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(14,10,3,0.90); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; letter-spacing: 0.1em; background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.97); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-login-btn { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.95) !important; border: 1px solid rgba(180,150,60,0.4); padding: 0.45rem 1.1rem; border-radius: 999px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .nav-login-btn:hover { border-color: var(--gold); color: var(--gold) !important; }
+    .nav-join-btn { background: linear-gradient(135deg, #f5d060, #c9921a) !important; color: #080808 !important; padding: 6px 18px; border-radius: 999px; font-weight: 600 !important; font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); border-radius: 2px; }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(14,10,3,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem; gap: 1rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.95); text-decoration: none; }
+    .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
+    .page-wrap { position: relative; z-index: 10; }
+    .page-header { text-align: center; padding: 4rem 1.5rem 2.5rem; }
+    .page-header .eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 900; line-height: 1; letter-spacing: 0.04em; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-header .sub { margin-top: 0.9rem; color: rgba(232,224,208,0.80); font-size: 1rem; font-style: italic; }
+    .content { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .forum-intro { background: rgba(22,16,6,0.72); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold-dim); border-radius: 4px; padding: 1.5rem 1.75rem; margin-bottom: 2.5rem; backdrop-filter: blur(8px); }
+    .forum-intro p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.05rem; line-height: 1.8; color: rgba(232,224,208,0.97); }
+    .section-label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.4rem; }
+    .section-label h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
+    .section-label .line { flex: 1; height: 1px; background: var(--card-border); }
+    .hot-topics { margin-bottom: 2.5rem; }
+    .hot-topic-item { background: rgba(22,16,6,0.78); border: 1px solid var(--card-border); border-left: 3px solid var(--gold-dim); backdrop-filter: blur(8px); margin-bottom: 0.6rem; border-radius: 2px; overflow: hidden; transition: border-color 0.2s; }
+    .hot-topic-item:hover { border-left-color: var(--gold); }
+    .ht-label { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; width: 100%; }
+    .ht-label:hover { background: rgba(201,168,76,0.08); }
+    .hot-topic-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 0.92rem; line-height: 1.65; color: rgba(232,224,208,0.90); padding: 0 1.2rem; }
+    .hot-topic-expand.open { max-height: 200px; padding: 0.6rem 1.2rem 1rem 3.5rem; }
+    .expand-hint { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.45); margin-left: auto; padding-top: 3px; flex-shrink: 0; }
+    .hot-topic-flame { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .hot-topic-text .tag { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
+    .hot-topic-text strong { font-size: 0.95rem; font-weight: 600; color: #fff; line-height: 1.35; display: block; }
+    .featured-box { background: rgba(22,16,6,0.78); border: 1px solid var(--gold-dim); backdrop-filter: blur(12px); border-radius: 3px; overflow: hidden; margin-bottom: 3rem; box-shadow: 0 8px 48px rgba(0,0,0,0.5); text-decoration: none; display: block; transition: transform 0.2s, box-shadow 0.2s; }
+    .featured-box:hover { transform: translateY(-2px); box-shadow: 0 12px 56px rgba(0,0,0,0.6); }
+    .featured-box-inner { padding: 2rem 2.2rem; }
+    .featured-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; font-family: 'Oswald', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 999px; margin-bottom: 1.2rem; }
+    .featured-box h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 0.8rem; }
+    .featured-box h2 em { color: var(--gold); font-style: italic; }
+    .featured-box p { color: rgba(232,224,208,0.80); font-size: 0.95rem; line-height: 1.65; margin-bottom: 1.4rem; }
+    .featured-meta { display: flex; flex-wrap: wrap; gap: 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.75rem; color: rgba(232,224,208,0.80); letter-spacing: 0.06em; border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 0.5rem; }
+    .featured-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .read-more { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--gold); font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
+    .articles-grid { display: grid; gap: 1px; border: 1px solid var(--card-border); background: var(--card-border); border-radius: 3px; overflow: hidden; margin-bottom: 3rem; }
+    .article-card { background: rgba(22,16,6,0.78); backdrop-filter: blur(8px); padding: 1.4rem 1.6rem; text-decoration: none; display: block; transition: background 0.18s; }
+    .article-card:hover { background: rgba(201,168,76,0.07); }
+    .article-card .tag { font-family: 'Oswald', sans-serif; font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.4rem; }
+    .article-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.45rem; }
+    .article-card p { font-size: 0.85rem; color: rgba(232,224,208,0.80); line-height: 1.55; margin-bottom: 0.6rem; }
+    .article-card .meta { font-family: 'Oswald', sans-serif; font-size: 0.72rem; color: rgba(232,224,208,0.75); letter-spacing: 0.05em; }
+    .cards-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 3rem; position: relative; z-index: 10; }
+    .cards-grid-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 2.5rem; }
+    @media(max-width:640px){ .cards-grid-inner { grid-template-columns: 1fr; } }
+    .feature-card { background: rgba(201,146,26,0.06); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s, background 0.3s; backdrop-filter: blur(6px); }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(180,150,60,0.32); background: rgba(201,146,26,0.09); }
+    .feature-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .feature-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.88rem; font-weight: 300; line-height: 1.65; color: rgba(232,224,208,0.92); }
+    .threads-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; position: relative; z-index: 10; }
+    .thread-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--card-border); border-radius: 4px; overflow: hidden; margin-bottom: 1.25rem; }
+    .thread-row { display: flex; align-items: center; justify-content: space-between; background: rgba(22,16,6,0.78); backdrop-filter: blur(8px); padding: 1rem 1.4rem; border-bottom: 1px solid rgba(201,168,76,0.12); text-decoration: none; transition: background 0.18s; gap: 1rem; }
+    .thread-row:last-child { border-bottom: none; }
+    .thread-row:hover { background: rgba(201,168,76,0.07); }
+    .thread-num { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(245,208,96,0.3); min-width: 20px; flex-shrink: 0; }
+    .thread-body { flex: 1; min-width: 0; }
+    .thread-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 0.25rem; }
+    .thread-meta { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,224,208,0.55); }
+    .thread-meta span { color: rgba(245,208,96,0.6); }
+    .thread-lock { font-size: 0.8rem; color: rgba(245,208,96,0.3); flex-shrink: 0; }
+    .thread-login-note { text-align: center; background: rgba(245,208,96,0.05); border: 1px solid rgba(245,208,96,0.15); border-radius: 8px; padding: 1rem 1.5rem; font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,224,208,0.70); }
+    .thread-login-note a { color: var(--gold); text-decoration: none; }
+    .thread-login-note a:hover { text-decoration: underline; }
+    footer { position: relative; z-index: 10; background: rgba(14,10,3,0.88); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; backdrop-filter: blur(8px); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+    .footer-tagline { font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.90); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.85); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center; }
+    .footer-bottom p { font-family: 'Oswald', sans-serif; font-size: 0.65rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,224,208,0.85); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-bg { background-size: 400% auto; background-position: 40% top; background-attachment: scroll; }
+      .featured-box-inner { padding: 1.4rem 1.2rem; }
+      .page-header { padding: 2.5rem 1rem 1.5rem; }
+      .content { padding: 0 1rem 4rem; }
+      .cards-section { padding: 0 1rem 2rem; }
+      .threads-section { padding: 0 1rem 3rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-bg { background-size: 500% auto; background-position: 35% top; background-attachment: scroll; }
+    }
+
+    .thread-row { cursor: pointer; }
+    .thread-expand { display: none; padding: 1rem 1.4rem 1.2rem; background: rgba(10,8,2,0.6); border-top: 1px solid rgba(201,168,76,0.15); }
+    .thread-expand.open { display: block; }
+    .thread-expand > p { color: rgba(232,224,208,0.85); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+    .thread-replies { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+    .reply { background: rgba(201,168,76,0.05); border-left: 2px solid rgba(201,168,76,0.3); padding: 0.6rem 0.9rem; border-radius: 2px; }
+    .reply p { color: rgba(232,224,208,0.8); font-size: 0.88rem; margin-top: 0.2rem; }
+    .reply-handle { color: #f5c842; font-size: 0.82rem; font-weight: 700; }
+    .reply-time { color: rgba(232,224,208,0.4); font-size: 0.78rem; margin-left: 0.5rem; }
+    .reply-box { display: flex; gap: 0.6rem; align-items: flex-start; margin-top: 0.5rem; }
+    .reply-box textarea { flex: 1; background: rgba(22,16,6,0.8); border: 1px solid rgba(201,168,76,0.2); color: #e8e0d0; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.88rem; resize: none; height: 60px; }
+    .reply-box button { background: linear-gradient(135deg,#c9921a,#4ade80); color: #000; font-weight: 700; font-size: 0.8rem; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared.js"></script>
+</head>
+<body>
+  <div class="hero-bg"></div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="forum.html">The Corral</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">The Posse</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="forum.html" onclick="toggleMenu()">The Corral</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <header class="page-header">
+      <p class="eyebrow">XRP News · Hot Topics · Community</p>
+      <h1>THE CORRAL</h1>
+      <p class="sub">Breaking news, hot takes, and deep dives from inside the XRP ecosystem — curated by XRPCowboys.</p>
+    </header>
+
+    <div class="content">
+      <div class="forum-intro">
+        <p>The Official Discussion Forum of XRPCowboys. Welcome to the Horsepower Wire — our private, members-only discussion forum dedicated to the XRP Ledger and its growing ecosystem. Here, verified members discuss technology updates, regulatory developments, real-world adoption, upcoming events, and everything else happening in the XRP community.</p>
+        <p style="margin-top:1rem;font-size:0.92rem;color:rgba(232,224,208,0.75);font-style:italic;">Horsepower Wire is the private discussion forum of XRPCowboys — a members-only online community for transmission of messages and discussions among XRP Ledger participants.</p>
+      </div>
+
+      <div class="section-label"><h2>🔥 Hot Topics</h2><div class="line"></div></div>
+      <div class="hot-topics" id="live-news">
+        <div class="hot-topic-item"><span class="hot-topic-flame">⏳</span><div class="hot-topic-text"><div class="tag">Loading live XRP news...</div><strong>Fetching latest stories from the wire...</strong></div></div>
+      </div>
+      <div class="section-label" style="margin-top:0.5rem;"><h2>📌 Pinned</h2><div class="line"></div></div>
+      <div class="hot-topics">
+        <a href="#" onclick="checkAndGo('vegas_article.html')" class="hot-topic-item"><span class="hot-topic-flame">🔥</span><div class="hot-topic-text"><div class="tag">Las Vegas 2026 · Featured</div><strong>Vegas Baby — XRP Takes The Strip</strong></div></a>
+      </div>
+      <div class="section-label"><h2>📌 Featured Story</h2><div class="line"></div></div>
+      <a href="#" onclick="checkAndGo('vegas_article.html')" class="featured-box">
+        <div class="featured-box-inner">
+          <div class="featured-badge">🔥 Las Vegas 2026</div>
+          <h2>Vegas Baby — <em>XRP Takes The Strip</em></h2>
+          <p>The XRP community descends on Las Vegas April 29–May 1 for the biggest XRP event in the world. Ripple leadership, institutional moves, community bonds, and announcements that could change everything. Don't miss a word of it.</p>
+          <span class="read-more">Read Full Story →</span>
+          <div class="featured-meta">
+            <span>📅 April 18, 2026</span>
+            <span>✍️ XRPCowboys Editorial</span>
+            <span>📍 Las Vegas, NV</span>
+          </div>
+        </div>
+      </a>
+      <div class="section-label"><h2>📰 Latest from the Herd</h2><div class="line"></div></div>
+      <div class="articles-grid">
+        <a href="#" onclick="checkAndGo('article_xrp_institutional_2026.html')" class="article-card"><div class="tag">Ecosystem News</div><h3>XRP Surges as Ripple Eyes Institutional Expansion in 2026</h3><p>Ripple continues its push into institutional corridors as XRP ledger adoption accelerates — new partnerships, new corridors, and a market watching every move.</p><div class="meta">April 2026 · XRPCowboys Staff</div></a>
+        <a href="#" onclick="checkAndGo('article_ripple_payment_corridors.html')" class="article-card"><div class="tag">Ecosystem News</div><h3>Ripple's Expanding Payment Corridors — What It Means for XRP Holders</h3><p>New banking partnerships expand XRP-powered payment corridors across Southeast Asia and the Middle East, opening significant new volume channels.</p><div class="meta">April 2026 · XRPCowboys Editorial</div></a>
+        <a href="#" onclick="checkAndGo('article_xrpl_amm_deep_dive.html')" class="article-card"><div class="tag">XRP Ledger Tech</div><h3>AMM Updates on the XRPL — A Deep Dive</h3><p>The Automated Market Maker protocol is live on the XRP Ledger. We break down what it means for liquidity, DeFi, and long-term holders.</p><div class="meta">March 2026 · Tech Desk · Members Only</div></a>
+        <a href="#" onclick="checkAndGo('article_xrp_post_sec_clarity.html')" class="article-card"><div class="tag">Regulation</div><h3>Post-SEC Clarity: Where Does XRP Stand Legally?</h3><p>With the SEC case largely resolved, we examine the regulatory landscape for XRP globally and what it means for institutional adoption going forward.</p><div class="meta">March 2026 · XRPCowboys Editorial · Members Only</div></a>
+        <a href="#" onclick="checkAndGo('article_xrp_lv_2025_recap.html')" class="article-card"><div class="tag">Community</div><h3>XRP Las Vegas 2025 Recap — Cowboys in the Desert</h3><p>Our crew showed up deep to XRP Las Vegas 2025. Full recap of panels, meetups, and the most memorable moments of the year.</p><div class="meta">February 2026 · Community Desk · Members Only</div></a>
+        <a href="#" onclick="checkAndGo('article_xrpl_evm_sidechain.html')" class="article-card"><div class="tag">XRP Ledger Tech</div><h3>XRPL Smart Contracts &amp; the EVM Sidechain Explained</h3><p>The EVM-compatible sidechain opens up a new world for XRPL developers. Everything explained in plain English for holders and builders alike.</p><div class="meta">January 2026 · Tech Desk · Members Only</div></a>
+        <a href="#" onclick="checkAndGo('article_xrp_price_analysis_2026.html')" class="article-card"><div class="tag">Market</div><h3>XRP Price Analysis — Key Levels to Watch</h3><p>Our member analysts break down current XRP price action, support and resistance levels, and on-chain data pointing to what comes next.</p><div class="meta">April 2026 · Market Desk · Members Only</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Cards Section -->
+  <div class="cards-section">
+    <div class="section-label"><h2>✦ What We Offer</h2><div class="line"></div></div>
+    <div class="cards-grid-inner">
+      <div class="feature-card"><div class="feature-card-icon">&#9741;</div><h4>XRP Ledger Technology</h4><p>Discussions about protocol upgrades, AMMs, sidechains, and technical developments.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9883;</div><h4>Ecosystem News &amp; Adoption</h4><p>Latest news on XRP partnerships, bank integrations, and real-world use cases.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9733;</div><h4>Member Introductions &amp; Networking</h4><p>Introduce yourself and connect with other serious XRP participants.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9820;</div><h4>Events &amp; Meetups</h4><p>Conference recaps, cowboy hat photos, and upcoming in-person gatherings.</p></div>
+      <div class="feature-card"><div class="feature-card-icon">&#9784;</div><h4>Governance &amp; Community Proposals</h4><p>Discussion and voting on community initiatives.</p></div>
+    </div>
+  </div>
+
+  <!-- Latest Discussions -->
+  <div class="threads-section">
+    <div class="section-label"><h2>💬 Latest Discussions</h2><div class="line"></div></div>
+    <div class="thread-list">
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">01</div>
+        <div class="thread-body">
+          <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 2 hours ago</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>The XRPL AMM update introduced new fee tier options and improved slippage handling. Several members have been testing the new liquidity pools — share your experience and questions here.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@CowboyRider</span> <span class="reply-time">2 hours ago</span><p>Fees are noticeably lower on the new pools. Great update.</p></div>
+            <div class="reply"><span class="reply-handle">@XRPWrangler</span> <span class="reply-time">1 hour ago</span><p>Anyone else seeing better slippage on the RLUSD pair?</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">02</div>
+        <div class="thread-body">
+          <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · Yesterday</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Who was at Miami Blockchain Week? Drop your photos, highlights, and best moments from the event. Cowboys represent!</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@DesertRider</span> <span class="reply-time">Yesterday</span><p>What a week. The XRP panel was standing room only.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">03</div>
+        <div class="thread-body">
+          <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 3 days ago</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Post-SEC clarity has opened new doors, but what's next for XRP globally? EU MiCA, Asia-Pacific frameworks, and US stablecoin legislation all in play. Discuss.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@LedgerLaw</span> <span class="reply-time">3 days ago</span><p>MiCA compliance is going to be key for European adoption this year.</p></div>
+            <div class="reply"><span class="reply-handle">@XRPCowboy</span> <span class="reply-time">2 days ago</span><p>Agreed. The US framework is finally catching up too.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">04</div>
+        <div class="thread-body">
+          <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 5 days ago</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Roll call for the next XRPL Developer Conference. Who's going? Let's coordinate meetups and share travel tips for fellow Cowboys.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@BlockchainBuck</span> <span class="reply-time">5 days ago</span><p>I'll be there. Anyone else flying in from Texas?</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">05</div>
+        <div class="thread-body">
+          <div class="thread-title">Horsepower Wire Member Spotlight – Share Your Story</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 1 week ago</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>How did you find XRP and XRPCowboys? Share your story — when you got in, what keeps you here, and what you're watching for next.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@SaddleUp</span> <span class="reply-time">1 week ago</span><p>Found XRP in 2017, found the Cowboys in 2022. Best community in crypto, period.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
+        <div class="thread-num">06</div>
+        <div class="thread-body">
+          <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
+          <div class="thread-meta">Last post by <span>[Member]</span> · 2 weeks ago</div>
+        </div>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Let's settle this — where's the best place to rep the cowboy hat at a crypto conference? Panels, parties, or the hotel bar? 🤠</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@HatTrick</span> <span class="reply-time">2 weeks ago</span><p>Anywhere and everywhere. Never take it off.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="thread-login-note">
+      <a href="login.html">Login</a> or <a href="join.html">apply for membership</a> to post replies and start new threads.
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">&#10022; XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="join.html">Join</a>
+        <a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a>
+        <a href="forum.html">Forum</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p>
+    </div>
+  </footer>
+
+  <script>
+
+  function expandThread(el) {
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (!session) { window.location.href = 'login.html'; return; }
+      const exp = el.querySelector('.thread-expand');
+      const lock = el.querySelector('.thread-lock');
+      const isOpen = exp.classList.contains('open');
+      document.querySelectorAll('.thread-expand').forEach(e => e.classList.remove('open'));
+      document.querySelectorAll('.thread-lock').forEach(e => e.textContent = '▾');
+      if (!isOpen) { exp.classList.add('open'); if(lock) lock.textContent = '▴'; }
+    });
+  }
+  function checkAndGo(url) {
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.getSession().then(({data:{session}}) => {
+      window.location.href = session ? url : 'login.html';
+    });
+  }
+  function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+  function checkAuthAndExpand(el){
+    const sb2 = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb2.auth.getSession().then(({data:{session}})=>{
+      if(!session){ window.location.href='login.html'; return; }
+      const exp=el.querySelector('.hot-topic-expand');
+      const hint=el.querySelector('.expand-hint');
+      const isOpen=exp.classList.contains('open');
+      document.querySelectorAll('.hot-topic-expand').forEach(e=>e.classList.remove('open'));
+      document.querySelectorAll('.expand-hint').forEach(e=>e.textContent='TAP TO READ ▾');
+      if(!isOpen){exp.classList.add('open');if(hint)hint.textContent='CLOSE ▴';}
+    });
+  }
+  function toggleNews(el){
+    const exp = el.querySelector('.hot-topic-expand');
+    const hint = el.querySelector('.expand-hint');
+    const isOpen = exp.classList.contains('open');
+    document.querySelectorAll('.hot-topic-expand').forEach(e => e.classList.remove('open'));
+    document.querySelectorAll('.expand-hint').forEach(e => e.textContent = 'TAP TO READ ▾');
+    if(!isOpen){ exp.classList.add('open'); if(hint) hint.textContent = 'CLOSE ▴'; }
+  }
+  </script>
+
+  <script>
+  (function() {
+    const container = document.getElementById('live-news');
+    const flames = ['🔥','⚡','📡','🚀','💥'];
+    const stories = [
+      { title: 'XRP breaks key resistance — analysts watch critical price levels', source: 'Market Watch', date: 'Today', summary: 'XRP has broken above a key technical resistance level watched closely by the community. On-chain data shows rising transaction volume and exchange outflows suggesting holders are accumulating. The next resistance level is being closely monitored.' },
+      { title: 'Ripple continues institutional expansion as XRP Ledger adoption accelerates', source: 'Ecosystem News', date: 'Today', summary: "Ripple's On-Demand Liquidity corridors continue expanding across Southeast Asia, the Middle East, and Europe. Several major financial institutions have completed XRP pilot programs and are moving toward full deployment, driving real utility and volume through the XRPL." },
+      { title: 'Post-SEC clarity: XRP regulatory landscape opens new doors for institutions', source: 'Regulation', date: 'This Week', summary: 'With the SEC litigation largely resolved, exchanges have relisted XRP and institutional players are actively building XRP-powered products. Legal clarity has aligned the US framework more closely with global norms.' },
+      { title: 'XRP Las Vegas 2026 — the biggest XRP event of the year kicks off April 30', source: 'Community', date: 'This Week', summary: "The XRP community descends on Las Vegas April 30–May 1. XRPCowboys will have a strong presence throughout. Ripple leadership, institutional announcements, and community side events — don't miss it." },
+      { title: 'XRPL AMM update: new liquidity pools go live, volume surges', source: 'XRP Ledger Tech', date: 'This Week', summary: 'The Automated Market Maker protocol on the XRP Ledger is seeing strong adoption with new liquidity pools coming online. Trading volume through AMM pools has surged as more token pairs become available.' },
+    ];
+    container.innerHTML = stories.map((s, i) => `
+      <div class="hot-topic-item" onclick="checkAuthAndExpand(this)">
+        <div class="ht-label">
+          <span class="hot-topic-flame">${flames[i % flames.length]}</span>
+          <div class="hot-topic-text">
+            <div class="tag">${s.source} · ${s.date}</div>
+            <strong>${s.title}</strong>
+          </div>
+          <span class="expand-hint">TAP TO READ ▾</span>
+        </div>
+        <div class="hot-topic-expand">${s.summary}</div>
+      </div>
+    `).join('');
+  })();
+  </script>
+</body>
+</html>
