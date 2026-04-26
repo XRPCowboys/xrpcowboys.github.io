@@ -121,6 +121,7 @@ async function init(){
           </div>
           ${profile.bio?`<p class="profile-bio">${esc(profile.bio)}</p>`:''}
           ${profile.xrp_wallet?`<div class="wallet-box">💳 ${esc(profile.xrp_wallet)}</div>`:''}
+          <a href="messages.html?to=${userId}" style="display:inline-block;margin-top:1rem;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.6rem 1.5rem;border-radius:999px;text-decoration:none;">✉ Send Message</a>
         </div>
       </div>
     </div>
