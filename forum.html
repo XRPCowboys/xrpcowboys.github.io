@@ -116,6 +116,19 @@
     @media (max-width: 480px) {
       .hero-bg { background-size: 500% auto; background-position: 35% top; background-attachment: scroll; }
     }
+
+    .thread-row { cursor: pointer; }
+    .thread-expand { display: none; padding: 1rem 1.4rem 1.2rem; background: rgba(10,8,2,0.6); border-top: 1px solid rgba(201,168,76,0.15); }
+    .thread-expand.open { display: block; }
+    .thread-expand > p { color: rgba(232,224,208,0.85); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+    .thread-replies { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+    .reply { background: rgba(201,168,76,0.05); border-left: 2px solid rgba(201,168,76,0.3); padding: 0.6rem 0.9rem; border-radius: 2px; }
+    .reply p { color: rgba(232,224,208,0.8); font-size: 0.88rem; margin-top: 0.2rem; }
+    .reply-handle { color: #f5c842; font-size: 0.82rem; font-weight: 700; }
+    .reply-time { color: rgba(232,224,208,0.4); font-size: 0.78rem; margin-left: 0.5rem; }
+    .reply-box { display: flex; gap: 0.6rem; align-items: flex-start; margin-top: 0.5rem; }
+    .reply-box textarea { flex: 1; background: rgba(22,16,6,0.8); border: 1px solid rgba(201,168,76,0.2); color: #e8e0d0; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.88rem; resize: none; height: 60px; }
+    .reply-box button { background: linear-gradient(135deg,#c9921a,#4ade80); color: #000; font-weight: 700; font-size: 0.8rem; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="shared.js"></script>
@@ -129,7 +142,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="forum.html">The Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="dispatch.html">Forum</a></li>
+        <li><a href="forum.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
@@ -143,7 +156,7 @@
       <a href="about.html" onclick="toggleMenu()">About</a>
       <a href="forum.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
       <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
@@ -215,54 +228,105 @@
   <div class="threads-section">
     <div class="section-label"><h2>💬 Latest Discussions</h2><div class="line"></div></div>
     <div class="thread-list">
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">01</div>
         <div class="thread-body">
           <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · 2 hours ago</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>The XRPL AMM update introduced new fee tier options and improved slippage handling. Several members have been testing the new liquidity pools — share your experience and questions here.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@CowboyRider</span> <span class="reply-time">2 hours ago</span><p>Fees are noticeably lower on the new pools. Great update.</p></div>
+            <div class="reply"><span class="reply-handle">@XRPWrangler</span> <span class="reply-time">1 hour ago</span><p>Anyone else seeing better slippage on the RLUSD pair?</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">02</div>
         <div class="thread-body">
           <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · Yesterday</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Who was at Miami Blockchain Week? Drop your photos, highlights, and best moments from the event. Cowboys represent!</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@DesertRider</span> <span class="reply-time">Yesterday</span><p>What a week. The XRP panel was standing room only.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">03</div>
         <div class="thread-body">
           <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · 3 days ago</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Post-SEC clarity has opened new doors, but what's next for XRP globally? EU MiCA, Asia-Pacific frameworks, and US stablecoin legislation all in play. Discuss.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@LedgerLaw</span> <span class="reply-time">3 days ago</span><p>MiCA compliance is going to be key for European adoption this year.</p></div>
+            <div class="reply"><span class="reply-handle">@XRPCowboy</span> <span class="reply-time">2 days ago</span><p>Agreed. The US framework is finally catching up too.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">04</div>
         <div class="thread-body">
           <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · 5 days ago</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Roll call for the next XRPL Developer Conference. Who's going? Let's coordinate meetups and share travel tips for fellow Cowboys.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@BlockchainBuck</span> <span class="reply-time">5 days ago</span><p>I'll be there. Anyone else flying in from Texas?</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">05</div>
         <div class="thread-body">
           <div class="thread-title">Horsepower Wire Member Spotlight – Share Your Story</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · 1 week ago</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
-      <a href="#" onclick="checkAndGo('dispatch.html')" class="thread-row">
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>How did you find XRP and XRPCowboys? Share your story — when you got in, what keeps you here, and what you're watching for next.</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@SaddleUp</span> <span class="reply-time">1 week ago</span><p>Found XRP in 2017, found the Cowboys in 2022. Best community in crypto, period.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
+      <div class="thread-row" onclick="expandThread(this)">
         <div class="thread-num">06</div>
         <div class="thread-body">
           <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
           <div class="thread-meta">Last post by <span>[Member]</span> · 2 weeks ago</div>
         </div>
-        <div class="thread-lock">🔒</div>
-      </a>
+        <div class="thread-lock">▾</div>
+        <div class="thread-expand">
+          <p>Let's settle this — where's the best place to rep the cowboy hat at a crypto conference? Panels, parties, or the hotel bar? 🤠</p>
+          <div class="thread-replies">
+            <div class="reply"><span class="reply-handle">@HatTrick</span> <span class="reply-time">2 weeks ago</span><p>Anywhere and everywhere. Never take it off.</p></div>
+          </div>
+          <div class="reply-box"><textarea placeholder="Add your reply... (members only)"></textarea><button onclick="checkAndGo('forum.html')">Post Reply ✦</button></div>
+        </div>
+      </div>
+
     </div>
     <div class="thread-login-note">
       <a href="login.html">Login</a> or <a href="join.html">apply for membership</a> to post replies and start new threads.
@@ -278,7 +342,7 @@
       <div class="footer-links">
         <a href="index.html">Home</a><a href="about.html">About</a><a href="join.html">Join</a>
         <a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a>
-        <a href="dispatch.html">Forum</a><a href="contact.html">Contact</a>
+        <a href="forum.html">Forum</a><a href="contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -287,6 +351,19 @@
   </footer>
 
   <script>
+
+  function expandThread(el) {
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (!session) { window.location.href = 'login.html'; return; }
+      const exp = el.querySelector('.thread-expand');
+      const lock = el.querySelector('.thread-lock');
+      const isOpen = exp.classList.contains('open');
+      document.querySelectorAll('.thread-expand').forEach(e => e.classList.remove('open'));
+      document.querySelectorAll('.thread-lock').forEach(e => e.textContent = '▾');
+      if (!isOpen) { exp.classList.add('open'); if(lock) lock.textContent = '▴'; }
+    });
+  }
   function checkAndGo(url) {
     const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
     sb.auth.getSession().then(({data:{session}}) => {
