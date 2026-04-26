@@ -87,6 +87,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .hpw-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.8rem; }
 .hpw-label { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); }
 .hpw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+.hpw-title:hover { color: var(--gold-dim); }
 .hpw-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 1.4s ease-in-out infinite; flex-shrink: 0; }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
 .hpw-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(180,150,60,0.3), transparent); }
@@ -172,7 +173,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
     <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
-      <li><a href="https://xrpcowboys.com/dispatch.html">The Corral</a></li>
+      <li><a href="dispatch.html">The Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="members.html">The Posse</a></li>
       <li><a href="forum.html">Forum</a></li>
@@ -187,9 +188,10 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="https://xrpcowboys.com/dispatch.html" onclick="toggleMenu()">The Corral</a>
+    <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+    <a href="members.html" onclick="toggleMenu()">The Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
     <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
@@ -295,8 +297,10 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
     <div class="hpw-header">
       <div class="hpw-pulse"></div>
       <div>
-        <p class="hpw-label">Latest XRP News</p>
-        <h2 class="hpw-title">HorsePower Wire</h2>
+        <a href="dispatch.html" style="text-decoration:none; display:block;">
+          <p class="hpw-label" style="font-size:1rem; letter-spacing:0.25em;">Latest XRP News</p>
+          <h2 class="hpw-title" style="font-size:2.4rem;">HorsePower Wire →</h2>
+        </a>
       </div>
       <div class="hpw-rule"></div>
     </div>
@@ -325,21 +329,21 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 
 <div class="forum-preview">
   <div class="forum-inner">
-    <p class="section-label">Community</p>
+    <a href="forum.html" class="section-label" style="text-decoration:none;display:block;">Community</a>
     <h2 class="section-title">Latest Discussions</h2>
     <div class="section-rule"></div>
     <div class="forum-threads">
-      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">XRP Ledger Tech</span><span class="thread-title">AMM liquidity pools — what every holder should know</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Ecosystem News</span><span class="thread-title">Ripple vs SEC — final settlement breakdown</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Member Intros</span><span class="thread-title">New here — been holding since 2017, happy to be in</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Governance</span><span class="thread-title">Community vote: expanding the HorsePower Wire</span></div><span class="thread-lock">&#128274;</span></a>
+      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">XRP Ledger Tech</span><span class="thread-title">AMM liquidity pools — what every holder should know</span></div><span class="thread-lock">&#128274;</span></a>
+      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Ecosystem News</span><span class="thread-title">Ripple vs SEC — final settlement breakdown</span></div><span class="thread-lock">&#128274;</span></a>
+      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Member Intros</span><span class="thread-title">New here — been holding since 2017, happy to be in</span></div><span class="thread-lock">&#128274;</span></a>
+      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Governance</span><span class="thread-title">Community vote: expanding the HorsePower Wire</span></div><span class="thread-lock">&#128274;</span></a>
     </div>
   </div>
 </div>
 
 <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem 5rem;">
-  <p class="section-label" style="text-align:center;">Community Moments</p>
-  <h2 class="section-title" style="text-align:center;">The Herd in Action</h2>
+  <a href="gallery.html" class="section-label" style="text-align:center;text-decoration:none;display:block;">Community Moments</a>
+  <h2 class="section-title" style="text-align:center;">The Posse in Action</h2>
   <div class="section-rule" style="margin:0 auto 2.5rem;"></div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
     <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(201,146,26,0.28);aspect-ratio:4/3;">
@@ -375,7 +379,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="join.html">Join</a>
-      <a href="https://xrpcowboys.com/dispatch.html">The Corral</a>
+      <a href="dispatch.html">The Corral</a>
       <a href="gallery.html">Gallery</a>
       <a href="forum.html">Forum</a>
       <a href="contact.html">Contact</a>
@@ -429,6 +433,31 @@ function toggleMenu() {
       document.getElementById('hpwExcerpt').textContent = data.excerpt || '';
       document.getElementById('hpwAuthor').textContent = data.author || 'XRPCowboys Staff';
       document.getElementById('hpwDate').textContent = data.date || '';
+    }
+  } catch(e) {}
+})();
+
+// Auth check
+(async function(){
+  try {
+    const sb = supabase.createClient(
+      "https://fbngrpissakvjelrcfaf.supabase.co",
+      "sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU"
+    );
+    const {data:{session}} = await sb.auth.getSession();
+    if (session) {
+      const p = document.getElementById('nav-profile-btn');
+      const l = document.getElementById('nav-login-btn');
+      const j = document.getElementById('nav-join-btn');
+      const mp = document.getElementById('mob-profile-btn');
+      const ml = document.getElementById('mob-login-btn');
+      const mj = document.getElementById('mob-join-btn');
+      if(p) p.style.display='inline-block';
+      if(l) l.style.display='none';
+      if(j) j.style.display='none';
+      if(mp) mp.style.display='block';
+      if(ml) ml.style.display='none';
+      if(mj) mj.style.display='none';
     }
   } catch(e) {}
 })();
