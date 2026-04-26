@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horse Power Wire | XRPCOWBOYS • Community Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>HorsePower Wire | XRPCOWBOYS • Community Chat</title>
+  <link rel="stylesheet" href="shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root{--gold:#f5d060;--gold-dim:#c9921a;--green:#4ade80;--cream:#e8e0d0;--bg:#080808;--border:rgba(180,150,60,0.15);}
@@ -12,7 +13,7 @@
     body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
     .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
     .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
@@ -62,7 +63,7 @@
     .load-more-btn:hover{border-color:var(--gold);color:var(--gold);}
     .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
     .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
-    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
     .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.75);}
     .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
     .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
@@ -80,9 +81,10 @@
         <li><a href="about.html">About</a></li>
         <li><a href="forum.html">The Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="dispatch.html" class="active">Horse Power Wire</a></li>
+        <li><a href="dispatch.html" class="active">HorsePower Wire</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="login.html" class="nav-login-btn">Login</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
         <li><a href="join.html" class="nav-join-btn">Join</a></li>
       </ul>
       <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -91,14 +93,14 @@
       <a href="about.html" onclick="toggleMenu()">About</a>
       <a href="forum.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Horse Power Wire</a>
+      <a href="dispatch.html" onclick="toggleMenu()">HorsePower Wire</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
       <a href="login.html" onclick="toggleMenu()">Member Login</a>
     </div>
   </nav>
   <div class="page-hero">
     <p class="page-hero-label">Members · Live Community</p>
-    <h1 class="page-hero-title">HORSE POWER WIRE</h1>
+    <h1 class="page-hero-title">HORSEPOWER WIRE</h1>
     <p class="page-hero-sub">The herd speaks here — post anything, anytime. XRP talk, market moves, good vibes. This is your community feed.</p>
   </div>
   <div class="chat-outer">
@@ -114,9 +116,9 @@
   <footer class="footer">
     <div class="footer-inner">
       <div><div class="footer-brand">✦ XRPCOWBOYS</div><div class="footer-tagline">Exclusive XRP Community · Est. 2018</div></div>
-      <div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a><a href="dispatch.html">Horse Power Wire</a><a href="contact.html">Contact</a></div>
+      <div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a><a href="dispatch.html">Forum</a><a href="contact.html">Contact</a></div>
     </div>
-    <div class="footer-bottom"><p>© 2025 Twin BlockChain Technologies LLC · All Rights Reserved · xrpcowboys.com</p></div>
+    <div class="footer-bottom"><p>© 2026 Twin BlockChain Technologies LLC · All Rights Reserved · xrpcowboys.com</p></div>
   </footer>
   <script>
     const sb=supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
@@ -137,6 +139,21 @@
     async function init(){const{data:{session}}=await sb.auth.getSession();if(!session){window.location.href='login.html';return;}currentUser=session.user;document.getElementById('composeName').textContent=currentUser.email.split('@')[0];document.getElementById('onlineCount').textContent=Math.floor(Math.random()*12+3)+' members online now';await loadPosts();}
     function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
     init();
+  </script>
+  <script>
+  (async function(){
+    if(typeof supabase === 'undefined') return;
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    const {data:{session}} = await sb.auth.getSession();
+    if(session){
+      const p = document.getElementById('nav-profile-btn');
+      const l = document.getElementById('nav-login-btn');
+      const mp = document.getElementById('mob-profile-btn');
+      if(p) p.style.display='inline-block';
+      if(l) l.style.display='none';
+      if(mp) mp.style.display='block';
+    }
+  })();
   </script>
 </body>
 </html>
