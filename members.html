@@ -30,7 +30,9 @@
     .page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
     .page-header{margin-bottom:2rem;}
     .eyebrow{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;}
-    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;background:linear-gradient(120deg,#f5c842,#c9921a 50%,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;margin-bottom:0.5rem;}
+    .title-gold{background:linear-gradient(120deg,#f5c842,#c9921a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .title-green{background:linear-gradient(120deg,#4ade80,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
     .page-sub{color:rgba(232,224,208,0.80);font-size:0.95rem;font-style:italic;}
     .member-count{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-top:0.5rem;}
     .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
@@ -95,7 +97,7 @@
 <div class="page">
   <div class="page-header">
     <p class="eyebrow">Members Only · Exclusive Access</p>
-    <h1 class="page-title">The Posse 🤠</h1>
+    <h1 class="page-title"><span class="title-gold">The </span><span class="title-green">Posse</span> 🤠</h1>
     <p class="page-sub">Every cowboy riding the XRP Ledger with us.</p>
     <p class="member-count" id="member-count"></p>
   </div>
