@@ -38,9 +38,9 @@
     if (navJoin) {
       navJoin.textContent = 'Log Out';
       navJoin.href = '#';
-      navJoin.style.background = 'rgba(245,208,96,0.12)';
-      navJoin.style.color = '#f5d060';
-      navJoin.style.border = '1px solid rgba(245,208,96,0.35)';
+      navJoin.style.background = 'linear-gradient(135deg,#f5d060,#c9921a)';
+      navJoin.style.color = '#080808';
+      navJoin.style.border = 'none';
       navJoin.onclick = function(e) {
         e.preventDefault();
         sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
