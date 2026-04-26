@@ -84,7 +84,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .hpw-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-dim), var(--green), var(--gold-dim), transparent); animation: hpwScan 3s linear infinite; }
 @keyframes hpwScan { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 .hpw-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
-.hpw-header { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.8rem; }
+.hpw-header { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.8rem; text-align: center; }
 .hpw-label { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); }
 .hpw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold); }
 .hpw-title:hover { color: var(--gold-dim); }
@@ -181,6 +181,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
       <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none;" onclick="handleLogout(event)">Log Out</a></li>
     </ul>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -298,7 +299,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <div class="hpw-pulse"></div>
       <div>
         <div>
-          <p class="hpw-label" style="font-size:1rem; letter-spacing:0.25em;">Latest XRP News</p>
+          <a href="forum.html" class="hpw-label" style="font-size:1rem; letter-spacing:0.25em; text-decoration:none; display:block;">Latest XRP News</a>
           <h2 class="hpw-title" style="font-size:2rem; font-family:'Playfair Display',serif; color:var(--gold);">Horse Power Wire</h2>
         </div>
       </div>
@@ -410,6 +411,11 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
   setInterval(tickTape, 1000);
 })();
 
+function handleLogout(e) {
+  e.preventDefault();
+  const sb = supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");
+  sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
+}
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
@@ -454,6 +460,7 @@ function toggleMenu() {
       if(p) p.style.display='inline-block';
       if(l) l.style.display='none';
       if(j) j.style.display='none';
+      const lo = document.getElementById('nav-logout-btn'); if(lo) lo.style.display='inline-block';
       if(mp) mp.style.display='block';
       if(ml) ml.style.display='none';
       if(mj) mj.style.display='none';
