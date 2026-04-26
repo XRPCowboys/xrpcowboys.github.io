@@ -196,6 +196,15 @@
 
     /* THREADS SECTION */
     .threads-section { margin-bottom: 3rem; }
+    .thread-item { border: 1px solid var(--card-border); border-bottom: none; background: var(--card-bg); }
+    .thread-item:first-child { border-radius: 6px 6px 0 0; }
+    .thread-item:last-child { border-bottom: 1px solid var(--card-border); border-radius: 0 0 6px 6px; }
+    .thread-item .thread-row { border: none; border-radius: 0; cursor: pointer; }
+    .thread-expand { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .thread-expand.open { max-height: 3000px; }
+    .thread-expand-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
+    .thread-content { font-size: 0.95rem; line-height: 1.75; color: rgba(232,224,208,0.92); padding: 1rem 0 0.5rem; }
+    .thread-content p { margin-bottom: 0.8rem; }
 
     /* CTA */
     .cta-section { text-align: center; padding: 2.5rem 1.5rem;
@@ -486,54 +495,175 @@
       </div>
 
       <div class="thread-list">
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">01</div>
-          <div class="thread-body">
-            <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · 2 hours ago</div>
+
+        <!-- THREAD 01 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">01</div>
+            <div class="thread-body">
+              <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
+              <div class="thread-meta">Last post by <span>LonghornLedger</span> · 2 hours ago</div>
+            </div>
+            <div class="thread-lock">▾</div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">02</div>
-          <div class="thread-body">
-            <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · Yesterday</div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>The XRPL AMM pools had a significant update this week — dynamic fee tiers went live and the new oracle price feeds are now active. Here is what changed and what it means for liquidity providers.</p>
+                <p>Fees now automatically adjust based on volatility. When XRP moves more than 2% in an hour, fees increase to protect LPs from impermanent loss. This is a major improvement for anyone in the XRP/RLUSD pool. Early data shows liquidity depth up 18% since the update went live.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">The dynamic fee adjustment is exactly what AMM LPs needed. Impermanent loss was the main reason I was hesitant to provide liquidity before this.</div><div class="comment-time">1 hour ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🐂</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Been in the XRP/RLUSD pool since day one. This update makes it significantly more attractive. Expect TVL to jump hard this week.</div><div class="comment-time">2 hours ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌵</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">@LonghornLedger once DeFi Llama picks up the TVL jump this is going to get a lot of attention from outside the community.</div><div class="comment-time">2 hours ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🏔️</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Added more to my LP position this morning after reading this. The risk/reward now is really compelling for long term holders.</div><div class="comment-time">3 hours ago</div></div></div>
+              </div>
+            </div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">03</div>
-          <div class="thread-body">
-            <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · 3 days ago</div>
+        </div>
+
+        <!-- THREAD 02 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">02</div>
+            <div class="thread-body">
+              <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
+              <div class="thread-meta">Last post by <span>WagonWheelWayne</span> · Yesterday</div>
+            </div>
+            <div class="thread-lock">▾</div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">04</div>
-          <div class="thread-body">
-            <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · 5 days ago</div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>What a week in Miami! The XRP Cowboys showed up in full force at Blockchain Week — 14 members connected in person, the biggest meetup outside of Las Vegas we have ever had. The cowboy hats turned heads all over the conference floor.</p>
+                <p>More than a few people stopped to ask what the XRP Cowboys were all about. Every single one of those conversations ended with them asking how to apply for membership. The community speaks for itself when people see it in person.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">💼</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">Best trip yet. The energy in Miami was incredible. Already counting down to Vegas. Nothing beats meeting the herd in person.</div><div class="comment-time">Yesterday</div></div></div>
+                <div class="comment"><div class="comment-avatar">🏇</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">The photo of all 14 of us in the lobby is going in the gallery. Proud moment for this community. 🤠</div><div class="comment-time">Yesterday</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌾</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">Wish I could have made it. Was following the whole thing live on the forum. Next year I am there no matter what.</div><div class="comment-time">Yesterday</div></div></div>
+                <div class="comment"><div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">@WagonWheelWayne The people asking how to join is the best part of that story. That is how you build something real.</div><div class="comment-time">Yesterday</div></div></div>
+              </div>
+            </div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">05</div>
-          <div class="thread-body">
-            <div class="thread-title">Member Spotlight – Share Your XRP Story</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · 1 week ago</div>
+        </div>
+
+        <!-- THREAD 03 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">03</div>
+            <div class="thread-body">
+              <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
+              <div class="thread-meta">Last post by <span>ChapparalChad</span> · 3 days ago</div>
+            </div>
+            <div class="thread-lock">▾</div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
-        <a href="#" onclick="checkAndGo(event)" class="thread-row">
-          <div class="thread-num">06</div>
-          <div class="thread-body">
-            <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
-            <div class="thread-meta">Last post by <span>[Member]</span> · 2 weeks ago</div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>With the Senate bill advancing and the CFTC formally taking jurisdiction, 2026 is the year regulatory uncertainty for XRP is finally put to bed. Here is a breakdown of what to watch in the next six months.</p>
+                <p>Key milestones: House floor vote expected by June, CFTC formal rulemaking on XRP commodity classification by Q3, and the first federally chartered bank to publicly announce live XRP settlement by year end. Mark those dates — each one is a catalyst.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">⚙️</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">CFTC classification by Q3 is the one to watch. Once that is official the floodgates open for institutional products built on XRP.</div><div class="comment-time">3 days ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🦅</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">A federally chartered bank going public with XRP settlement before year end is going to be a massive headline. That day is coming.</div><div class="comment-time">3 days ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🐂</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">The bipartisan support is what gives me confidence this actually passes. When both sides agree on something in Washington it moves fast.</div><div class="comment-time">3 days ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌾</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">Been waiting since 2018 for a thread like this one. Regulatory clarity was always the last piece. We are almost there. 🤠</div><div class="comment-time">4 days ago</div></div></div>
+              </div>
+            </div>
           </div>
-          <div class="thread-lock">🔒</div>
-        </a>
+        </div>
+
+        <!-- THREAD 04 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">04</div>
+            <div class="thread-body">
+              <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
+              <div class="thread-meta">Last post by <span>RidgelineRandy</span> · 5 days ago</div>
+            </div>
+            <div class="thread-lock">▾</div>
+          </div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>The next XRPL developer conference is scheduled for July in Amsterdam. Any Cowboys members planning to attend? Would be great to organize a meetup on the sidelines like we did in Miami.</p>
+                <p>The agenda looks strong — EVM sidechain deep dives, AMM development workshops, and a session specifically on RLUSD enterprise integration. If you are building on XRPL or just want to understand where the tech is headed this is worth the trip.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">🏔️</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Amsterdam in July — I am in. Would love to connect with the developer community in person and fly the Cowboys flag over there.</div><div class="comment-time">5 days ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">The EVM sidechain session is worth the flight alone. That tech unlocks a completely new wave of builders coming to XRPL.</div><div class="comment-time">5 days ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌵</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">@RidgelineRandy if we get a Cowboys meetup going in Amsterdam I am seriously considering it. DM me details when you have them.</div><div class="comment-time">5 days ago</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THREAD 05 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">05</div>
+            <div class="thread-body">
+              <div class="thread-title">Member Spotlight – Share Your XRP Story</div>
+              <div class="thread-meta">Last post by <span>SilverSpurSam</span> · 1 week ago</div>
+            </div>
+            <div class="thread-lock">▾</div>
+          </div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>This is the thread to share your XRP journey. When did you first buy? What kept you holding through the tough years? What does XRP mean to you beyond the price? Drop your story below — the herd wants to hear it.</p>
+                <p>These stories are what the XRP Cowboys community is really about. Not just the gains but the conviction, the community, and the shared belief that something important is being built here.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">🏇</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">First bought in December 2017 at the top like everyone else 😂 but I never sold. The lawsuit years were brutal but the community here kept me sane. Worth every sleepless night.</div><div class="comment-time">1 week ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌾</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">Bought my first XRP in 2019 after doing three months of research on payment corridors. Has been my largest holding ever since. Never once considered selling.</div><div class="comment-time">1 week ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">💼</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">2020 for me. Found the Cowboys community six months in and that was that. You can not unsee what you see when you really study the XRPL. Ride or die. 🤠</div><div class="comment-time">1 week ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🐂</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Started in 2018. The lawsuit hit hard but I just kept stacking. Now watching banks go live on the network I have been following for six years. Wild ride and worth every penny.</div><div class="comment-time">1 week ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">⚙️</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">@LonghornLedger six years of conviction paying off in real time. That is the XRP Cowboys story right there. Proud to ride with all of you.</div><div class="comment-time">1 week ago</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THREAD 06 -->
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">06</div>
+            <div class="thread-body">
+              <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
+              <div class="thread-meta">Last post by <span>DustBowlDave</span> · 2 weeks ago</div>
+            </div>
+            <div class="thread-lock">▾</div>
+          </div>
+          <div class="thread-expand">
+            <div class="thread-expand-inner">
+              <div class="thread-content member-content" style="display:none">
+                <p>Important community research: where is the best place to grab a cowboy hat before a crypto conference? This thread is dedicated to helping every Cowboys member show up properly dressed.</p>
+                <p>Bonus points if you have a photo of yourself in a cowboy hat at a crypto event. Drop it in the gallery and link it here. Let us build the most legendary collection of crypto cowboys the internet has ever seen.</p>
+              </div>
+              <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+              <div class="comments-section">
+                <div class="comments-label">💬 Replies</div>
+                <div class="comment"><div class="comment-avatar">🦅</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">Boot Barn near any convention center is always reliable. Stetson Open Road is the move if you want to look the part without breaking the bank.</div><div class="comment-time">2 weeks ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🏔️</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Cavender's has a great selection and they are in most major cities. I got my hat there before the 2024 conference and got compliments all week.</div><div class="comment-time">2 weeks ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🏇</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">Do not underestimate the power of a good hat at these events. It is an instant conversation starter. Three people asked me about XRP just because of the hat. 🤠</div><div class="comment-time">2 weeks ago</div></div></div>
+                <div class="comment"><div class="comment-avatar">🌵</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">@SilverSpurSam marketing that costs zero dollars and starts conversations with crypto curious people. The hat is literally part of the brand now.</div><div class="comment-time">2 weeks ago</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="thread-login-note">
@@ -599,6 +729,22 @@
     document.querySelectorAll('.guest-gate').forEach(el => {
       el.style.display = isLoggedIn ? 'none' : 'block';
     });
+  }
+
+  function toggleThread(row) {
+    const item = row.parentElement;
+    const expand = item.querySelector('.thread-expand');
+    const lock = row.querySelector('.thread-lock');
+    const isOpen = expand.classList.contains('open');
+    // Close all others
+    document.querySelectorAll('.thread-expand.open').forEach(e => {
+      e.classList.remove('open');
+      e.closest('.thread-item').querySelector('.thread-lock').textContent = '▾';
+    });
+    if (!isOpen) {
+      expand.classList.add('open');
+      lock.textContent = '▴';
+    }
   }
 
   function toggleMenu() {
