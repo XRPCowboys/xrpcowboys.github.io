@@ -1,142 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horse Power Wire | XRPCOWBOYS • Community Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forum | XRPCOWBOYS • Member Discussions</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    :root{--gold:#f5d060;--gold-dim:#c9921a;--green:#4ade80;--cream:#e8e0d0;--bg:#080808;--border:rgba(180,150,60,0.15);}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
-    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
-    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
-    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
-    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
-    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
-    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
-    .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(8,8,8,0.98);border-top:1px solid var(--border);}
-    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
-    .mobile-menu.open{display:flex;}
-    .page-hero{text-align:center;padding:3.5rem 2rem 2rem;}
-    .page-hero-label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
-    .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 25%,#c9921a 55%,#4ade80 80%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;opacity:0;animation:fadeUp 0.8s 0.1s forwards;}
-    .page-hero-sub{font-size:1rem;font-weight:300;color:rgba(232,224,208,0.45);max-width:500px;margin:0 auto;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-    .chat-outer{max-width:780px;margin:0 auto;padding:0 1.5rem 6rem;}
-    .online-bar{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;padding:10px 16px;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.15);border-radius:999px;width:fit-content;}
-    .online-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-    .online-bar span{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(74,222,128,0.8);}
-    .compose-box{background:rgba(255,255,255,0.025);border:1px solid rgba(180,150,60,0.2);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
-    .compose-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-    .compose-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#c8a84b,#4ade80);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-    .compose-name{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
-    .compose-textarea{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(180,150,60,0.2);border-radius:10px;padding:0.85rem 1rem;font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--cream);resize:none;outline:none;min-height:80px;transition:border-color 0.2s;}
-    .compose-textarea::placeholder{color:rgba(232,224,208,0.35);font-style:italic;}
-    .compose-textarea:focus{border-color:rgba(200,168,75,0.4);}
-    .compose-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
-    .compose-hint{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.1em;color:rgba(232,224,208,0.3);text-transform:uppercase;}
-    .post-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);border:none;padding:0.6rem 1.5rem;border-radius:999px;cursor:pointer;transition:opacity 0.2s;}
-    .post-btn:hover{opacity:0.85;}
-    .feed{display:flex;flex-direction:column;gap:1rem;}
-    .post-card{background:rgba(255,255,255,0.02);border:1px solid rgba(180,150,60,0.12);border-radius:14px;padding:1.25rem 1.5rem;transition:border-color 0.2s;}
-    .post-card:hover{border-color:rgba(180,150,60,0.25);}
-    .post-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-    .post-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c8a84b,#4ade80);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-    .post-meta-col{display:flex;flex-direction:column;gap:2px;}
-    .post-author{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
-    .post-time{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.08em;color:rgba(232,224,208,0.35);}
-    .post-body{font-size:1.05rem;line-height:1.7;color:rgba(232,224,208,0.9);}
-    .post-actions{display:flex;gap:16px;margin-top:12px;}
-    .post-action{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.35);cursor:pointer;transition:color 0.2s;background:none;border:none;padding:0;}
-    .post-action:hover{color:var(--gold);}
-    .post-action.liked{color:var(--green);}
-    .load-more{text-align:center;margin-top:1.5rem;}
-    .load-more-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.5);background:none;border:1px solid rgba(180,150,60,0.2);padding:0.6rem 1.5rem;border-radius:999px;cursor:pointer;transition:all 0.2s;}
-    .load-more-btn:hover{border-color:var(--gold);color:var(--gold);}
-    .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
-    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
-    .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(120deg,#f5c842 0%,#c9921a 35%,#4ade80 70%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
-    .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.75);}
-    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
-    .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.9);text-decoration:none;transition:color 0.2s;}
-    .footer-links a:hover{color:var(--gold);}
-    .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
-    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.65);}
-    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.chat-outer{padding:0 1rem 4rem;}}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #f5d060; --gold-dim: #c9921a; --gold-dark: #a06e10;
+      --green: #4ade80; --cream: #e8e0d0; --bg: #080808;
+      --border: rgba(201,146,26,0.28);
+      --card-bg: rgba(22,16,6,0.82); --card-border: rgba(201,168,76,0.25);
+      --text: #f0e8d5; --muted: rgba(232,224,208,0.72);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+
+    /* BACKGROUND */
+    .hero-bg { position: fixed; inset: 0; z-index: 0;
+      background: url('XRPCowboys_files/background picture.jpg') center center / cover no-repeat; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,2,0.55) 0%, rgba(8,6,2,0.48) 40%, rgba(8,6,2,0.65) 80%, rgba(8,6,2,0.85) 100%); }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100;
+      background: rgba(14,10,3,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-btn { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.45rem 1.1rem; border-radius: 3px;
+      text-decoration: none; transition: all 0.2s; }
+    .nav-btn-login { border: 1px solid var(--border); color: var(--muted); }
+    .nav-btn-login:hover { border-color: var(--gold); color: var(--gold); }
+    .nav-btn-profile { background: var(--gold-dim); color: #1a0f00; display: none; }
+    .nav-btn-profile:hover { background: var(--gold); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--gold); border-radius: 2px; }
+    .mobile-menu { display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: rgba(10,7,2,0.97); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem; flex-direction: column; gap: 1rem; z-index: 200; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.4rem 0; }
+    .mobile-menu a:hover { color: var(--gold); }
+    #mob-profile-btn { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* PAGE WRAPPER */
+    .page { position: relative; z-index: 1; }
+
+    /* HERO */
+    .forum-hero { padding: 4rem 2rem 2.5rem; text-align: center; }
+    .forum-hero .eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 1rem; }
+    .forum-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f5c842 0%, #c9921a 60%, #f5c842 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .forum-hero .subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      font-weight: 300; color: var(--muted); max-width: 540px; margin: 0 auto 2rem;
+      font-style: italic; line-height: 1.6; }
+    .divider-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      margin: 0 auto; }
+
+    /* MAIN LAYOUT */
+    .forum-layout { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+    /* POST NEW THREAD BTN */
+    .post-btn-row { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+    .post-new-btn { font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.6rem 1.6rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold-dark));
+      color: #1a0f00; border: none; border-radius: 3px; cursor: pointer;
+      text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .post-new-btn:hover { background: linear-gradient(135deg, var(--gold), var(--gold-dim)); }
+    .post-new-btn.locked { background: rgba(201,146,26,0.15); color: var(--gold-dim);
+      border: 1px solid var(--border); cursor: default; pointer-events: none; }
+
+    /* SECTION LABEL */
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .section-label h2 { font-family: 'Oswald', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); white-space: nowrap; }
+    .section-label .line { flex: 1; height: 1px; background: var(--border); }
+
+    /* THREADS */
+    .thread-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 1rem; }
+    .thread-row { display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.1rem 1.4rem;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-bottom: none; text-decoration: none; color: inherit;
+      transition: background 0.18s, border-color 0.18s; cursor: pointer; }
+    .thread-row:first-child { border-radius: 6px 6px 0 0; }
+    .thread-row:last-child { border-bottom: 1px solid var(--card-border); border-radius: 0 0 6px 6px; }
+    .thread-row:only-child { border-radius: 6px; border-bottom: 1px solid var(--card-border); }
+    .thread-row:hover { background: rgba(35,24,8,0.90); border-color: rgba(201,168,76,0.4); }
+    .thread-num { font-family: 'Oswald', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.1em; color: var(--gold-dim); min-width: 26px; opacity: 0.7; }
+    .thread-body { flex: 1; min-width: 0; }
+    .thread-title { font-family: 'Source Serif 4', serif; font-size: 0.98rem;
+      font-weight: 600; color: var(--text); margin-bottom: 0.25rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .thread-meta { font-family: 'Oswald', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.08em; color: var(--muted); }
+    .thread-meta span { color: var(--gold-dim); }
+    .thread-lock { font-size: 0.8rem; opacity: 0.5; }
+
+    /* LOGIN NOTE */
+    .thread-login-note { font-family: 'Oswald', sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.1em; text-align: center; color: var(--muted);
+      padding: 1.2rem; border: 1px solid var(--border); border-radius: 0 0 6px 6px;
+      background: rgba(22,16,6,0.6); margin-top: -1px; }
+    .thread-login-note a { color: var(--gold-dim); text-decoration: none; }
+    .thread-login-note a:hover { color: var(--gold); }
+
+    /* FEATURE CARDS */
+    .features-section { margin-bottom: 3rem; }
+    .feature-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .feature-card { background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 6px; padding: 1.4rem 1.2rem; text-align: center; }
+    .feature-card-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .feature-card h4 { font-family: 'Oswald', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+    /* THREADS SECTION */
+    .threads-section { margin-bottom: 3rem; }
+
+    /* CTA */
+    .cta-section { text-align: center; padding: 2.5rem 1.5rem;
+      background: rgba(22,16,6,0.7); border: 1px solid var(--border);
+      border-radius: 8px; margin-bottom: 3rem; }
+    .cta-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+      font-style: italic; color: var(--muted); margin-bottom: 1.2rem; }
+    .cta-section a { font-family: 'Oswald', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 0.65rem 2rem;
+      background: transparent; border: 1px solid var(--gold-dim); color: var(--gold);
+      border-radius: 3px; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .cta-section a:hover { background: var(--gold-dim); color: #1a0f00; }
+
+    /* FOOTER */
+    .footer { background: rgba(8,6,2,0.95); border-top: 1px solid var(--border);
+      position: relative; z-index: 1; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 2rem; flex-wrap: wrap; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem;
+      border-top: 1px solid rgba(201,146,26,0.12);
+      font-family: 'Oswald', sans-serif; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: rgba(232,224,208,0.35); text-align: center; }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
-      <ul class="nav-links">
-        <li><a href="about.html">About</a></li>
-        <li><a href="forum.html">The Corral</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="dispatch.html" class="active">Horse Power Wire</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="login.html" class="nav-login-btn">Login</a></li>
-        <li><a href="join.html" class="nav-join-btn">Join</a></li>
-      </ul>
-      <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+
+<div class="hero-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="join.html">Join</a></li>
+      <li><a href="forum.html">The Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="dispatch.html" class="active">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="profile.html" class="nav-btn nav-btn-profile" id="nav-profile-btn">My Profile</a>
+      <a href="login.html" class="nav-btn nav-btn-login" id="nav-login-btn">Login</a>
     </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="forum.html" onclick="toggleMenu()">The Corral</a>
-      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Horse Power Wire</a>
-      <a href="contact.html" onclick="toggleMenu()">Contact</a>
-      <a href="login.html" onclick="toggleMenu()">Member Login</a>
-    </div>
-  </nav>
-  <div class="page-hero">
-    <p class="page-hero-label">Members · Live Community</p>
-    <h1 class="page-hero-title">HORSE POWER WIRE</h1>
-    <p class="page-hero-sub">The herd speaks here — post anything, anytime. XRP talk, market moves, good vibes. This is your community feed.</p>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <div class="chat-outer">
-    <div class="online-bar"><div class="online-dot"></div><span id="onlineCount">Members online now</span></div>
-    <div class="compose-box">
-      <div class="compose-top"><div class="compose-avatar">🤠</div><div class="compose-name" id="composeName">Loading...</div></div>
-      <textarea class="compose-textarea" id="composeText" placeholder="What's on your mind, partner? Share your XRP thoughts with the herd..."></textarea>
-      <div class="compose-footer"><span class="compose-hint">Members only · Be respectful · No financial advice</span><button class="post-btn" onclick="submitPost()">Post to Herd ✦</button></div>
-    </div>
-    <div class="feed" id="feed"></div>
-    <div class="load-more"><button class="load-more-btn" onclick="loadMore()">Load Earlier Posts ✦</button></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="join.html" onclick="toggleMenu()">Join</a>
+    <a href="forum.html" onclick="toggleMenu()">The Corral</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
   </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="forum-hero">
+    <div class="eyebrow">✦ Members Only · XRP Cowboys</div>
+    <h1>Member Discussions</h1>
+    <p class="subtitle">Where the herd gathers — XRP news, strategy, community, and everything in between.</p>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="forum-layout">
+
+    <!-- FEATURE CARDS -->
+    <div class="features-section">
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h4>Live Discussion</h4>
+          <p>Real-time threads with the XRP Cowboys community — updated daily.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h4>Members Only</h4>
+          <p>All threads are exclusive to verified XRP Cowboys members.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">☯</div>
+          <h4>Governance</h4>
+          <p>Members have a real voice in how this community grows and operates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">✉</div>
+          <h4>Application-Based</h4>
+          <p>Quality over quantity — membership keeps signal high and trust strong.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LATEST DISCUSSIONS -->
+    <div class="threads-section">
+      <div class="section-label">
+        <h2>💬 Latest Discussions</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="post-btn-row">
+        <a href="#" id="post-cavalry-btn" class="post-new-btn locked" onclick="checkAndPost(event)">+ Post to the Cavalry</a>
+      </div>
+
+      <div class="thread-list">
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">01</div>
+          <div class="thread-body">
+            <div class="thread-title">XRP Ledger AMM Updates – What Changed This Week?</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · 2 hours ago</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">02</div>
+          <div class="thread-body">
+            <div class="thread-title">Miami Blockchain Week 2025 – Cowboy Hat Crew Photos</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · Yesterday</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">03</div>
+          <div class="thread-body">
+            <div class="thread-title">Regulatory Outlook for XRP in 2026</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · 3 days ago</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">04</div>
+          <div class="thread-body">
+            <div class="thread-title">Who's Attending the Next XRPL Dev Conference?</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · 5 days ago</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">05</div>
+          <div class="thread-body">
+            <div class="thread-title">Member Spotlight – Share Your XRP Story</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · 1 week ago</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+        <a href="#" onclick="checkAndGo(event)" class="thread-row">
+          <div class="thread-num">06</div>
+          <div class="thread-body">
+            <div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div>
+            <div class="thread-meta">Last post by <span>[Member]</span> · 2 weeks ago</div>
+          </div>
+          <div class="thread-lock">🔒</div>
+        </a>
+      </div>
+
+      <div class="thread-login-note">
+        <a href="login.html">Login</a> or <a href="join.html">apply for membership</a> to post replies and start new threads.
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <p>Ready to ride with the herd? XRP Cowboys membership is by application only.</p>
+      <a href="join.html">Apply for Membership</a>
+    </div>
+
+  </div><!-- /forum-layout -->
+
   <footer class="footer">
     <div class="footer-inner">
-      <div><div class="footer-brand">✦ XRPCOWBOYS</div><div class="footer-tagline">Exclusive XRP Community · Est. 2018</div></div>
-      <div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="forum.html">The Corral</a><a href="gallery.html">Gallery</a><a href="dispatch.html">Horse Power Wire</a><a href="contact.html">Contact</a></div>
+      <div>
+        <div class="footer-brand">✦ XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join</a>
+        <a href="forum.html">The Corral</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="dispatch.html">Forum</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-    <div class="footer-bottom"><p>© 2025 Twin BlockChain Technologies LLC · All Rights Reserved · xrpcowboys.com</p></div>
+    <div class="footer-bottom">
+      <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p>
+    </div>
   </footer>
-  <script>
-    const sb=supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
-    let currentUser=null,postOffset=0;
-    const PAGE_SIZE=20;
-    const seedPosts=[
-      {id:'s1',author:'James Tyler',avatar:'🤠',body:"Welcome to The Roundup, partners! This is YOUR space — talk XRP, share news, connect with the herd anytime day or night. We ride together! 🚀",time:'2 hours ago',likes:14},
-      {id:'s2',author:'Dave Goodman',avatar:'⭐',body:"Vegas is almost here and the energy is UNREAL. Who else is heading out to the Silverton? Let's link up as a crew!",time:'1 hour ago',likes:9},
-      {id:'s3',author:'XRP Cowboy',avatar:'🏇',body:'Brad Garlinghouse said it best — "Making XRP more useful, more trusted, with higher utility — that is our North Star." Holding strong. 💪',time:'45 min ago',likes:22},
-    ];
-    function timeAgo(ts){const diff=Math.floor((Date.now()-new Date(ts))/1000);if(diff<60)return'just now';if(diff<3600)return Math.floor(diff/60)+'m ago';if(diff<86400)return Math.floor(diff/3600)+'h ago';return Math.floor(diff/86400)+'d ago';}
-    function renderPost(p,isSeed){const div=document.createElement('div');div.className='post-card';div.innerHTML=`<div class="post-header"><div class="post-avatar">${p.avatar||'🤠'}</div><div class="post-meta-col"><div class="post-author">${p.author||'XRPCowboy'}</div><div class="post-time">${isSeed?p.time:timeAgo(p.created_at)}</div></div></div><div class="post-body">${p.body}</div><div class="post-actions"><button class="post-action" onclick="toggleLike(this,'${p.id}')">✦ ${p.likes||0} Yeehaw</button><button class="post-action" onclick="replyTo('${p.author||'XRPCowboy'}')">↩ Reply</button></div>`;return div;}
-    function toggleLike(btn,id){const parts=btn.textContent.trim().split(' ');let count=parseInt(parts[1])||0;if(btn.classList.contains('liked')){count--;btn.classList.remove('liked');}else{count++;btn.classList.add('liked');}btn.textContent='✦ '+count+' Yeehaw';}
-    function replyTo(name){const ta=document.getElementById('composeText');ta.value='@'+name+' ';ta.focus();window.scrollTo({top:ta.getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'});}
-    async function loadPosts(){const feed=document.getElementById('feed');const{data,error}=await sb.from('roundup_posts').select('*').order('created_at',{ascending:false}).range(postOffset,postOffset+PAGE_SIZE-1);if(!error&&data&&data.length){data.forEach(p=>feed.appendChild(renderPost(p,false)));postOffset+=data.length;}if(postOffset===0){seedPosts.forEach(p=>feed.appendChild(renderPost(p,true)));}}
-    async function loadMore(){await loadPosts();}
-    async function submitPost(){const text=document.getElementById('composeText').value.trim();if(!text)return;const name=currentUser?.email?.split('@')[0]||'XRPCowboy';const newPost={id:'new_'+Date.now(),author:name,avatar:'🤠',body:text,time:'just now',likes:0};const feed=document.getElementById('feed');feed.insertBefore(renderPost(newPost,true),feed.firstChild);document.getElementById('composeText').value='';const{error}=await sb.from('roundup_posts').insert({author:name,body:text,user_id:currentUser?.id});if(error)console.error('Post error:',error);}
-    async function init(){const{data:{session}}=await sb.auth.getSession();if(!session){window.location.href='login.html';return;}currentUser=session.user;document.getElementById('composeName').textContent=currentUser.email.split('@')[0];document.getElementById('onlineCount').textContent=Math.floor(Math.random()*12+3)+' members online now';await loadPosts();}
-    function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
-    init();
-  </script>
+
+</div><!-- /page -->
+
+<script>
+  const SUPABASE_URL = 'https://fbngrpissakvjelrcfaf.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function checkAndGo(e) {
+    e.preventDefault();
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (session) {
+        // Member — thread content would load here
+        alert('Thread content coming soon! You are logged in as a member.');
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+  }
+
+  function checkAndPost(e) {
+    e.preventDefault();
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (session) {
+        alert('Post to the Cavalry coming soon!');
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+  }
+
+  // Auth check on load — show profile/login buttons correctly
+  (async function() {
+    if (typeof supabase === 'undefined') return;
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const {data:{session}} = await sb.auth.getSession();
+    if (session) {
+      // Logged in — unlock post button
+      const postBtn = document.getElementById('post-cavalry-btn');
+      if (postBtn) { postBtn.classList.remove('locked'); postBtn.style.pointerEvents = 'auto'; }
+
+      const p = document.getElementById('nav-profile-btn');
+      const l = document.getElementById('nav-login-btn');
+      const mp = document.getElementById('mob-profile-btn');
+      const ml = document.getElementById('mob-login-btn');
+      if (p) p.style.display = 'inline-block';
+      if (l) l.style.display = 'none';
+      if (mp) mp.style.display = 'block';
+      if (ml) ml.style.display = 'none';
+    }
+  })();
+</script>
+
 </body>
 </html>
