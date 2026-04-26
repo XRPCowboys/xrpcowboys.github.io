@@ -43,12 +43,14 @@
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
     .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
     .nav-btn { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.45rem 1.1rem; border-radius: 3px;
+      text-transform: uppercase; padding: 0.45rem 1.3rem; border-radius: 50px;
       text-decoration: none; transition: all 0.2s; }
     .nav-btn-login { border: 1px solid var(--border); color: var(--muted); }
     .nav-btn-login:hover { border-color: var(--gold); color: var(--gold); }
-    .nav-btn-profile { background: var(--gold-dim); color: #1a0f00; display: none; }
-    .nav-btn-profile:hover { background: var(--gold); }
+    .nav-btn-profile { border: 1px solid var(--gold-dim); color: var(--gold); background: transparent; display: none; }
+    .nav-btn-profile:hover { border-color: var(--gold); }
+    .nav-btn-logout { background: var(--gold); color: #1a0f00; font-weight: 700; display: none; }
+    .nav-btn-logout:hover { background: #f5c842; }
     .hamburger { display: none; background: none; border: none; cursor: pointer;
       flex-direction: column; gap: 5px; padding: 4px; }
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--gold); border-radius: 2px; }
@@ -195,6 +197,7 @@
     <div class="nav-actions">
       <a href="profile.html" class="nav-btn nav-btn-profile" id="nav-profile-btn">My Profile</a>
       <a href="login.html" class="nav-btn nav-btn-login" id="nav-login-btn">Login</a>
+      <a href="#" class="nav-btn nav-btn-logout" id="nav-logout-btn" onclick="handleLogout(event)">Log Out</a>
     </div>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -380,22 +383,28 @@
     });
   }
 
+  async function handleLogout(e) {
+    e.preventDefault();
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    await sb.auth.signOut();
+    window.location.href = 'index.html';
+  }
+
   // Auth check on load — show profile/login buttons correctly
   (async function() {
     if (typeof supabase === 'undefined') return;
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const {data:{session}} = await sb.auth.getSession();
     if (session) {
-      // Logged in — unlock post button
       const postBtn = document.getElementById('post-cavalry-btn');
       if (postBtn) { postBtn.classList.remove('locked'); postBtn.style.pointerEvents = 'auto'; }
 
-      const p = document.getElementById('nav-profile-btn');
-      const l = document.getElementById('nav-login-btn');
+      document.getElementById('nav-profile-btn').style.display = 'inline-block';
+      document.getElementById('nav-login-btn').style.display = 'none';
+      document.getElementById('nav-logout-btn').style.display = 'inline-block';
+
       const mp = document.getElementById('mob-profile-btn');
       const ml = document.getElementById('mob-login-btn');
-      if (p) p.style.display = 'inline-block';
-      if (l) l.style.display = 'none';
       if (mp) mp.style.display = 'block';
       if (ml) ml.style.display = 'none';
     }
