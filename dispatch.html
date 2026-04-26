@@ -274,32 +274,6 @@
 
   <div class="forum-layout">
 
-    <!-- FEATURE CARDS -->
-    <div class="features-section">
-      <div class="feature-cards">
-        <div class="feature-card">
-          <div class="feature-card-icon">⚡</div>
-          <h4>Live Discussion</h4>
-          <p>Real-time threads with the XRP Cowboys community — updated daily.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card-icon">🔒</div>
-          <h4>Members Only</h4>
-          <p>All threads are exclusive to verified XRP Cowboys members.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card-icon">☯</div>
-          <h4>Governance</h4>
-          <p>Members have a real voice in how this community grows and operates.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card-icon">✉</div>
-          <h4>Application-Based</h4>
-          <p>Quality over quantity — membership keeps signal high and trust strong.</p>
-        </div>
-      </div>
-    </div>
-
 
     <!-- XRP NEWS ARTICLES -->
     <div class="news-section">
@@ -472,6 +446,34 @@
 
     </div><!-- /news-section -->
 
+    <!-- FEATURE CARDS -->
+    <div class="features-section">
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h4>Live Discussion</h4>
+          <p>Real-time threads with the XRP Cowboys community — updated daily.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h4>Members Only</h4>
+          <p>All threads are exclusive to verified XRP Cowboys members.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">☯</div>
+          <h4>Governance</h4>
+          <p>Members have a real voice in how this community grows and operates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">✉</div>
+          <h4>Application-Based</h4>
+          <p>Quality over quantity — membership keeps signal high and trust strong.</p>
+        </div>
+      </div>
+    </div>
+
+
+
     <!-- LATEST DISCUSSIONS -->
     <div class="threads-section">
       <div class="section-label">
@@ -607,10 +609,7 @@
     e.preventDefault();
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     sb.auth.getSession().then(({data:{session}}) => {
-      if (session) {
-        // Member — thread content would load here
-        alert('Thread content coming soon! You are logged in as a member.');
-      } else {
+      if (!session) {
         window.location.href = 'login.html';
       }
     });
