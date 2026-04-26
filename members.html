@@ -142,46 +142,29 @@ async function init(){
 async function loadMembers(){
   const grid=document.getElementById('member-grid');
 
-  // Pull all profiles (members who filled out profile)
-  const{data:profiles,error:profilesError}=await sb
-    .from('profiles')
-    .select('*')
-    .order('joined_at',{ascending:false});
-
-  // Also pull all auth users via the members/users view if available
-  // We use a Supabase function or fallback to profiles + auth metadata
-  const{data:authUsers,error:authError}=await sb
-    .rpc('get_all_members')
-    .catch(()=>({data:null,error:'no rpc'}));
-
-  // Build a map of profiles by user_id for quick lookup
-  const profileMap={};
-  if(profiles&&!profilesError){
-    profiles.forEach(p=>{profileMap[p.id||p.user_id]=p;});
-  }
+  // Try RPC first
+  const{data:authUsers,error:authError}=await sb.rpc('get_all_members');
 
   let members=[];
+  let profileMap={};
 
-  if(authUsers&&!authError){
-    // If we have an RPC that returns all users, use that
+  if(authUsers&&!authError&&authUsers.length>0){
     members=authUsers;
+    authUsers.forEach(m=>{profileMap[m.id]=m;});
   } else {
-    // Fallback: use profiles table but show ALL entries including minimal ones
-    // Also check if there's a members or users table
-    const{data:allProfiles}=await sb
+    // Fallback to profiles table
+    const{data:profiles,error:profilesError}=await sb
       .from('profiles')
-      .select('id, user_id, handle, full_name, bio, location, avatar_url, joined_at, email')
+      .select('*')
       .order('joined_at',{ascending:false});
-
-    if(allProfiles&&allProfiles.length>0){
-      members=allProfiles;
-    } else if(profiles){
+    if(profiles&&profiles.length>0){
       members=profiles;
+      profiles.forEach(p=>{profileMap[p.id||p.user_id]=p;});
     }
   }
 
   if(!members||members.length===0){
-    grid.innerHTML='<p class="loading">Could not load members. Try refreshing.</p>';
+    grid.innerHTML='<p class="loading">No members found. Error: '+(authError?authError.message:'unknown')+'</p>';
     return;
   }
 
