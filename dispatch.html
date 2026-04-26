@@ -147,6 +147,53 @@
       margin-bottom: 0.5rem; }
     .feature-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
+    /* NEWS ARTICLES SECTION */
+    .news-section { margin-bottom: 3rem; }
+    .article-card { background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 8px; margin-bottom: 1rem; overflow: hidden; transition: border-color 0.2s; }
+    .article-card:hover { border-color: rgba(201,168,76,0.45); }
+    .article-header { display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.4rem; cursor: pointer; user-select: none; }
+    .article-flame { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .article-header-body { flex: 1; min-width: 0; }
+    .article-tag { font-family: "Oswald", sans-serif; font-size: 0.62rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.3rem; }
+    .article-title { font-family: "Source Serif 4", serif; font-size: 1.05rem;
+      font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .article-preview { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .article-expand-hint { font-family: "Oswald", sans-serif; font-size: 0.6rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,208,96,0.4);
+      flex-shrink: 0; margin-top: 4px; transition: color 0.2s; }
+    .article-card:hover .article-expand-hint { color: var(--gold-dim); }
+    .article-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .article-body.open { max-height: 3000px; }
+    .article-body-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
+    .article-full-text { font-size: 0.95rem; line-height: 1.78; color: rgba(232,224,208,0.92); padding: 1.2rem 0 0.5rem; }
+    .article-full-text p { margin-bottom: 1rem; }
+    .members-gate { text-align: center; padding: 1.4rem 1rem;
+      background: rgba(201,146,26,0.06); border: 1px solid var(--border);
+      border-radius: 6px; margin: 0.5rem 0 1rem; }
+    .members-gate p { font-family: "Cormorant Garamond", serif; font-size: 1rem;
+      font-style: italic; color: var(--muted); margin-bottom: 0.8rem; }
+    .members-gate a { font-family: "Oswald", sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 0.5rem 1.5rem;
+      border: 1px solid var(--gold-dim); color: var(--gold); border-radius: 3px;
+      text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .members-gate a:hover { background: var(--gold-dim); color: #1a0f00; }
+    .comments-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .comments-label { font-family: "Oswald", sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.9rem; }
+    .comment { display: flex; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .comment-avatar { width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #c8a84b, #4ade80);
+      display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .comment-content { flex: 1; }
+    .comment-author { font-family: "Oswald", sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
+    .comment-text { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .comment-time { font-family: "Oswald", sans-serif; font-size: 0.58rem;
+      letter-spacing: 0.08em; color: rgba(232,224,208,0.35); margin-top: 0.2rem; }
+
     /* THREADS SECTION */
     .threads-section { margin-bottom: 3rem; }
 
@@ -253,6 +300,178 @@
       </div>
     </div>
 
+
+    <!-- XRP NEWS ARTICLES -->
+    <div class="news-section">
+      <div class="section-label">
+        <h2>🔥 XRP News</h2>
+        <div class="line"></div>
+      </div>
+
+      <!-- ARTICLE 1 -->
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">⚡</div>
+          <div class="article-header-body">
+            <div class="article-tag">Market · April 2026</div>
+            <div class="article-title">XRP Breaks $3.50 Resistance — Institutional Demand Driving New Highs</div>
+            <div class="article-preview">XRP pushed through a key technical level this week as institutional buy pressure intensified across major exchanges...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ ▾</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>XRP surged past the $3.50 resistance level this week in what analysts are calling one of the cleanest breakouts the asset has seen in years. Trading volume across Binance, Coinbase, and Kraken spiked 340% above the 30-day average, with large wallet accumulation data pointing squarely at institutional players.</p>
+              <p>On-chain data from the XRPL shows that wallet addresses holding over 1 million XRP increased by 12% in the past 30 days — a pattern historically associated with sustained bull moves. Ripple's ODL corridors are also processing record volume, with the Asia-Pacific region leading the charge.</p>
+              <p>"The fundamentals have never been stronger," noted one prominent crypto analyst. "With regulatory clarity now firmly in place and the network processing billions in daily settlement, the market is finally pricing in what XRP holders have known for years."</p>
+            </div>
+            <div class="members-gate guest-gate">
+              <p>Full article available to XRP Cowboys members only.</p>
+              <a href="login.html">Login to Read More</a>
+            </div>
+            <div class="comments-section">
+              <div class="comments-label">💬 Member Comments</div>
+              <div class="comment"><div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">Called it back in January. The $3.50 level was always the line in the sand. Once that broke it was game on. Stack accordingly.</div><div class="comment-time">2 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🐂</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">ODL volume data is the real story here. Price follows utility and the utility is through the roof right now.</div><div class="comment-time">3 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🏇</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">@LonghornLedger 100%. The institutions don't move until they are ready and when they move they move big. We are watching it in real time.</div><div class="comment-time">4 hours ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE 2 -->
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">🏛️</div>
+          <div class="article-header-body">
+            <div class="article-tag">Regulation · April 2026</div>
+            <div class="article-title">U.S. Senate Advances Digital Asset Framework — XRP Named as Key Settlement Asset</div>
+            <div class="article-preview">Bipartisan legislation moving through the Senate would formally recognize XRP as a commodity and establish clear guidelines for its use in cross-border settlement...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ ▾</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>A sweeping digital asset regulatory framework advanced out of the Senate Banking Committee this week with rare bipartisan support. The bill explicitly categorizes XRP as a commodity under CFTC jurisdiction and clears the way for federally chartered banks to use XRP for real-time gross settlement.</p>
+              <p>The legislation, co-sponsored by senators from both parties, comes after two years of hearings in which Ripple executives testified on the efficiency gains of blockchain-based settlement. Industry observers say this is the clearest sign yet that Washington has accepted XRP's role in the financial infrastructure.</p>
+              <p>Ripple's legal team called the development "a watershed moment" adding that the company expects to see accelerated adoption among U.S. financial institutions once the bill is signed into law. The House version of the bill is expected to move to the floor within 60 days.</p>
+            </div>
+            <div class="members-gate guest-gate">
+              <p>Full article available to XRP Cowboys members only.</p>
+              <a href="login.html">Login to Read More</a>
+            </div>
+            <div class="comments-section">
+              <div class="comments-label">💬 Member Comments</div>
+              <div class="comment"><div class="comment-avatar">🌾</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">This is what we have been waiting for since 2018. The regulatory clarity changes everything for every bank on the planet that has been sitting on the sidelines.</div><div class="comment-time">5 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🏜️</div><div class="comment-content"><div class="comment-author">MesquiteMike</div><div class="comment-text">Bipartisan support is the key detail here. This is not political — this is infrastructure. Both sides know it.</div><div class="comment-time">6 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">⚙️</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">Named specifically as a settlement asset in the bill text. Read that again. This is not a maybe. This is written into law.</div><div class="comment-time">7 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">💼</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">@ChapparalChad I reread it three times just to make sure. Still can't believe how far we have come. Ride on Cowboys. 🤠</div><div class="comment-time">8 hours ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE 3 -->
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">🌐</div>
+          <div class="article-header-body">
+            <div class="article-tag">XRPL Tech · April 2026</div>
+            <div class="article-title">XRPL AMM Liquidity Hits Record $2.1 Billion — What It Means for Holders</div>
+            <div class="article-preview">Total value locked in XRPL's native automated market maker pools crossed $2.1 billion this week, a milestone that signals deepening DeFi adoption on the ledger...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ ▾</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>The XRPL's automated market maker protocol, which went live in early 2024, has now accumulated over $2.1 billion in total value locked — a 600% increase from its launch. The milestone positions the XRPL as a serious DeFi contender and adds a critical new dimension to XRP's utility story.</p>
+              <p>Liquidity providers are earning fees denominated in XRP, creating a new passive income stream for long-term holders who were previously limited to simply holding the asset. Early data shows that pools pairing XRP with stablecoins like RLUSD are seeing the deepest liquidity and tightest spreads.</p>
+              <p>Developers within the XRPL ecosystem say the AMM milestone is attracting new builder interest. "We're seeing teams from Ethereum and Solana actively exploring deployment on XRPL because of the speed and cost advantages," said one XRPL Foundation contributor. "The $2.1 billion TVL tells those teams that the liquidity is there."</p>
+            </div>
+            <div class="members-gate guest-gate">
+              <p>Full article available to XRP Cowboys members only.</p>
+              <a href="login.html">Login to Read More</a>
+            </div>
+            <div class="comments-section">
+              <div class="comments-label">💬 Member Comments</div>
+              <div class="comment"><div class="comment-avatar">🦅</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">I have been LP-ing in the XRP/RLUSD pool since launch and the returns have been solid. This is how you put your stack to work while you hold.</div><div class="comment-time">1 day ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🌵</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">2.1 billion TVL and barely a mention in mainstream crypto media. The moment this gets noticed it will be a completely different conversation.</div><div class="comment-time">1 day ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🏔️</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Builders coming from ETH and SOL is the real alpha in this article. Network effects compound fast once the developers arrive.</div><div class="comment-time">1 day ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE 4 -->
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">🏦</div>
+          <div class="article-header-body">
+            <div class="article-tag">Adoption · April 2026</div>
+            <div class="article-title">Three Major Banks Announce Live XRP Settlement Pilots — RippleNet Expands to 65 Countries</div>
+            <div class="article-preview">A trio of top-ten global banks have quietly gone live with XRP-based settlement pilots, pushing RippleNet's active corridor count to a record high...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ ▾</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>Three globally systemically important banks — two European and one Japanese — have moved from testing to live production on XRP-based payment corridors, according to sources familiar with the deployments. The institutions declined to be named publicly but the corridor data is visible on-chain and has been confirmed by multiple blockchain analytics firms.</p>
+              <p>RippleNet now spans 65 countries, up from 55 at the start of 2025. The new corridors cover high-volume remittance lanes between Southeast Asia, the Middle East, and Europe — some of the most expensive and slowest in traditional correspondent banking.</p>
+              <p>Transaction costs on the new XRP corridors are reported to be 94% lower than the SWIFT alternative, with settlement occurring in under four seconds. Industry analysts say these numbers, once widely published, will be difficult for rival networks to match and could trigger a broader banking migration toward XRP over the next 18 months.</p>
+            </div>
+            <div class="members-gate guest-gate">
+              <p>Full article available to XRP Cowboys members only.</p>
+              <a href="login.html">Login to Read More</a>
+            </div>
+            <div class="comments-section">
+              <div class="comments-label">💬 Member Comments</div>
+              <div class="comment"><div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">94% cheaper than SWIFT. That number is going to break the internet when it gets into mainstream financial press. Just a matter of time.</div><div class="comment-time">2 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🌾</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">65 countries and growing. The network effects are starting to compound and once they do they do not stop. We are still early.</div><div class="comment-time">2 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🐂</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Four second settlement vs two to five business days. I do not know how you make a rational argument for SWIFT anymore. The technology has won.</div><div class="comment-time">2 days ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE 5 -->
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">🚀</div>
+          <div class="article-header-body">
+            <div class="article-tag">Community · April 2026</div>
+            <div class="article-title">XRP Las Vegas 2026 — The Posse Rides to the Silverton April 30</div>
+            <div class="article-preview">The XRP Cowboys are heading to Las Vegas for the biggest XRP gathering of the year. Here is everything you need to know about the Silverton meetup...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ ▾</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>The XRP Cowboys are riding out to Las Vegas on April 30 for what is shaping up to be the largest gathering of XRP holders in the community's history. The Silverton Casino will host the event, with XRP enthusiasts arriving from across North America and Europe for two days of panels, networking, and celebration.</p>
+              <p>Cowboys members will be meeting up in the lobby at 6 PM on April 30. Look for the cowboy hats — you will not miss us. The group has reserved a block of tables at the Silverton's main restaurant for a community dinner at 7:30 PM. All members are welcome and no reservation is needed beyond what is already arranged.</p>
+              <p>The conference itself features speakers from Ripple, major financial institutions, and the broader XRPL developer community. Panel topics include institutional adoption timelines, the XRPL AMM ecosystem, and the legal landscape for digital assets in 2026 and beyond. For XRP Cowboys members the real conference happens at the dinner table afterward.</p>
+            </div>
+            <div class="members-gate guest-gate">
+              <p>Full article available to XRP Cowboys members only.</p>
+              <a href="login.html">Login to Read More</a>
+            </div>
+            <div class="comments-section">
+              <div class="comments-label">💬 Member Comments</div>
+              <div class="comment"><div class="comment-avatar">🏇</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">Already booked my room at the Silverton. Cannot wait to finally meet the herd in person. Four days and counting! 🤠</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">⚙️</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">The cowboy hat brigade is going to own that lobby. Vegas has never seen anything like a room full of XRP holders who have been right for this long. 🎰</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">💼</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">Fly in Friday morning, meetup Friday evening, panels all day Saturday. Perfect schedule. See you all there partners.</div><div class="comment-time">4 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">🦅</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">@WagonWheelWayne Save me a seat at dinner! First round is on me if XRP is above $4 by the time we sit down. 🍺</div><div class="comment-time">4 days ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /news-section -->
+
     <!-- LATEST DISCUSSIONS -->
     <div class="threads-section">
       <div class="section-label">
@@ -354,6 +573,32 @@
   const SUPABASE_URL = 'https://fbngrpissakvjelrcfaf.supabase.co';
   const SUPABASE_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
 
+
+  function toggleArticle(header) {
+    const card = header.parentElement;
+    const body = card.querySelector('.article-body');
+    const hint = header.querySelector('.article-expand-hint');
+    const isOpen = body.classList.contains('open');
+    // Close all others
+    document.querySelectorAll('.article-body.open').forEach(b => {
+      b.classList.remove('open');
+      b.closest('.article-card').querySelector('.article-expand-hint').textContent = 'TAP TO READ ▾';
+    });
+    if (!isOpen) {
+      body.classList.add('open');
+      hint.textContent = 'CLOSE ▴';
+    }
+  }
+
+  function applyMemberGating(isLoggedIn) {
+    document.querySelectorAll('.member-content').forEach(el => {
+      el.style.display = isLoggedIn ? 'block' : 'none';
+    });
+    document.querySelectorAll('.guest-gate').forEach(el => {
+      el.style.display = isLoggedIn ? 'none' : 'block';
+    });
+  }
+
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
   }
@@ -395,6 +640,7 @@
     if (typeof supabase === 'undefined') return;
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const {data:{session}} = await sb.auth.getSession();
+    applyMemberGating(!!session);
     if (session) {
       const postBtn = document.getElementById('post-cavalry-btn');
       if (postBtn) { postBtn.classList.remove('locked'); postBtn.style.pointerEvents = 'auto'; }
