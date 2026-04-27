@@ -3,25 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | XRPCOWBOYS • Exclusive XRP Community</title>
+  <title>Contact | XRPCOWBOYS &bull; Exclusive XRP Community</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
   <style>
     .parallax-bg { background-image: url('cowboy_rearing.jpg'); }
-
     .contact-outer { max-width: 1000px; margin: 0 auto; padding: 0 2rem 6rem; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
-
-    .founder-card {
-      background: linear-gradient(145deg, rgba(245,208,96,0.10), rgba(22,16,6,0.78));
-      border: 1px solid rgba(245,208,96,0.22);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      backdrop-filter: blur(8px);
-    }
+    .founder-card { background: linear-gradient(145deg, rgba(245,208,96,0.10), rgba(22,16,6,0.78)); border: 1px solid rgba(245,208,96,0.22); border-radius: 20px; padding: 2.5rem 2rem; text-align: center; backdrop-filter: blur(8px); }
     .founder-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
     .founder-role { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
     .founder-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 1.5rem; }
@@ -30,43 +20,21 @@
     .contact-item-icon { font-size: 1rem; opacity: 0.7; flex-shrink: 0; }
     .contact-item a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; color: rgba(232,224,208,0.85); text-decoration: none; transition: color 0.2s; word-break: break-all; }
     .contact-item a:hover { color: var(--gold); }
-
-    .email-box {
-      background: linear-gradient(145deg, rgba(245,208,96,0.09), rgba(22,16,6,0.78));
-      border: 1px solid rgba(245,208,96,0.18);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(8px);
-    }
+    .email-box { background: linear-gradient(145deg, rgba(245,208,96,0.09), rgba(22,16,6,0.78)); border: 1px solid rgba(245,208,96,0.18); border-radius: 20px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 2rem; backdrop-filter: blur(8px); }
     .email-box-label { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; }
     .email-box h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
     .email-box p { font-size: 1rem; font-weight: 300; color: rgba(255,248,235,0.97); margin-bottom: 1.5rem; line-height: 1.7; }
-    .email-btn {
-      display: inline-block;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #080808;
-      background: linear-gradient(135deg, #f5d060, #c9921a);
-      padding: 0.9rem 2.5rem;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(245,208,96,0.25);
-    }
+    .email-btn { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #080808; background: linear-gradient(135deg, #f5d060, #c9921a); padding: 0.9rem 2.5rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(245,208,96,0.25); }
     .email-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,208,96,0.4); }
-
+    /* Fix page-hero-label to match "Our Story" style */
+    .page-hero-label { font-family: 'Oswald', sans-serif !important; font-size: 1rem !important; font-weight: 400 !important; letter-spacing: 0.25em !important; text-transform: uppercase; color: var(--green) !important; }
     @media (max-width: 640px) {
       .contact-grid { grid-template-columns: 1fr; }
       .founder-card { padding: 2rem 1.25rem; }
       .contact-item a { font-size: 0.78rem; }
     }
   </style>
-<script src="shared.js"></script>
+  <script src="shared.js"></script>
 </head>
 <body>
 <div class="parallax-bg"></div>
@@ -74,31 +42,37 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="https://xrpcowboys.com/dispatch.html">The Corral</a></li>
+        <li><a href="dispatch.html">The Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">The Posse</a></li>
+        <li><a href="members.html">The Posse</a></li>
         <li><a href="forum.html">Forum</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
         <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
       </ul>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
       <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="https://xrpcowboys.com/dispatch.html" onclick="toggleMenu()">The Corral</a>
+      <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+      <a href="members.html" onclick="toggleMenu()">The Posse</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-      <a href="login.html" onclick="toggleMenu()">✦ Member Login</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">&#10022; Member Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
     </div>
   </nav>
 
@@ -112,34 +86,34 @@
   <div class="contact-outer">
     <div class="contact-grid">
       <div class="founder-card">
-        <span class="founder-icon">🤠</span>
+        <span class="founder-icon">&#129312;</span>
         <p class="founder-role">Co-Founder</p>
         <h2 class="founder-name">James Tyler</h2>
         <div class="founder-divider"></div>
         <div class="contact-item">
-          <span class="contact-item-icon">✉️</span>
+          <span class="contact-item-icon">&#9993;&#65039;</span>
           <a href="mailto:xrpcowboysmail@gmail.com">xrpcowboysmail@gmail.com</a>
         </div>
       </div>
       <div class="founder-card">
-        <span class="founder-icon">🤠</span>
+        <span class="founder-icon">&#129312;</span>
         <p class="founder-role">Co-Founder</p>
         <h2 class="founder-name">Dave Goodman</h2>
         <div class="founder-divider"></div>
         <div class="contact-item">
-          <span class="contact-item-icon">✉️</span>
+          <span class="contact-item-icon">&#9993;&#65039;</span>
           <a href="mailto:xrpcowboysmail@gmail.com">xrpcowboysmail@gmail.com</a>
         </div>
       </div>
     </div>
 
-    <div class="ornament">— ✦ —</div>
+    <div class="ornament">&#8212; &#10022; &#8212;</div>
 
     <div class="email-box">
       <p class="email-box-label">General Inquiries</p>
       <h3>Send Us a Message</h3>
-      <p>For membership questions, partnership inquiries, or anything else — our inbox is always open. We read every message personally.</p>
-      <a href="mailto:xrpcowboysmail@gmail.com" class="email-btn">✦ Send Us an Email ✦</a>
+      <p>For membership questions, partnership inquiries, or anything else &mdash; our inbox is always open. We read every message personally.</p>
+      <a href="mailto:xrpcowboysmail@gmail.com" class="email-btn">&#10022; Send Us an Email &#10022;</a>
     </div>
   </div>
 
@@ -152,27 +126,32 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <div class="footer-brand">✦ XRPCOWBOYS</div>
-        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community &middot; Est. 2018</div>
       </div>
       <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="join.html">Join</a>
-        <a href="https://xrpcowboys.com/dispatch.html">The Corral</a>
+        <a href="dispatch.html">The Corral</a>
         <a href="gallery.html">Gallery</a>
+        <a href="members.html">The Posse</a>
         <a href="forum.html">Forum</a>
         <a href="contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
+      <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; Membership by application only.</p>
     </div>
   </footer>
 
 </div>
 <script>
   function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function handleLogout(e) {
+    e.preventDefault();
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co', 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
+  }
   (async function() {
     if (typeof supabase === 'undefined') return;
     const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co', 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
@@ -180,10 +159,22 @@
     if (session) {
       const p = document.getElementById('nav-profile-btn');
       const l = document.getElementById('nav-login-btn');
+      const j = document.getElementById('nav-join-btn');
+      const lo = document.getElementById('nav-logout-btn');
+      const nm = document.getElementById('nav-messages-btn');
       const mp = document.getElementById('mob-profile-btn');
-      if (p) p.style.display = 'inline-block';
-      if (l) l.style.display = 'none';
-      if (mp) mp.style.display = 'block';
+      const ml = document.getElementById('mob-login-btn');
+      const mj = document.getElementById('mob-join-btn');
+      const mm = document.getElementById('mob-messages-btn');
+      if(p) p.style.display = 'inline-block';
+      if(l) l.style.display = 'none';
+      if(j) j.style.display = 'none';
+      if(lo) lo.style.display = 'inline-block';
+      if(nm) nm.style.display = 'inline-block';
+      if(mp) mp.style.display = 'block';
+      if(ml) ml.style.display = 'none';
+      if(mj) mj.style.display = 'none';
+      if(mm) mm.style.display = 'block';
     }
   })();
 </script>
