@@ -30,7 +30,7 @@
     .mobile-menu.open{display:flex;}
     .page-hero{text-align:center;padding:5rem 2rem 3.5rem;position:relative;overflow:hidden;}
     .page-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(34,80,28,0.28) 0%,transparent 70%);pointer-events:none;}
-    .page-hero-label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;position:relative;z-index:1;}
+    .page-hero-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;position:relative;z-index:1;}
     .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;position:relative;z-index:1;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
     .page-hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto 1.25rem;}
     .page-hero-sub{font-size:1.1rem;font-weight:300;color:rgba(232,224,208,0.97);}
@@ -106,12 +106,14 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="dispatch.html">The Corral</a></li>
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="members.html">The Posse</a></li>
         <li><a href="forum.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
         <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
@@ -120,12 +122,14 @@
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
       <a href="about.html" onclick="toggleMenu()">About</a>
       <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
       <a href="members.html" onclick="toggleMenu()">The Posse</a>
       <a href="forum.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
       <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">✦ Member Login</a>
       <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
@@ -140,7 +144,7 @@
   </div>
 
   <div class="public-preview" id="public-preview">
-    <p class="section-label" style="text-align:center;">Community Moments</p>
+    <p class="section-label" style="text-align:center;font-size:1rem;letter-spacing:0.25em;color:var(--green);">Community Moments</p>
     <h2 class="section-title" style="text-align:center;">The Posse in Action</h2>
     <div class="section-rule" style="margin:0 auto 2rem;"></div>
     <div class="public-preview-grid">
@@ -221,6 +225,7 @@
         <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
       </div>
       <div class="footer-links">
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="dispatch.html">The Corral</a>
         <a href="gallery.html">Gallery</a>
@@ -289,6 +294,8 @@
         if(l)l.style.display='none';
         if(j)j.style.display='none';
         if(lo)lo.style.display='inline-block';
+        const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';
+        const mm=document.getElementById('mob-messages-btn');if(mm)mm.style.display='block';
         if(mp)mp.style.display='block';
         if(ml)ml.style.display='none';
         if(mj)mj.style.display='none';
