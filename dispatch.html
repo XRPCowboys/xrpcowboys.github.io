@@ -73,10 +73,11 @@
 
     /* HERO */
     .forum-hero { padding: 4rem 2rem 2.5rem; text-align: center; }
+    .forum-hero-label { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
     .forum-hero .eyebrow { font-family: 'Oswald', sans-serif; font-size: 0.7rem;
       letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim);
       margin-bottom: 1rem; }
-    .forum-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
+    .forum-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem);
       font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
       background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -258,6 +259,7 @@
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">✦ XRPCOWBOYS</a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="dispatch.html" class="active">The Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
@@ -266,6 +268,7 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-actions">
+      <a href="messages.html" class="nav-btn nav-btn-profile" id="nav-messages-btn" style="display:none">Messages</a>
       <a href="profile.html" class="nav-btn nav-btn-profile" id="nav-profile-btn">My Profile</a>
       <a href="login.html" class="nav-btn nav-btn-login" id="nav-login-btn">Login</a>
       <a href="#" class="nav-btn nav-btn-logout" id="nav-logout-btn" onclick="handleLogout(event)">Log Out</a>
@@ -275,12 +278,14 @@
     </button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
     <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="members.html" onclick="toggleMenu()">The Posse</a>
     <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn">My Profile</a>
     <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
   </div>
@@ -290,8 +295,8 @@
 
   <!-- HERO -->
   <div class="forum-hero">
-    <div class="eyebrow">✦ Members Only · XRP Cowboys</div>
-    <h1>Member Discussions</h1>
+    <p class="forum-hero-label">The Official Discussion Forum of XRPCowboys</p>
+    <h1>Barnyard Roundtable</h1>
     <p class="subtitle">Where the posse gathers — XRP news, strategy, community, and everything in between.</p>
     <div class="divider-line"></div>
   </div>
@@ -701,6 +706,7 @@
         <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
       </div>
       <div class="footer-links">
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="dispatch.html">The Corral</a>
         <a href="gallery.html">Gallery</a>
@@ -853,6 +859,8 @@
       if (postBtn) { postBtn.classList.remove('locked'); postBtn.style.pointerEvents = 'auto'; }
 
       document.getElementById('nav-profile-btn').style.display = 'inline-block';
+      const nm = document.getElementById('nav-messages-btn'); if(nm) nm.style.display='inline-block';
+      const mm = document.getElementById('mob-messages-btn'); if(mm) mm.style.display='block';
       document.getElementById('nav-login-btn').style.display = 'none';
       document.getElementById('nav-logout-btn').style.display = 'inline-block';
 
