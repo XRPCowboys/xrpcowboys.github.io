@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="shared.css">
   <style>
     .parallax-bg { background-image: url('XRPCowboys_files/sawyer-WyfVUa2FJm8-unsplash.jpg'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; }
-
     .timeline { display: flex; flex-direction: column; gap: 0; margin: 3rem 0; }
     .timeline-item { display: flex; gap: 2rem; position: relative; padding-bottom: 2.5rem; }
     .timeline-item:last-child { padding-bottom: 0; }
@@ -18,24 +17,23 @@
     .timeline-content { padding-top: 0.2rem; }
     .timeline-content h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem; }
     .timeline-content p { font-size: 0.95rem; font-weight: 300; color: rgba(255,248,235,0.97); line-height: 1.7; }
-
     .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin: 3rem 0; }
     .feature-card { background: rgba(201,146,26,0.06); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s, border-color 0.3s; }
     .feature-card:hover { transform: translateY(-3px); border-color: rgba(180,150,60,0.3); }
     .feature-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
     .feature-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
     .feature-card p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: rgba(255,248,235,0.97); }
-
     .section { max-width: 1100px; margin: 0 auto; padding: 0 3rem 5rem; }
-
+    /* Nav logo matching hero gradient */
+    .nav-logo { background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
     @media (max-width: 768px) { .section { padding: 0 1.25rem 3rem; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    .section-label { font-size: 1.36rem !important; }
-    .page-hero-label { font-size: 1.36rem !important; }
+    .section-label { font-size: 1rem !important; letter-spacing: 0.25em !important; }
+    .page-hero-label { font-size: 1rem !important; letter-spacing: 0.25em !important; }
   </style>
-<script src="shared.js"></script>
+  <script src="shared.js"></script>
 </head>
 <body>
 <div class="parallax-bg"></div>
@@ -43,31 +41,37 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html" class="active">About</a></li>
-        <li><a href="forum.html">The Corral</a></li>
+        <li><a href="dispatch.html">The Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">The Posse</a></li>
+        <li><a href="members.html">The Posse</a></li>
         <li><a href="forum.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
         <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
       </ul>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
       <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="forum.html" onclick="toggleMenu()">The Corral</a>
+      <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
+      <a href="members.html" onclick="toggleMenu()">The Posse</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
       <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
       <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
     </div>
   </nav>
 
@@ -113,18 +117,18 @@
       </div>
     </div>
 
-    <div class="ornament">— ✦ —</div>
+    <div class="ornament">— &#10022; —</div>
 
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Community Features</h2>
     <div class="section-rule"></div>
     <div class="feature-grid">
-      <div class="feature-card"><span class="feature-icon">💬</span><h4>Private Forums</h4><p>Private discussion forums and threaded conversations covering XRP tech, markets, regulation, and ecosystem news.</p></div>
-      <div class="feature-card"><span class="feature-icon">🎙️</span><h4>Live AMAs</h4><p>Member-only live AMAs with XRP ecosystem participants, developers, and industry leaders.</p></div>
-      <div class="feature-card"><span class="feature-icon">✅</span><h4>Verified Members</h4><p>Verified member directory and networking tools. Every member is reviewed and approved by our team.</p></div>
-      <div class="feature-card"><span class="feature-icon">📰</span><h4>Curated Research</h4><p>Curated news, research, and educational resources focused exclusively on the XRP Ledger and ecosystem.</p></div>
-      <div class="feature-card"><span class="feature-icon">🗳️</span><h4>Governance</h4><p>Community governance polls and proposals. Members shape the direction of the XRPCowboys community.</p></div>
-      <div class="feature-card"><span class="feature-icon">🤠</span><h4>Cowboy Spirit</h4><p>A fun tradition of wearing cowboy hats at XRP conferences — a symbol of our pioneering community spirit.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128172;</span><h4>Private Forums</h4><p>Private discussion forums and threaded conversations covering XRP tech, markets, regulation, and ecosystem news.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#127897;&#65039;</span><h4>Live AMAs</h4><p>Member-only live AMAs with XRP ecosystem participants, developers, and industry leaders.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#9989;</span><h4>Verified Members</h4><p>Verified member directory and networking tools. Every member is reviewed and approved by our team.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128240;</span><h4>Curated Research</h4><p>Curated news, research, and educational resources focused exclusively on the XRP Ledger and ecosystem.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128379;&#65039;</span><h4>Governance</h4><p>Community governance polls and proposals. Members shape the direction of the XRPCowboys community.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#129312;</span><h4>Cowboy Spirit</h4><p>A fun tradition of wearing cowboy hats at XRP conferences — a symbol of our pioneering community spirit.</p></div>
     </div>
   </section>
 
@@ -137,26 +141,32 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <div class="footer-brand">✦ XRPCOWBOYS</div>
-        <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
+        <div class="footer-brand" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community &middot; Est. 2018</div>
       </div>
       <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="join.html">Join</a>
-        <a href="forum.html">The Corral</a>
+        <a href="dispatch.html">The Corral</a>
         <a href="gallery.html">Gallery</a>
+        <a href="members.html">The Posse</a>
+        <a href="members.html">The Posse</a>
         <a href="forum.html">Forum</a>
         <a href="contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2018–2026 Twin BlockChain Technologies LLC · All Rights Reserved · Membership by application only.</p>
+      <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; Membership by application only.</p>
     </div>
   </footer>
 
 </div>
 <script>
+  function handleLogout(e) {
+    e.preventDefault();
+    const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
+  }
   function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
   (async function() {
     if (typeof supabase === 'undefined') return;
@@ -165,12 +175,18 @@
     if (session) {
       const p = document.getElementById('nav-profile-btn');
       const l = document.getElementById('nav-login-btn');
+      const j = document.getElementById('nav-join-btn');
+      const lo = document.getElementById('nav-logout-btn');
       const mp = document.getElementById('mob-profile-btn');
       const ml = document.getElementById('mob-login-btn');
+      const mj = document.getElementById('mob-join-btn');
       if (p) p.style.display = 'inline-block';
       if (l) l.style.display = 'none';
+      if (j) j.style.display = 'none';
+      if (lo) lo.style.display = 'inline-block';
       if (mp) mp.style.display = 'block';
       if (ml) ml.style.display = 'none';
+      if (mj) mj.style.display = 'none';
     }
   })();
 </script>
