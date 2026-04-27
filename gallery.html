@@ -16,7 +16,7 @@
     .site-wrap{position:relative;z-index:1;}
     .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
     .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
@@ -31,7 +31,7 @@
     .page-hero{text-align:center;padding:5rem 2rem 3.5rem;position:relative;overflow:hidden;}
     .page-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(34,80,28,0.28) 0%,transparent 70%);pointer-events:none;}
     .page-hero-label{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;position:relative;z-index:1;}
-    .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 35%,#4ade80 65%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;position:relative;z-index:1;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
+    .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 75%,#4ade80 90%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;position:relative;z-index:1;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
     .page-hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto 1.25rem;}
     .page-hero-sub{font-size:1.1rem;font-weight:300;color:rgba(232,224,208,0.97);}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
@@ -214,7 +214,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <div class="footer-brand">✦ XRPCOWBOYS</div>
+        <div class="footer-brand" style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">✦ XRPCOWBOYS</div>
         <div class="footer-tagline">Exclusive XRP Community · Est. 2018</div>
       </div>
       <div class="footer-links">
@@ -307,9 +307,14 @@
         const{error}=await sb.storage.from('member-photos').upload(path,file);
         if(error){if(status){status.textContent='Upload error: '+error.message;status.className='upload-status err';}continue;}
         const{data:{publicUrl}}=sb.storage.from('member-photos').getPublicUrl(path);
-        await sb.from('gallery_photos').insert({user_id:currentUser.id,album:album,photo_url:publicUrl});
+        console.log('Uploading photo URL:', publicUrl);
+        const{error:dbErr}=await sb.from('gallery_photos').insert({user_id:currentUser.id,album:album,photo_url:publicUrl});
+        if(dbErr) console.error('DB insert error:', dbErr);
       }
       if(status){status.textContent='Photos uploaded! Yeehaw 🤠';status.className='upload-status ok';}
+      // Clear grid and reload
+      const g = document.getElementById('grid-xrplv2026');
+      if(g) g.innerHTML = '';
       await loadAlbumPhotos('xrplv2026','grid-xrplv2026');
     }
 
@@ -321,6 +326,8 @@
         data.forEach((p,i)=>{grid.appendChild(makeCard(p.photo_url,i,data.map(x=>x.photo_url)));});
         const countEl=document.getElementById('lv2026-count');
         if(countEl)countEl.textContent=data.length+' photo'+(data.length!==1?'s':'')+' from the posse';
+      } else if(error){
+        console.error('Gallery load error:', error);
       }
     }
   </script>
