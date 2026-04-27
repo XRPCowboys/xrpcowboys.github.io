@@ -31,7 +31,7 @@
     /* PAGE */
     .page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
     .page-header{text-align:center;margin-bottom:2rem;}
-    .eyebrow{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+    .eyebrow{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
     .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.6rem;}
     .page-sub{font-size:0.9rem;color:rgba(232,224,208,0.85);max-width:620px;margin:0 auto;line-height:1.7;}
 
@@ -109,12 +109,14 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="dispatch.html">The Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="members.html">The Posse</a></li>
       <li><a href="forum.html" class="active">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
       <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
@@ -123,12 +125,14 @@
     <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
     <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="members.html" onclick="toggleMenu()">The Posse</a>
     <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
     <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Member Login</a>
     <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
@@ -180,6 +184,7 @@
       <div class="footer-tagline" style="margin-top:0.4rem;">Exclusive XRP Community · Est. 2018</div>
     </div>
     <div class="footer-links">
+      <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="dispatch.html">The Corral</a>
       <a href="gallery.html">Gallery</a>
@@ -318,6 +323,8 @@ async function init() {
     if(l)l.style.display='none';
     if(j)j.style.display='none';
     if(lo)lo.style.display='inline-block';
+    const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';
+    const mm=document.getElementById('mob-messages-btn');if(mm)mm.style.display='block';
     if(mp)mp.style.display='block';
     if(ml)ml.style.display='none';
   } else {
