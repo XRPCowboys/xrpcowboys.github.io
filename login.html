@@ -13,10 +13,10 @@
     body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;}
 
     .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
     .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
-    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links{list-style:none;display:flex;gap:1.2rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.95rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover{color:var(--gold);}
     .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
@@ -68,7 +68,6 @@
 
     @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.login-box{padding:2rem 1.5rem;}}
   </style>
-<script src="shared.js"></script>
 </head>
 <body>
   <nav class="nav">
@@ -76,10 +75,9 @@
       <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
       <ul class="nav-links">
         <li><a href="about.html">About</a></li>
-        <li><a href="https://xrpcowboys.com/dispatch.html">The Corral</a></li>
+        <li><a href="forum.html">The Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">The Posse</a></li>
-        <li><a href="forum.html">Forum</a></li>
+        <li><a href="dispatch.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="join.html" class="nav-join-btn">Join</a></li>
       </ul>
@@ -87,7 +85,7 @@
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="https://xrpcowboys.com/dispatch.html" onclick="toggleMenu()">The Corral</a>
+      <a href="forum.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
       <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>

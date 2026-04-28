@@ -54,7 +54,7 @@ body {
 }
 .nav-inner {
   width: 100%;
-  padding: 0 2rem 0 1rem;
+  padding: 0 1.5rem;
   height: 64px;
   display: flex;
   align-items: center;
@@ -74,15 +74,15 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.75rem;
+  gap: 1.2rem;
   align-items: center;
   margin-left: auto;
 }
 .nav-links a {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(232,224,208,0.95);
   text-decoration: none;

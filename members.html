@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Posse | XRPCOWBOYS</title>
   <link rel="stylesheet" href="shared.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--card-bg:rgba(15,12,6,0.82);--card-border:rgba(201,146,26,0.18);--border:rgba(201,146,26,0.15);}
@@ -14,29 +14,28 @@
     .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg') center center/cover no-repeat;}
     .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(10,8,4,0.62);}
     .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.90);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;}
-    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;list-style:none;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.95rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
-    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
-    .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;}
+    .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
     .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
     .mobile-menu{display:none;flex-direction:column;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
     .mobile-menu.open{display:flex;}
     .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
-    .mobile-menu .mob-join{color:var(--gold)!important;font-weight:500;}
     .page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
-    .page-header{margin-bottom:2rem;text-align:center;}
-    .eyebrow{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;}
-    .page-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .page-sub{color:rgba(232,224,208,0.80);font-size:0.95rem;font-style:italic;text-align:center;}
-    .member-count{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-top:0.5rem;text-align:center;}
+    .page-header{margin-bottom:2rem;}
+    .eyebrow{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;background:linear-gradient(120deg,#f5c842,#c9921a 50%,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .page-sub{color:rgba(232,224,208,0.80);font-size:0.95rem;font-style:italic;}
+    .member-count{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-top:0.5rem;}
     .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
     .member-card{background:rgba(22,16,6,0.78);border:1px solid var(--card-border);backdrop-filter:blur(12px);border-radius:4px;padding:1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color 0.2s,transform 0.2s;text-decoration:none;color:var(--text);}
     .member-card:hover{border-color:var(--gold-dim);transform:translateY(-2px);}
-    .member-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1rem;flex-shrink:0;overflow:hidden;}
+    .member-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1rem;flex-shrink:0;}
     .member-avatar img{width:80px;height:80px;border-radius:50%;object-fit:cover;}
     .member-handle{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.2rem;}
     .member-name{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.80);margin-bottom:0.6rem;}
@@ -44,62 +43,44 @@
     .member-location{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.80);display:flex;align-items:center;gap:0.3rem;justify-content:center;}
     .member-joined{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(201,146,26,0.5);margin-top:0.4rem;}
     .loading{text-align:center;color:rgba(232,224,208,0.80);font-style:italic;padding:3rem;grid-column:1/-1;}
-    .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;background:rgba(14,10,3,0.88);backdrop-filter:blur(8px);position:relative;z-index:1;}
-    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
-    .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.92);}
-    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
-    .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.90);text-decoration:none;transition:color 0.2s;}
-    .footer-links a:hover{color:var(--gold);}
-    .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
-    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
     @media(max-width:768px){
-      .nav-links{display:none;}
+      .nav-links,.nav-login-btn,.nav-join-btn{display:none;}
       .hamburger{display:flex;}
       .member-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
     }
   </style>
-  <script src="shared.js"></script>
 </head>
 <body>
 <div class="hero-bg"></div>
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="dispatch.html">Corral</a></li>
+      <li><a href="forum.html">The Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html" class="active">Posse</a></li>
-      <li><a href="forum.html">Forum</a></li>
+      <li><a href="members.html" class="active">The Posse</a></li>
+      <li><a href="dispatch.html">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
-      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
-      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
-      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+      <li><a href="profile.html" class="nav-login-btn">My Profile</a></li>
     </ul>
     <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html" onclick="toggleMenu()">Home</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
-    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="members.html" onclick="toggleMenu()">Posse</a>
-    <a href="forum.html" onclick="toggleMenu()">Forum</a>
-    <a href="contact.html" onclick="toggleMenu()">Contact</a>
-    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
-    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">&#10022; Member Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    <a href="about.html">About</a>
+    <a href="forum.html">The Corral</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="members.html">The Posse</a>
+    <a href="dispatch.html">Forum</a>
+    <a href="contact.html">Contact</a>
+    <a href="profile.html">My Profile</a>
   </div>
 </nav>
 
 <div class="page">
   <div class="page-header">
-    <p class="eyebrow">Members Only &middot; Exclusive Access</p>
-    <h1 class="page-title">The Posse &#129312;</h1>
+    <p class="eyebrow">Members Only · Exclusive Access</p>
+    <h1 class="page-title">The Posse 🤠</h1>
     <p class="page-sub">Every cowboy riding the XRP Ledger with us.</p>
     <p class="member-count" id="member-count"></p>
   </div>
@@ -108,102 +89,39 @@
   </div>
 </div>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
-      <div class="footer-tagline" style="margin-top:0.4rem;">Exclusive XRP Community &middot; Est. 2018</div>
-    </div>
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="dispatch.html">Corral</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="members.html">Posse</a>
-      <a href="forum.html">Forum</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p>
-  </div>
-</footer>
-
 <script>
 const SUPABASE_URL='https://fbngrpissakvjelrcfaf.supabase.co';
 const SUPABASE_KEY='sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
-function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href='index.html';});}
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 async function init(){
   const{data:{session}}=await sb.auth.getSession();
   if(!session){window.location.href='login.html';return;}
-
-  // Show/hide nav buttons
-  const p=document.getElementById('nav-profile-btn');
-  const l=document.getElementById('nav-login-btn');
-  const j=document.getElementById('nav-join-btn');
-  const lo=document.getElementById('nav-logout-btn');
-  const nm=document.getElementById('nav-messages-btn');
-  const mp=document.getElementById('mob-profile-btn');
-  const ml=document.getElementById('mob-login-btn');
-  const mj=document.getElementById('mob-join-btn');
-  const mm=document.getElementById('mob-messages-btn');
-  if(p)p.style.display='inline-block';
-  if(l)l.style.display='none';
-  if(j)j.style.display='none';
-  if(lo)lo.style.display='inline-block';
-  if(nm)nm.style.display='inline-block';
-  if(mp)mp.style.display='block';
-  if(ml)ml.style.display='none';
-  if(mj)mj.style.display='none';
-  if(mm)mm.style.display='block';
-
   await loadMembers();
 }
 
 async function loadMembers(){
+  const{data,error}=await sb.from('profiles').select('*').order('joined_at',{ascending:false});
   const grid=document.getElementById('member-grid');
-  const{data:authUsers,error:authError}=await sb.rpc('get_all_members');
-  let members=[];
-  let profileMap={};
-  if(authUsers&&!authError&&authUsers.length>0){
-    members=authUsers;
-    authUsers.forEach(m=>{profileMap[m.id]=m;});
-  } else {
-    const{data:profiles}=await sb.from('profiles').select('*').order('joined_at',{ascending:false});
-    if(profiles&&profiles.length>0){
-      members=profiles;
-      profiles.forEach(p=>{profileMap[p.id||p.user_id]=p;});
-    }
-  }
-  if(!members||members.length===0){
-    grid.innerHTML='<p class="loading">No members found.</p>';
-    return;
-  }
-  document.getElementById('member-count').textContent=`${members.length} Rider${members.length!==1?'s':'' } Strong`;
-  grid.innerHTML=members.map((m,i)=>{
-    const profile=profileMap[m.id||m.user_id]||m;
-    const handle=profile.handle||m.handle||(m.email?m.email.split('@')[0]:'Cowboy #'+(i+1));
-    const fullName=profile.full_name||m.full_name||'';
-    const bio=profile.bio||m.bio||'';
-    const location=profile.location||m.location||'';
-    const avatarUrl=profile.avatar_url||m.avatar_url||'';
-    const joinedAt=profile.joined_at||m.joined_at||m.created_at||null;
-    const memberId=m.id||m.user_id||'';
-    return `<a href="public_profile.html?id=${memberId}" class="member-card">
-      <div class="member-avatar">${avatarUrl?`<img src="${esc(avatarUrl)}" loading="lazy" onerror="this.parentNode.innerHTML='🤠'">`:' 🤠'}</div>
-      <div class="member-handle">${esc(handle)}</div>
-      ${fullName?`<div class="member-name">${esc(fullName)}</div>`:''}
-      ${bio?`<div class="member-bio">${esc(bio)}</div>`:''}
-      ${location?`<div class="member-location">&#128205; ${esc(location)}</div>`:''}
-      <div class="member-joined">Riding since ${joinedAt?new Date(joinedAt).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'-'}</div>
-    </a>`;
-  }).join('');
+  if(error||!data){grid.innerHTML='<p class="loading">Could not load members. Try refreshing.</p>';return;}
+  document.getElementById('member-count').textContent=`${data.length} Rider${data.length!==1?'s':''} Strong`;
+  if(data.length===0){grid.innerHTML='<p class="loading">No members yet — be the first!</p>';return;}
+  grid.innerHTML=data.map(m=>`
+    <a href="public_profile.html?id=${m.id}" class="member-card">
+      <div class="member-avatar">
+        ${m.avatar_url?`<img src="${m.avatar_url}" loading="lazy">`:'🤠'}
+      </div>
+      <div class="member-handle">${esc(m.handle||'Cowboy')}</div>
+      ${m.full_name?`<div class="member-name">${esc(m.full_name)}</div>`:''}
+      ${m.bio?`<div class="member-bio">${esc(m.bio)}</div>`:''}
+      ${m.location?`<div class="member-location">📍 ${esc(m.location)}</div>`:''}
+      <div class="member-joined">Riding since ${m.joined_at?new Date(m.joined_at).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'-'}</div>
+    </a>`).join('');
 }
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 init();
 </script>
