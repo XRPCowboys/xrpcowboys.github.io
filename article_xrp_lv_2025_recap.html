@@ -89,7 +89,8 @@
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="dispatch.html">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
       <li><a href="join.html" class="nav-join-btn">Join</a></li>
     </ul>
@@ -232,7 +233,7 @@ async function submitComment(){
       const {data:profile}=await sb.from('profiles').select('handle,full_name').eq('id',session.user.id).single();
       if(profile&&(profile.handle||profile.full_name))document.getElementById('comment-name').value=profile.handle||profile.full_name;
       const p=document.getElementById('nav-profile-btn');const l=document.getElementById('nav-login-btn');const mp=document.getElementById('mob-profile-btn');
-      if(p)p.style.display='inline-block';if(l)l.style.display='none';if(mp)mp.style.display='block';
+      if(p)p.style.display='inline-block';if(l)l.style.display='none';const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';if(mp)mp.style.display='block';
     }
   }catch(e){}
 })();

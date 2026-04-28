@@ -111,6 +111,7 @@
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="dispatch.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
         <li><a href="join.html" class="nav-join-btn">Join</a></li>
@@ -250,7 +251,7 @@
         loadAlbumPhotos('xrplv2026', 'grid-xrplv2026');
         // Update nav
         const p=document.getElementById('nav-profile-btn');const l=document.getElementById('nav-login-btn');
-        if(p)p.style.display='inline-block';if(l)l.style.display='none';
+        if(p)p.style.display='inline-block';if(l)l.style.display='none';const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';
       } else {
         // Guest - show public preview only
         document.getElementById('public-preview').style.display = 'block';
