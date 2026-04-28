@@ -76,28 +76,39 @@
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="https://xrpcowboys.com/dispatch.html">The Corral</a></li>
+        <li><a href="dispatch.html">Corral</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">The Posse</a></li>
+        <li><a href="members.html">Posse</a></li>
         <li><a href="forum.html">Forum</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
         <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
         <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-        <li><a href="join.html" class="nav-join-btn">Join</a></li>
+        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
       </ul>
-      <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
       <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="https://xrpcowboys.com/dispatch.html" onclick="toggleMenu()">The Corral</a>
+      <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Dispatch</a>
+      <a href="members.html" onclick="toggleMenu()">Posse</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
       <a href="contact.html" onclick="toggleMenu()">Contact</a>
-      <a href="login.html" onclick="toggleMenu()">Member Login</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join">Join the Community</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+      <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+      <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
     </div>
   </nav>
   <div class="page-hero">
@@ -111,7 +122,7 @@
       <div class="form-header">
         <span class="star">🤠</span>
         <h2>Apply for Membership</h2>
-        <p>Fill out the short form below. Your approval confirmation will arrive in your inbox within 30 minutes.</p>
+        <p>Fill out the short form below. We review every application personally and will be in touch within 24 hours.</p>
         <div class="form-divider"></div>
       </div>
       <form id="joinForm">
@@ -123,21 +134,17 @@
         </div>
         <div class="submit-wrap">
           <button type="submit" class="submit-btn" id="submitBtn">✦ Submit Application ✦</button>
-          <p class="submit-note">Approval letter delivered to your inbox within 30 minutes</p>
+          <p class="submit-note">We review every application personally · Response within 24 hours</p>
         </div>
       </form>
       <div class="success-msg" id="successMsg">
         <span class="success-icon">🤠</span>
-        <h3>You're Approved, Partner!</h3>
-        <p>Welcome to the XRPCowboys family. Your official membership approval letter is on its way to your inbox right now.</p>
+        <h3>Application Received!</h3>
+        <p>Thank you for applying to join XRPCowboys. We review every application personally and will be in touch within 24 hours.</p>
         <div class="success-divider"></div>
-        <div class="countdown-box">
-          <p>✦ Your approval letter arrives in</p>
-          <div class="countdown-timer" id="countdownTimer">30:00</div>
-          <p>Check your email — including spam just in case</p>
-        </div>
-        <p style="font-size:0.95rem;color:rgba(232,224,208,0.85);">While you wait, you can already log in and start exploring the community.</p>
-        <a href="login.html" class="login-now-btn">✦ Go to Login Now ✦</a>
+        <p style="font-size:0.95rem;color:rgba(232,224,208,0.85);">Keep an eye on your inbox — including your spam folder just in case.</p>
+        <p style="font-size:0.95rem;color:rgba(232,224,208,0.85);margin-top:1rem;">In the meantime, feel free to browse the site and learn more about our community.</p>
+        <a href="about.html" class="login-now-btn" style="background:linear-gradient(135deg,#f5d060,#c9921a);margin-top:1.5rem;">✦ Learn About XRPCowboys ✦</a>
       </div>
     </div>
   </div>
@@ -160,14 +167,11 @@
       const detail=document.getElementById('referralDetail').value.trim();
       if(!name||!email||!source)return;
       const btn=document.getElementById('submitBtn');
-      btn.textContent='Processing...';btn.disabled=true;
+      btn.textContent='Submitting...';btn.disabled=true;
+      fetch('https://formspree.io/f/xrerppjq',{method:'POST',body:JSON.stringify({full_name:name,email:email,referral:source+' - '+detail}),headers:{'Content-Type':'application/json','Accept':'application/json'}});
       document.getElementById('joinForm').style.display='none';
       document.getElementById('successMsg').style.display='block';
-      startCountdown(30*60);
-      fetch('https://formspree.io/f/xrerppjq',{method:'POST',body:JSON.stringify({full_name:name,email:email,referral:source+' - '+detail,status:'AUTO-APPROVED'}),headers:{'Content-Type':'application/json','Accept':'application/json'}});
-      setTimeout(()=>{emailjs.send('service_3e874d6','template_qzdgsxc',{to_name:name,to_email:email,login_url:'https://xrpcowboys.com/login.html',from_name:'XRPCowboys'}).catch(err=>console.log('Email error:',err));},30*60*1000);
     });
-    function startCountdown(seconds){const el=document.getElementById('countdownTimer');let remaining=seconds;const tick=setInterval(()=>{remaining--;if(remaining<=0){clearInterval(tick);el.textContent='Check your inbox!';return;}const m=Math.floor(remaining/60);const s=remaining%60;el.textContent=m+':'+String(s).padStart(2,'0');},1000);}
   </script>
   <script>
   (async function(){
