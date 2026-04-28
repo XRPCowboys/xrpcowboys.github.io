@@ -10,14 +10,14 @@
     :root{--gold:#f5d060;--gold-dim:#c9921a;--green:#4ade80;--cream:#e8e0d0;--bg:#080808;--border:rgba(201,146,26,0.25);}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
-    
-    
-    
-    
-    
-    
-    
-    
+    .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--gold);}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;}
+    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
     .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
     .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);}
@@ -69,46 +69,36 @@
     .footer-links a:hover{color:var(--gold);}
     .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
-    @media(max-width:640px){.hamburger{display:flex;}.form-box{padding:2rem 1.5rem;}.how-row{grid-template-columns:1fr;}}
+    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.form-box{padding:2rem 1.5rem;}.how-row{grid-template-columns:1fr;}}
   </style>
 <script src="shared.js"></script>
 </head>
 <body>
   <nav class="nav">
-      <div class="nav-inner">
-    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
-    <ul class="nav-links">
-      <li><a href="index.html" id="nav-home">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="dispatch.html">Corral</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">Posse</a></li>
-      <li><a href="forum.html">Forum</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
-      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
-      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
-      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-      <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html" onclick="toggleMenu()">Home</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
-    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="members.html" onclick="toggleMenu()">Posse</a>
-    <a href="forum.html" onclick="toggleMenu()">Forum</a>
-    <a href="contact.html" onclick="toggleMenu()">Contact</a>
-    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
-    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
-    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
-  </div>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://xrpcowboys.com/dispatch.html">The Corral</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">The Posse</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+        <li><a href="join.html" class="nav-join-btn">Join</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="https://xrpcowboys.com/dispatch.html" onclick="toggleMenu()">The Corral</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="dispatch.html" onclick="toggleMenu()">Dispatch</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="login.html" onclick="toggleMenu()">Member Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join">Join the Community</a>
+    </div>
   </nav>
   <div class="page-hero">
     <p class="page-hero-label">Membership Application</p>
@@ -160,7 +150,7 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
+    emailjs.init('wUOb85382yncK9dn0');
     function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
     document.getElementById('joinForm').addEventListener('submit',async function(e){
       e.preventDefault();
@@ -175,7 +165,7 @@
       document.getElementById('successMsg').style.display='block';
       startCountdown(30*60);
       fetch('https://formspree.io/f/xrerppjq',{method:'POST',body:JSON.stringify({full_name:name,email:email,referral:source+' - '+detail,status:'AUTO-APPROVED'}),headers:{'Content-Type':'application/json','Accept':'application/json'}});
-      setTimeout(()=>{emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{to_name:name,to_email:email,login_url:'https://xrpcowboys.com/login.html',from_name:'XRPCowboys'}).catch(err=>console.log('Email error:',err));},30*60*1000);
+      setTimeout(()=>{emailjs.send('service_3e874d6','template_qzdgsxc',{to_name:name,to_email:email,login_url:'https://xrpcowboys.com/login.html',from_name:'XRPCowboys'}).catch(err=>console.log('Email error:',err));},30*60*1000);
     });
     function startCountdown(seconds){const el=document.getElementById('countdownTimer');let remaining=seconds;const tick=setInterval(()=>{remaining--;if(remaining<=0){clearInterval(tick);el.textContent='Check your inbox!';return;}const m=Math.floor(remaining/60);const s=remaining%60;el.textContent=m+':'+String(s).padStart(2,'0');},1000);}
   </script>
