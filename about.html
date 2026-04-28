@@ -7,6 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
   <style>
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1.2rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-login-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;text-decoration:none;}
+    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
     .parallax-bg { background-image: url('XRPCowboys_files/sawyer-WyfVUa2FJm8-unsplash.jpg'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; }
 
     .timeline { display: flex; flex-direction: column; gap: 0; margin: 3rem 0; }
@@ -58,7 +67,8 @@
       </button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
-      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
       <a href="forum.html" onclick="toggleMenu()">The Corral</a>
       <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
       <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
