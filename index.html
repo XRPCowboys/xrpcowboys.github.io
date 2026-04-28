@@ -35,7 +35,6 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg'); background-size: cover; background-position: center 30%; z-index: 0; }
 .parallax-bg::after { content: ''; position: absolute; inset: 0; background: rgba(5,4,2,0.35); }
 .site-wrap { position: relative; z-index: 1; }
-
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--gold); border-radius: 2px; }
 .mobile-menu { display: none; flex-direction: column; background: rgba(14,10,3,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem; gap: 1rem; }
@@ -44,7 +43,8 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
 .hero-wrapper { position: relative; min-height: 640px; display: flex; align-items: center; overflow: hidden; }
 .hero-wrapper::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(34,80,28,0.35) 0%, transparent 70%); pointer-events: none; }
-.cowboy-corner { position: absolute; top: 60px; left: 20px; width: 280px; pointer-events: none; z-index: 2; animation: floatCowboy 2s ease-in-out infinite; }
+/* MOVED TO TOP */
+.cowboy-corner { position: absolute; top: 0px; left: 20px; width: 280px; pointer-events: none; z-index: 2; animation: floatCowboy 2s ease-in-out infinite; }
 .cowboy-corner img { width: 100%; display: block; filter: saturate(1.4) brightness(1.15) drop-shadow(0 0 22px rgba(255,80,100,0.45)) drop-shadow(0 0 8px rgba(255,80,100,0.3)); }
 @keyframes floatCowboy { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; padding: 5rem 2rem 4rem; }
@@ -79,7 +79,6 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .hpw-header { text-align: center; margin-bottom: 1.8rem; }
 .hpw-label { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); }
 .hpw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 15%, #c9921a 35%, #a06e10 50%, #4ade80 68%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hpw-title:hover { color: var(--gold-dim); }
 .hpw-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 1.4s ease-in-out infinite; flex-shrink: 0; }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
 .hpw-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(180,150,60,0.3), transparent); }
@@ -132,7 +131,6 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
   .xrp-tn { font-size: 11px; }
 }
 @media (max-width: 768px) {
-  
   .hamburger { display: flex; }
   .cards-inner { grid-template-columns: 1fr 1fr; }
   .thread-cat { display: none; }
@@ -418,16 +416,8 @@ function toggleMenu() {
 
 (async function(){
   try {
-    const sb = supabase.createClient(
-      "https://fbngrpissakvjelrcfaf.supabase.co",
-      "sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU"
-    );
-    const { data, error } = await sb
-      .from('hpw_articles')
-      .select('category, title, excerpt, author, date')
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
+    const sb = supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");
+    const { data, error } = await sb.from('hpw_articles').select('category, title, excerpt, author, date').order('created_at', { ascending: false }).limit(1).single();
     if (!error && data) {
       document.getElementById('hpwCat').textContent = data.category || 'Ecosystem News';
       document.getElementById('hpwTitle').textContent = data.title || '';
@@ -438,13 +428,9 @@ function toggleMenu() {
   } catch(e) {}
 })();
 
-// Auth check
 (async function(){
   try {
-    const sb = supabase.createClient(
-      "https://fbngrpissakvjelrcfaf.supabase.co",
-      "sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU"
-    );
+    const sb = supabase.createClient("https://fbngrpissakvjelrcfaf.supabase.co","sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU");
     const {data:{session}} = await sb.auth.getSession();
     if (session) {
       const p = document.getElementById('nav-profile-btn');
