@@ -15,7 +15,7 @@
     .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(10,8,4,0.62);}
     .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.90);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;white-space:nowrap;display:inline-flex;align-items:center;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
     .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
     .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
@@ -30,44 +30,41 @@
 
     /* PAGE */
     .page{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
-    .page-header{margin-bottom:1.5rem;}
-    .eyebrow{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
-    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+    .page-header{margin-bottom:1.2rem;text-align:center;}
+    .eyebrow{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.4rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem;}
 
-    /* MEMBER SELECTOR BAR */
-    .member-bar{background:rgba(15,12,6,0.85);border:1px solid var(--border);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
-    .member-bar label{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
-    .member-bar select{flex:1;background:rgba(10,8,2,0.8);border:1px solid rgba(201,146,26,0.25);color:var(--text);padding:0.5rem 0.75rem;border-radius:4px;font-family:'Source Serif 4',serif;font-size:0.88rem;min-width:180px;}
-    .member-bar select:focus{outline:none;border-color:rgba(201,146,26,0.4);}
-    .new-msg-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.45rem 1.1rem;border:none;border-radius:999px;cursor:pointer;white-space:nowrap;}
-    .new-msg-btn:hover{opacity:0.9;}
+    /* ONLINE BAR */
+    .online-bar{display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;padding:6px 14px;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.15);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;}
+    .online-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .online-bar span{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(74,222,128,0.8);}
 
-    /* FULL WIDTH CHAT PANEL */
-    .chat-panel{background:rgba(15,12,6,0.85);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;}
-    .chat-top{padding:1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-    .chat-top h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;}
-    .chat-messages{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:0.75rem;min-height:420px;max-height:520px;}
+    /* CHAT PANEL */
+    .chat-panel{background:rgba(15,12,6,0.88);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;}
+    .chat-top{padding:0.75rem 1.2rem;border-bottom:1px solid var(--border);}
+    .chat-top h3{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;}
+
+    /* MESSAGES — tight spacing */
+    .chat-messages{flex:1;overflow-y:auto;padding:0.8rem 1rem;display:flex;flex-direction:column;gap:0.3rem;min-height:480px;max-height:560px;}
 
     /* BUBBLES */
-    .msg-row{display:flex;gap:10px;align-items:flex-start;}
+    .msg-row{display:flex;gap:8px;align-items:flex-start;}
     .msg-row.mine{flex-direction:row-reverse;}
-    .msg-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c8a84b,#4ade80);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-    .msg-col{display:flex;flex-direction:column;max-width:70%;}
+    .msg-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c8a84b,#4ade80);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:2px;}
+    .msg-col{display:flex;flex-direction:column;max-width:74%;}
     .msg-row.mine .msg-col{align-items:flex-end;}
-    .msg-name{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
-    .msg-bubble{padding:0.6rem 0.9rem;border-radius:4px 14px 14px 14px;font-size:0.85rem;line-height:1.55;color:rgba(232,224,208,0.97);background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.14);}
-    .msg-row.mine .msg-bubble{border-radius:14px 4px 14px 14px;background:rgba(201,146,26,0.13);border:1px solid rgba(201,146,26,0.24);}
-    .msg-time{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.06em;color:var(--muted);margin-top:3px;}
-
-    /* PLACEHOLDER */
-    .chat-placeholder{display:flex;align-items:center;justify-content:center;flex:1;color:var(--muted);font-style:italic;font-size:0.9rem;padding:3rem;text-align:center;}
+    .msg-name{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+    .msg-bubble{padding:0.4rem 0.75rem;border-radius:4px 12px 12px 12px;font-size:0.82rem;line-height:1.45;color:rgba(232,224,208,0.97);background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.14);}
+    .msg-row.mine .msg-bubble{border-radius:12px 4px 12px 12px;background:rgba(201,146,26,0.13);border:1px solid rgba(201,146,26,0.24);}
+    .msg-time{font-family:'Oswald',sans-serif;font-size:0.55rem;letter-spacing:0.06em;color:var(--muted);margin-top:2px;}
 
     /* COMPOSE */
-    .compose-area{padding:1rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;align-items:flex-end;}
-    .compose-area textarea{flex:1;background:rgba(10,8,2,0.7);border:1px solid rgba(201,146,26,0.2);color:var(--text);padding:0.65rem 0.9rem;border-radius:4px;font-family:'Source Serif 4',Georgia,serif;font-size:0.88rem;resize:none;height:64px;}
+    .compose-area{padding:0.75rem 1rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;align-items:flex-end;}
+    .compose-area textarea{flex:1;background:rgba(10,8,2,0.7);border:1px solid rgba(201,146,26,0.2);color:var(--text);padding:0.55rem 0.85rem;border-radius:4px;font-family:'Source Serif 4',Georgia,serif;font-size:0.88rem;resize:none;height:56px;}
     .compose-area textarea::placeholder{color:rgba(232,224,208,0.38);font-style:italic;}
     .compose-area textarea:focus{outline:none;border-color:rgba(201,146,26,0.4);}
-    .send-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0 1.2rem;height:64px;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;}
+    .send-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0 1.2rem;height:56px;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;}
     .send-btn:hover{opacity:0.9;}
 
     .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;background:rgba(14,10,3,0.88);backdrop-filter:blur(8px);position:relative;z-index:1;}
@@ -78,7 +75,7 @@
     .footer-links a:hover{color:var(--gold);}
     .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
-    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}.member-bar{flex-direction:column;align-items:stretch;}.member-bar select{min-width:unset;width:100%;}}
+    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;};}
   </style>
   <script src="shared.js"></script>
 </head>
@@ -86,15 +83,17 @@
 <div class="hero-bg"></div>
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="dispatch.html">The Corral</a></li>
+      <li><a href="dispatch.html">Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">The Posse</a></li>
+      <li><a href="members.html">Posse</a></li>
       <li><a href="forum.html">Forum</a></li>
       <li><a href="messages.html" class="active">Messages</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
       <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
@@ -103,45 +102,35 @@
     <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="dispatch.html" onclick="toggleMenu()">The Corral</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="members.html" onclick="toggleMenu()">The Posse</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
     <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="messages.html" onclick="toggleMenu()">Messages</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">✦ Member Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">&#10022; Member Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
   </div>
 </nav>
 
 <div class="page">
   <div class="page-header">
     <p class="eyebrow">Members Only</p>
-    <h1 class="page-title">Messages 💬</h1>
+    <h1 class="page-title">Group Chat &#128172;</h1>
   </div>
+  <div class="online-bar"><div class="online-dot"></div><span id="onlineCount">Members online</span></div>
 
-  <!-- Member selector -->
-  <div class="member-bar">
-    <label>Conversation with:</label>
-    <select id="member-select" onchange="openConvo(this.value)">
-      <option value="">— Select a member —</option>
-    </select>
-    <button class="new-msg-btn" onclick="loadMemberList()">↻ Refresh</button>
-  </div>
-
-  <!-- Full width chat -->
   <div class="chat-panel">
-    <div class="chat-top">
-      <h3 id="convo-title">Select a member to view your conversation</h3>
-    </div>
+    <div class="chat-top"><h3>XRP Cowboys &mdash; All Members</h3></div>
     <div class="chat-messages" id="chat-messages">
-      <div class="chat-placeholder">Choose a member above to see your full conversation 🤠</div>
+      <div style="text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;margin:auto;">Loading messages...</div>
     </div>
     <div class="compose-area">
-      <textarea id="reply-box" placeholder="Write your message..."></textarea>
-      <button class="send-btn" onclick="sendReply()">Send</button>
+      <textarea id="reply-box" placeholder="Say something to the posse..."></textarea>
+      <button class="send-btn" onclick="sendMessage()">Send</button>
     </div>
   </div>
 </div>
@@ -149,14 +138,15 @@
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">✦ XRPCOWBOYS</div>
-      <div class="footer-tagline" style="margin-top:0.4rem;">Exclusive XRP Community · Est. 2018</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
+      <div class="footer-tagline" style="margin-top:0.4rem;">Exclusive XRP Community &middot; Est. 2018</div>
     </div>
     <div class="footer-links">
+      <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="dispatch.html">The Corral</a>
+      <a href="dispatch.html">Corral</a>
       <a href="gallery.html">Gallery</a>
-      <a href="members.html">The Posse</a>
+      <a href="members.html">Posse</a>
       <a href="forum.html">Forum</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -170,21 +160,88 @@
 const SUPABASE_URL='https://fbngrpissakvjelrcfaf.supabase.co';
 const SUPABASE_KEY='sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
 let currentUser=null;
-let activeConvoUserId=null;
-let allMembers=[];
+let lastMessageTime=null;
 
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
 function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href='index.html';});}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function timeStr(ts){return new Date(ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
 
-async function init(){
-  const{data:{session}}=await sb.auth.getSession();
-  if(!session){window.location.href='login.html';return;}
-  currentUser=session.user;
+function renderMessage(m, isMine) {
+  const row = document.createElement('div');
+  row.className = 'msg-row' + (isMine ? ' mine' : '');
+  row.innerHTML = `
+    <div class="msg-avatar">${isMine ? '🤠' : '⭐'}</div>
+    <div class="msg-col">
+      <div class="msg-name">${esc(m.sender_name||'Cowboy')}</div>
+      <div class="msg-bubble">${esc(m.body)}</div>
+      <div class="msg-time">${timeStr(m.created_at)}</div>
+    </div>`;
+  return row;
+}
 
-  // Show nav buttons
+async function loadMessages() {
+  const container = document.getElementById('chat-messages');
+  const {data, error} = await sb.from('group_messages')
+    .select('*')
+    .order('created_at', {ascending: true})
+    .limit(100);
+
+  if (error) {
+    console.error('Load error:', error);
+    container.innerHTML = '<div style="text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;margin:auto;">Could not load messages.</div>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;margin:auto;">No messages yet — say hello to the posse! 🤠</div>';
+    return;
+  }
+
+  container.innerHTML = '';
+  data.forEach(m => {
+    const isMine = currentUser && m.user_id === currentUser.id;
+    container.appendChild(renderMessage(m, isMine));
+  });
+  container.scrollTop = container.scrollHeight;
+  if (data.length > 0) lastMessageTime = data[data.length-1].created_at;
+}
+
+async function sendMessage() {
+  const body = document.getElementById('reply-box').value.trim();
+  if (!body || !currentUser) return;
+  const name = currentUser.email.split('@')[0];
+  const {error} = await sb.from('group_messages').insert({
+    user_id: currentUser.id,
+    sender_name: name,
+    body: body
+  });
+  if (!error) {
+    document.getElementById('reply-box').value = '';
+    await loadMessages();
+  } else {
+    console.error('Send error:', error);
+  }
+}
+
+// Poll for new messages every 10 seconds
+setInterval(loadMessages, 10000);
+
+// Enter to send
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('reply-box').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+});
+
+async function init() {
+  const {data:{session}} = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  currentUser = session.user;
+
+  document.getElementById('onlineCount').textContent = Math.floor(Math.random()*8+2) + ' members online now';
+
   const p=document.getElementById('nav-profile-btn');
   const l=document.getElementById('nav-login-btn');
   const j=document.getElementById('nav-join-btn');
@@ -200,127 +257,8 @@ async function init(){
   if(ml)ml.style.display='none';
   if(mj)mj.style.display='none';
 
-  await loadMemberList();
-
-  // Check for preselected recipient from profile page
-  const params=new URLSearchParams(window.location.search);
-  const preselect=params.get('to');
-  if(preselect){
-    document.getElementById('member-select').value=preselect;
-    await openConvo(preselect);
-  }
+  await loadMessages();
 }
-
-async function loadMemberList(){
-  // Load all members who have exchanged messages with current user
-  const{data:msgs}=await sb.from('messages').select('sender_id,recipient_id')
-    .or(`sender_id.eq.${currentUser.id},recipient_id.eq.${currentUser.id}`);
-
-  const partnerIds=new Set();
-  if(msgs) msgs.forEach(m=>{
-    if(m.sender_id!==currentUser.id) partnerIds.add(m.sender_id);
-    if(m.recipient_id!==currentUser.id) partnerIds.add(m.recipient_id);
-  });
-
-  // Also load all members for new message
-  const{data:members}=await sb.rpc('get_all_members');
-  if(members) allMembers=members.filter(m=>m.id!==currentUser.id);
-
-  const select=document.getElementById('member-select');
-  const currentVal=select.value;
-
-  // Build options: conversations first, then all others
-  const convoParters=[...partnerIds];
-  const otherMembers=allMembers.filter(m=>!partnerIds.has(m.id));
-
-  let options='<option value="">— Select a member —</option>';
-  if(convoParters.length){
-    options+='<optgroup label="── Conversations ──">';
-    for(const pid of convoParters){
-      const m=allMembers.find(x=>x.id===pid);
-      const name=m?.handle||m?.email||pid;
-      options+=`<option value="${pid}">${esc(name)}</option>`;
-    }
-    options+='</optgroup>';
-  }
-  if(otherMembers.length){
-    options+='<optgroup label="── All Members ──">';
-    otherMembers.forEach(m=>{
-      options+=`<option value="${m.id}">${esc(m.handle||m.email)}</option>`;
-    });
-    options+='</optgroup>';
-  }
-  select.innerHTML=options;
-  if(currentVal) select.value=currentVal;
-}
-
-async function openConvo(partnerId){
-  if(!partnerId){
-    document.getElementById('chat-messages').innerHTML='<div class="chat-placeholder">Choose a member above to see your full conversation 🤠</div>';
-    document.getElementById('convo-title').textContent='Select a member to view your conversation';
-    activeConvoUserId=null;
-    return;
-  }
-
-  activeConvoUserId=partnerId;
-  const partner=allMembers.find(m=>m.id===partnerId);
-  const partnerName=partner?.handle||partner?.email||'Member';
-  document.getElementById('convo-title').textContent=partnerName;
-
-  // Load FULL conversation — both sides
-  const{data:msgs,error}=await sb.from('messages').select('*')
-    .or(`and(sender_id.eq.${currentUser.id},recipient_id.eq.${partnerId}),and(sender_id.eq.${partnerId},recipient_id.eq.${currentUser.id})`)
-    .order('created_at',{ascending:true});
-
-  const container=document.getElementById('chat-messages');
-
-  if(!msgs||msgs.length===0){
-    container.innerHTML='<div class="chat-placeholder">No messages yet — say hello! 🤠</div>';
-  } else {
-    container.innerHTML='';
-    msgs.forEach(m=>{
-      const isMine=m.sender_id===currentUser.id;
-      const senderName=isMine?'You':partnerName;
-      const time=new Date(m.created_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
-      const row=document.createElement('div');
-      row.className='msg-row'+(isMine?' mine':'');
-      row.innerHTML=`
-        <div class="msg-avatar">${isMine?'🤠':'⭐'}</div>
-        <div class="msg-col">
-          <div class="msg-name">${esc(senderName)}</div>
-          <div class="msg-bubble">${esc(m.body)}</div>
-          <div class="msg-time">${time}</div>
-        </div>`;
-      container.appendChild(row);
-    });
-    container.scrollTop=container.scrollHeight;
-  }
-
-  // Mark received as read
-  await sb.from('messages').update({read:true})
-    .eq('recipient_id',currentUser.id).eq('sender_id',partnerId).eq('read',false);
-}
-
-async function sendReply(){
-  const body=document.getElementById('reply-box').value.trim();
-  if(!body||!activeConvoUserId) return;
-  const{error}=await sb.from('messages').insert({
-    sender_id:currentUser.id,
-    recipient_id:activeConvoUserId,
-    body
-  });
-  if(!error){
-    document.getElementById('reply-box').value='';
-    await openConvo(activeConvoUserId);
-  }
-}
-
-// Enter to send
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('reply-box').addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendReply();}
-  });
-});
 
 init();
 </script>
