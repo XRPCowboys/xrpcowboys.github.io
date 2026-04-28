@@ -53,8 +53,9 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .nav-inner {
-  width: 100%;
-  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   height: 64px;
   display: flex;
   align-items: center;
@@ -62,9 +63,9 @@ body {
 }
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -74,15 +75,15 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.2rem;
+  gap: 0.9rem;
   align-items: center;
   margin-left: auto;
 }
 .nav-links a {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(232,224,208,0.95);
   text-decoration: none;
@@ -334,7 +335,7 @@ body {
 }
 .footer-tagline {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(232,224,208,0.92);

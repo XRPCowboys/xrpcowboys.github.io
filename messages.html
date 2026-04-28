@@ -284,12 +284,10 @@ async function deleteMessage(id, row) {
   if (!confirm('Delete this message?')) return;
   const { error } = await sb.from('group_messages').delete().eq('id', id);
   if (error) { alert('Delete failed: ' + error.message); return; }
-  renderedIds.delete(id);
   row.remove();
 }
 
 let lastLoadedTime = null;
-let renderedIds = new Set();
 
 async function loadMessages(initialLoad = false) {
   const container = document.getElementById('chat-messages');
@@ -300,25 +298,15 @@ async function loadMessages(initialLoad = false) {
     if (error) { container.innerHTML='<div style="text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;margin:auto;">Could not load messages.</div>'; return; }
     if (!data||data.length===0) { container.innerHTML='<div style="text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;margin:auto;">No messages yet — say hello to the posse! 🤠</div>'; return; }
     container.innerHTML='';
-    renderedIds = new Set();
-    data.forEach(m => {
-      container.appendChild(renderMessage(m, currentUser && m.user_id===currentUser.id));
-      renderedIds.add(m.id);
-    });
+    data.forEach(m => container.appendChild(renderMessage(m, currentUser && m.user_id===currentUser.id)));
     container.scrollTop = container.scrollHeight;
     if (data.length > 0) lastLoadedTime = data[data.length-1].created_at;
   } else {
     // Only fetch messages newer than last seen
     const {data, error} = await sb.from('group_messages').select('*').gt('created_at', lastLoadedTime).order('created_at',{ascending:true});
     if (error || !data || data.length === 0) return;
-    let added = 0;
-    data.forEach(m => {
-      if (renderedIds.has(m.id)) return;
-      container.appendChild(renderMessage(m, currentUser && m.user_id===currentUser.id));
-      renderedIds.add(m.id);
-      added++;
-    });
-    if (added > 0) container.scrollTop = container.scrollHeight;
+    data.forEach(m => container.appendChild(renderMessage(m, currentUser && m.user_id===currentUser.id)));
+    container.scrollTop = container.scrollHeight;
     lastLoadedTime = data[data.length-1].created_at;
   }
 }
@@ -363,31 +351,20 @@ async function sendMessage() {
     try { payload.attachments = JSON.stringify(attachments); } catch(e){}
   }
 
-  const { error } = await sb.from('group_messages').insert(payload);
-  if (!error) {
+  const { data: inserted, error } = await sb.from('group_messages').insert(payload).select().single();
+  if (!error && inserted) {
     document.getElementById('reply-box').value = '';
     pendingFiles = [];
     document.getElementById('preview-strip').innerHTML = '';
     document.getElementById('file-input').value = '';
     status.textContent = '';
-    // Fetch just the message we just sent
-    const { data: newMsgs } = await sb.from('group_messages')
-      .select('*')
-      .eq('user_id', currentUser.id)
-      .order('created_at', { ascending: false })
-      .limit(1);
-    if (newMsgs && newMsgs.length > 0) {
-      const m = newMsgs[0];
-      const container = document.getElementById('chat-messages');
-      const noMsg = container.querySelector('div[style*="text-align:center"]');
-      if (noMsg) noMsg.remove();
-      if (!renderedIds.has(m.id)) {
-        renderedIds.add(m.id);
-        container.appendChild(renderMessage(m, true));
-        container.scrollTop = container.scrollHeight;
-        lastLoadedTime = m.created_at;
-      }
-    }
+    // Append just the new message - no full reload
+    const container = document.getElementById('chat-messages');
+    const noMsg = container.querySelector('div[style*="text-align:center"]');
+    if (noMsg) noMsg.remove();
+    container.appendChild(renderMessage(inserted, true));
+    container.scrollTop = container.scrollHeight;
+    lastLoadedTime = inserted.created_at;
   } else {
     console.error('Send error:', error);
     status.textContent = 'Could not send. Try again.';
