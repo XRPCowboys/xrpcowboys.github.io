@@ -13,14 +13,14 @@
     body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;}
     .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cowboy_bar.jpg') center center/cover no-repeat;}
     .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(5,3,1,0.72);}
-    
-    
-    
-    
-    
-    
-    
-    
+    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
+    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
     .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
     .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);}
@@ -82,9 +82,34 @@
     .send-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0 1.2rem;height:64px;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;}
     .send-btn:hover{opacity:0.9;}
 
-    /* GUEST PROMPT */
-    .guest-prompt{text-align:center;padding:2rem;color:var(--muted);font-style:italic;font-size:0.9rem;}
-    .guest-prompt a{color:var(--gold);text-decoration:none;}
+    /* PUBLIC BANNER */
+    .public-banner{background:linear-gradient(135deg,rgba(245,208,96,0.08),rgba(74,222,128,0.06));border:1px solid rgba(245,208,96,0.25);border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+    .public-banner-text{font-family:'Oswald',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.85);}
+    .public-banner-text span{color:var(--gold);}
+    .public-banner-btns{display:flex;gap:0.75rem;flex-wrap:wrap;}
+    .banner-login-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.95);border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;text-decoration:none;transition:border-color 0.2s;}
+    .banner-login-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .banner-join-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;text-decoration:none;}
+    /* THREAD CARDS for public view */
+    .thread-list{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;}
+    .thread-card{background:rgba(15,12,6,0.82);border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.5rem;transition:border-color 0.2s;}
+    .thread-card:hover{border-color:rgba(201,146,26,0.35);}
+    .thread-card-top{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;}
+    .thread-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c8a84b,#4ade80);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+    .thread-author{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+    .thread-time{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:rgba(201,146,26,0.45);margin-left:auto;}
+    .thread-body{font-size:0.9rem;line-height:1.65;color:rgba(232,224,208,0.92);margin-bottom:0.75rem;}
+    .thread-footer{display:flex;align-items:center;gap:1rem;}
+    .thread-stat{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(232,224,208,0.4);}
+    .thread-locked{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(74,222,128,0.5);border:1px solid rgba(74,222,128,0.2);padding:0.2rem 0.6rem;border-radius:999px;}
+    /* GUEST CTA */
+    .guest-cta{background:linear-gradient(135deg,rgba(245,208,96,0.07),rgba(74,222,128,0.05));border:1px solid rgba(245,208,96,0.2);border-radius:8px;padding:2rem;text-align:center;margin-top:1rem;}
+    .guest-cta h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:0.5rem;}
+    .guest-cta p{font-size:0.9rem;color:rgba(232,224,208,0.8);margin-bottom:1.25rem;line-height:1.7;}
+    .guest-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .cta-login{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);border:1px solid rgba(180,150,60,0.4);padding:0.7rem 1.5rem;border-radius:999px;text-decoration:none;transition:border-color 0.2s;}
+    .cta-login:hover{border-color:var(--gold);}
+    .cta-join{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.7rem 1.5rem;border-radius:999px;text-decoration:none;box-shadow:0 4px 20px rgba(245,208,96,0.25);}
 
     .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;background:rgba(8,6,2,0.88);backdrop-filter:blur(8px);position:relative;z-index:1;}
     .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
@@ -95,7 +120,7 @@
     .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
     @media(max-width:768px){
-      .hamburger{display:flex;}
+      .nav-links{display:none;}.hamburger{display:flex;}
       .forum-layout{grid-template-columns:1fr;}
       
     }
@@ -106,15 +131,15 @@
 <div class="hero-bg"></div>
 <div style="position:relative;z-index:1;">
 <nav class="nav">
-    <div class="nav-inner">
-    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
     <ul class="nav-links">
-      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="dispatch.html">Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="members.html">Posse</a></li>
-      <li><a href="forum.html">Forum</a></li>
+      <li><a href="forum.html" class="active">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
@@ -122,11 +147,9 @@
       <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
       <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
     </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
-    <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu">
     <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
     <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
@@ -136,9 +159,8 @@
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
     <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
-    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Member Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
   </div>
 </nav>
 
@@ -146,37 +168,143 @@
   <div class="page-header">
     <p class="eyebrow">The Official Discussion Forum of XRPCowboys</p>
     <h1 class="page-title">HORSEPOWER WIRE</h1>
-    <p class="page-sub">Welcome to the Horsepower Wire — our private, members-only discussion forum dedicated to the XRP Ledger and its growing ecosystem. Here, verified members discuss technology updates, regulatory developments, real-world adoption, upcoming events, and everything else happening in the XRP community.</p>
+    <p class="page-sub">The private, members-only discussion forum for the XRPCowboys community — dedicated to the XRP Ledger and its growing ecosystem. Verified members discuss technology, regulation, real-world adoption, events, and everything happening in the XRP world.</p>
   </div>
 
-  <div class="forum-layout">
+  <!-- Public banner -->
+  <div class="public-banner" id="public-banner">
+    <div class="public-banner-text">&#10022; <span>Members-Only Forum</span> &nbsp;&middot;&nbsp; Login or apply to post and reply</div>
+    <div class="public-banner-btns" id="banner-btns">
+      <a href="login.html" class="banner-login-btn">Member Login</a>
+      <a href="join.html" class="banner-join-btn">Apply for Membership</a>
+    </div>
+  </div>
 
-    <!-- LEFT: recent posts list -->
-    <div class="left-panel">
-      <div class="left-header">
-        <h3>Inbox</h3>
+  <!-- Thread list — visible to everyone -->
+  <div class="thread-list" id="thread-list">
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🤠</div>
+        <div class="thread-author">James Tyler</div>
+        <div class="thread-time">3 days ago</div>
       </div>
-      <div class="online-bar">
-        <div class="online-dot"></div>
-        <span id="onlineCount">Members online</span>
-      </div>
-      <div class="post-list" id="post-list">
-        <div style="padding:1.5rem;text-align:center;color:var(--muted);font-style:italic;font-size:0.85rem;">Loading...</div>
-      </div>
+      <div class="thread-body">Welcome to The Roundup, partners! This is YOUR space — talk XRP, share news, connect with the posse anytime day or night. We ride together! 🚀</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 47 Yeehaw</span><span class="thread-stat">↩ 12 Replies</span><span class="thread-locked">Members Only</span></div>
     </div>
 
-    <!-- RIGHT: chat feed -->
-    <div class="right-panel">
-      <div class="feed-header">
-        <h3 id="feed-title">Community Feed</h3>
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">⭐</div>
+        <div class="thread-author">Dave Goodman</div>
+        <div class="thread-time">2 days ago</div>
       </div>
-      <div class="feed-messages" id="feed"></div>
+      <div class="thread-body">Vegas 2026 is almost here and the energy is UNREAL. Who else is heading out to the Silverton April 30? Let's link up as a crew and represent the Cowboys strong!</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 31 Yeehaw</span><span class="thread-stat">↩ 24 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🏜️</div>
+        <div class="thread-author">DesertRiderXRP</div>
+        <div class="thread-time">2 days ago</div>
+      </div>
+      <div class="thread-body">Just moved another stack off exchange into cold storage. If you are still leaving XRP on a CEX in 2026 you are not paying attention. Not your keys not your coins. 🔑</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 38 Yeehaw</span><span class="thread-stat">↩ 19 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🐂</div>
+        <div class="thread-author">LonghornLedger</div>
+        <div class="thread-time">1 day ago</div>
+      </div>
+      <div class="thread-body">ODL volume up significantly this quarter across the Asia-Pacific corridors. The pipes are flowing and the institutions are not slowing down. This is what real adoption looks like.</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 29 Yeehaw</span><span class="thread-stat">↩ 8 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🌾</div>
+        <div class="thread-author">PrairieXRPHoldr</div>
+        <div class="thread-time">1 day ago</div>
+      </div>
+      <div class="thread-body">Been holding since 2018 through the bull runs, the lawsuit, the FUD — all of it. Never sold a single XRP. The conviction this community gave me through the dark days is something I will never forget. Ride or die. 🤠</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 55 Yeehaw</span><span class="thread-stat">↩ 33 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">💼</div>
+        <div class="thread-author">WildWestWallet</div>
+        <div class="thread-time">18 hours ago</div>
+      </div>
+      <div class="thread-body">Just got back from a meeting with a regional bank actively evaluating XRP for cross-border settlement. The mood in these conversations has completely changed since the SEC resolution. Institutions are ready to move.</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 44 Yeehaw</span><span class="thread-stat">↩ 17 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">⚙️</div>
+        <div class="thread-author">TumbleweedTech</div>
+        <div class="thread-time">8 hours ago</div>
+      </div>
+      <div class="thread-body">The EVM sidechain deployment numbers are impressive. Dev activity on XRPL is at an all-time high. When the builders come, the users follow. Bullish on the technical roadmap.</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 19 Yeehaw</span><span class="thread-stat">↩ 6 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🌵</div>
+        <div class="thread-author">CactusCreekCrypto</div>
+        <div class="thread-time">4 hours ago</div>
+      </div>
+      <div class="thread-body">XRP price action looking very constructive right now. Higher lows, rising volume, exchange outflows increasing. Not financial advice but the charts are telling a story. 📈</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 33 Yeehaw</span><span class="thread-stat">↩ 11 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🦅</div>
+        <div class="thread-author">BigSkyBronco</div>
+        <div class="thread-time">2 hours ago</div>
+      </div>
+      <div class="thread-body">Who is bringing their cowboy hat to Vegas? I have mine packed already. Nothing better than 500 XRP believers in one room knowing we were right all along. See you all there! 🤠🎰</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 41 Yeehaw</span><span class="thread-stat">↩ 28 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+    <div class="thread-card">
+      <div class="thread-card-top">
+        <div class="thread-avatar">🏇</div>
+        <div class="thread-author">SilverSpurSam</div>
+        <div class="thread-time">1 hour ago</div>
+      </div>
+      <div class="thread-body">Reminder to all the new members — welcome to the posse! Read the pinned posts in The Corral, connect with the community, and never be afraid to ask questions. We all started somewhere. The Cowboys look after their own. 🤠</div>
+      <div class="thread-footer"><span class="thread-stat">✦ 27 Yeehaw</span><span class="thread-stat">↩ 9 Replies</span><span class="thread-locked">Members Only</span></div>
+    </div>
+
+  </div>
+
+  <!-- Guest CTA -->
+  <div class="guest-cta" id="guest-cta">
+    <h3>Join the Conversation</h3>
+    <p>XRPCowboys is a private, members-only community. Login to post, reply, and interact with the posse — or apply for membership to join us.</p>
+    <div class="guest-cta-btns">
+      <a href="login.html" class="cta-login">&#10022; Member Login</a>
+      <a href="join.html" class="cta-join">&#10022; Apply for Membership</a>
+    </div>
+  </div>
+
+  <!-- Member compose area — hidden until logged in -->
+  <div id="member-area" style="display:none;">
+    <div class="right-panel" style="margin-top:1.5rem;">
+      <div class="feed-header"><h3 id="feed-title">Post to the Feed</h3></div>
+      <div class="feed-messages" id="feed" style="min-height:200px;max-height:300px;"></div>
       <div class="compose-area" id="compose-area">
         <textarea id="composeText" placeholder="What's on your mind, partner? Share your XRP thoughts with the posse..."></textarea>
         <button class="send-btn" onclick="submitPost()">Send</button>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -205,96 +333,22 @@
 <script>
 const sb = supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
 let currentUser = null;
-let postOffset = 0;
-const PAGE_SIZE = 30;
-
-const seedPosts = [
-  {id:'s1',author:'James Tyler',avatar:'🤠',body:'Welcome to The Roundup, partners! This is YOUR space — talk XRP, share news, connect with the posse anytime day or night. We ride together! 🚀',time:'3 days ago',likes:47},
-  {id:'s2',author:'Dave Goodman',avatar:'⭐',body:"Vegas 2026 is almost here and the energy is UNREAL. Who else is heading out to the Silverton April 30? Let's link up as a crew and represent the Cowboys strong!",time:'2 days ago',likes:31},
-  {id:'s3',author:'DesertRiderXRP',avatar:'🏜️',body:'Just moved another stack off exchange into cold storage. If you are still leaving XRP on a CEX in 2026 you are not paying attention. Not your keys not your coins. 🔑',time:'2 days ago',likes:38},
-  {id:'s4',author:'LonghornLedger',avatar:'🐂',body:'ODL volume up significantly this quarter across the Asia-Pacific corridors. The pipes are flowing and the institutions are not slowing down. This is what real adoption looks like.',time:'1 day ago',likes:29},
-  {id:'s5',author:'PrairieXRPHoldr',avatar:'🌾',body:'Been holding since 2018 through the bull runs, the lawsuit, the fud, all of it. Never sold a single XRP. The conviction this community gave me through the dark days is something I will never forget. Ride or die. 🤠',time:'1 day ago',likes:55},
-  {id:'s6',author:'WildWestWallet',avatar:'💼',body:'Just got back from a meeting with a regional bank that is actively evaluating XRP for cross border settlement. The mood in these conversations has completely changed since the SEC resolution. Institutions are ready to move.',time:'18 hours ago',likes:44},
-  {id:'s7',author:'SilverSpurSam',avatar:'🏇',body:'Reminder to all the new members — welcome to the posse! Read the pinned posts in The Corral, connect with the community, and never be afraid to ask questions. We all started somewhere. The Cowboys look after their own. 🤠',time:'12 hours ago',likes:27},
-  {id:'s8',author:'TumbleweedTech',avatar:'⚙️',body:'The EVM sidechain deployment numbers are impressive. Dev activity on XRPL is at an all time high. When the builders come the users follow. Bullish on the technical roadmap.',time:'8 hours ago',likes:19},
-  {id:'s9',author:'CactusCreekCrypto',avatar:'🌵',body:'XRP price action looking very constructive right now. Higher lows, rising volume, exchange outflows increasing. Not financial advice but the charts are telling a story. 📈',time:'4 hours ago',likes:33},
-  {id:'s10',author:'BigSkyBronco',avatar:'🦅',body:'Who is bringing their cowboy hat to Vegas? I have mine packed already. Nothing better than 500 XRP believers in one room knowing we were right all along. See you all there! 🤠🎰',time:'2 hours ago',likes:41},
-];
 
 function timeAgo(ts){const d=Math.floor((Date.now()-new Date(ts))/1000);if(d<60)return'just now';if(d<3600)return Math.floor(d/60)+'m ago';if(d<86400)return Math.floor(d/3600)+'h ago';return Math.floor(d/86400)+'d ago';}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function renderPost(p, isSeed, isMine) {
-  const row = document.createElement('div');
-  row.className = 'msg-row' + (isMine ? ' mine' : '');
-  row.innerHTML = `
-    <div class="msg-avatar">${p.avatar||'🤠'}</div>
-    <div class="msg-col">
-      <div class="msg-name">${esc(p.author||'XRPCowboy')}</div>
-      <div class="msg-bubble">${esc(p.body)}</div>
-      <div class="msg-time">${isSeed ? p.time : timeAgo(p.created_at)}</div>
-      <div class="msg-actions">
-        <button class="msg-action" onclick="toggleLike(this,'${p.id}')">✦ ${p.likes||0} Yeehaw</button>
-        <button class="msg-action" onclick="replyTo('${esc(p.author||'XRPCowboy')}')">↩ Reply</button>
-      </div>
-    </div>`;
-  return row;
-}
-
-function renderSidebarItem(p, isSeed) {
-  const item = document.createElement('div');
-  item.className = 'post-list-item';
-  const preview = (p.body||'').slice(0,45) + ((p.body||'').length > 45 ? '...' : '');
-  item.innerHTML = `
-    <div class="post-list-author">${esc(p.author||'XRPCowboy')}</div>
-    <div class="post-list-preview">${esc(preview)}</div>
-    <div class="post-list-time">${isSeed ? p.time : timeAgo(p.created_at)}</div>`;
-  item.onclick = () => {
-    document.querySelectorAll('.post-list-item').forEach(el => el.classList.remove('active'));
-    item.classList.add('active');
-    // Scroll to that message in feed
-    const feed = document.getElementById('feed');
-    const msgs = feed.querySelectorAll('.msg-row');
-    const idx = Array.from(feed.children).indexOf(item);
-    if(msgs[0]) msgs[0].scrollIntoView({behavior:'smooth', block:'start'});
-  };
-  return item;
-}
-
-function toggleLike(btn, id) {
-  const parts = btn.textContent.trim().split(' ');
-  let count = parseInt(parts[1]) || 0;
-  if (btn.classList.contains('liked')) { count--; btn.classList.remove('liked'); }
-  else { count++; btn.classList.add('liked'); }
-  btn.textContent = '✦ ' + count + ' Yeehaw';
-}
-
-function replyTo(name) {
-  const ta = document.getElementById('composeText');
-  ta.value = '@' + name + ' ';
-  ta.focus();
-}
-
-async function loadPosts() {
-  const feed = document.getElementById('feed');
-  const sidebar = document.getElementById('post-list');
-  const {data, error} = await sb.from('roundup_posts').select('*').order('created_at',{ascending:false}).range(postOffset, postOffset+PAGE_SIZE-1);
-  
-  const posts = (!error && data && data.length) ? data : seedPosts;
-  const usingSeed = !(!error && data && data.length);
-  if (!usingSeed) postOffset += data.length;
-
-  feed.innerHTML = '';
-  sidebar.innerHTML = '';
-
-  posts.forEach(p => {
-    const isMine = currentUser && (p.user_id === currentUser.id || (usingSeed && p.author === 'James Tyler'));
-    feed.appendChild(renderPost(p, usingSeed, isMine));
-    sidebar.appendChild(renderSidebarItem(p, usingSeed));
-  });
-
-  // Scroll feed to bottom
-  feed.scrollTop = feed.scrollHeight;
+function renderPost(p) {
+  const card = document.createElement('div');
+  card.className = 'thread-card';
+  card.innerHTML = `
+    <div class="thread-card-top">
+      <div class="thread-avatar">🤠</div>
+      <div class="thread-author">${esc(p.author||'XRPCowboy')}</div>
+      <div class="thread-time">${timeAgo(p.created_at)}</div>
+    </div>
+    <div class="thread-body">${esc(p.body)}</div>
+    <div class="thread-footer"><span class="thread-stat">✦ Reply</span></div>`;
+  return card;
 }
 
 async function submitPost() {
@@ -305,43 +359,34 @@ async function submitPost() {
   const {error} = await sb.from('roundup_posts').insert({author:name, body:text, user_id:currentUser.id});
   if (!error) {
     document.getElementById('composeText').value = '';
-    postOffset = 0;
-    await loadPosts();
+    await loadNewPosts();
   }
 }
 
-async function init() {
-  const {data:{session}} = await sb.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    document.getElementById('onlineCount').textContent = Math.floor(Math.random()*12+3) + ' members online now';
-    // Show auth buttons
-    const p=document.getElementById('nav-profile-btn');
-    const l=document.getElementById('nav-login-btn');
-    const j=document.getElementById('nav-join-btn');
-    const lo=document.getElementById('nav-logout-btn');
-    const mp=document.getElementById('mob-profile-btn');
-    const ml=document.getElementById('mob-login-btn');
-    if(p)p.style.display='inline-block';
-    if(l)l.style.display='none';
-    if(j)j.style.display='none';
-    if(lo)lo.style.display='inline-block';
-    const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';
-    const mm=document.getElementById('mob-messages-btn');if(mm)mm.style.display='block';
-    if(mp)mp.style.display='block';
-    if(ml)ml.style.display='none';
-  } else {
-    document.getElementById('onlineCount').textContent = 'Join to see live member count';
-    // Show guest prompt instead of compose
-    document.getElementById('compose-area').innerHTML = '<div class="guest-prompt" style="width:100%;padding:1rem;text-align:center;"><a href="join.html" style="color:var(--gold);text-decoration:none;">✦ Join XRPCowboys</a> to post and interact with the posse.</div>';
+async function loadNewPosts() {
+  const feed = document.getElementById('feed');
+  if (!feed) return;
+  const {data, error} = await sb.from('roundup_posts').select('*').order('created_at',{ascending:false}).limit(20);
+  if (!error && data && data.length) {
+    feed.innerHTML = '';
+    data.forEach(p => feed.appendChild(renderPost(p)));
   }
-  await loadPosts();
 }
 
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
 function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href='index.html';});}
 
-// Enter to send
+async function init() {
+  const {data:{session}} = await sb.auth.getSession();
+  if (session) {
+    currentUser = session.user;
+    document.getElementById('guest-cta').style.display = 'none';
+    document.getElementById('member-area').style.display = 'block';
+    document.getElementById('banner-btns').innerHTML = '<span style="font-family:Oswald,sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--green);">✦ Welcome back, partner!</span>';
+    await loadNewPosts();
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const ta = document.getElementById('composeText');
   if (ta) ta.addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitPost();} });
