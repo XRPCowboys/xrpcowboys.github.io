@@ -17,49 +17,53 @@
   const { data: { session } } = await sb.auth.getSession();
 
   // Desktop nav elements
+  const navMessages = document.getElementById('nav-messages-btn');
   const navProfile  = document.getElementById('nav-profile-btn');
   const navLogin    = document.getElementById('nav-login-btn');
   const navJoin     = document.getElementById('nav-join-btn');
+  const navLogout   = document.getElementById('nav-logout-btn');
 
   // Mobile menu elements
+  const mobMessages = document.getElementById('mob-messages-btn');
   const mobProfile  = document.getElementById('mob-profile-btn');
   const mobLogin    = document.getElementById('mob-login-btn');
   const mobJoin     = document.getElementById('mob-join-btn');
+  const mobLogout   = document.getElementById('mob-logout-btn');
 
   if (session) {
     // ── LOGGED IN ──
-    // Show My Profile, hide Login
-    if (navProfile) navProfile.style.display = 'inline-block';
-    if (navLogin)   navLogin.style.display   = 'none';
-    if (mobProfile) mobProfile.style.display = 'block';
-    if (mobLogin)   mobLogin.style.display   = 'none';
+    if (navMessages) navMessages.style.display = 'inline-block';
+    if (navProfile)  navProfile.style.display  = 'inline-block';
+    if (navLogin)    navLogin.style.display     = 'none';
+    if (navLogout)   navLogout.style.display    = 'inline-block';
+    if (mobMessages) mobMessages.style.display  = 'block';
+    if (mobProfile)  mobProfile.style.display   = 'block';
+    if (mobLogin)    mobLogin.style.display      = 'none';
+    if (mobLogout)   mobLogout.style.display     = 'block';
 
-    // Replace JOIN button with LOG OUT
-    if (navJoin) {
-      navJoin.textContent = 'Log Out';
-      navJoin.href = '#';
-      navJoin.setAttribute('style', 'background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px!important;border-radius:999px!important;font-family:Oswald,sans-serif!important;font-size:0.72rem!important;font-weight:600!important;letter-spacing:0.15em!important;text-transform:uppercase!important;text-decoration:none!important;border:none!important;cursor:pointer!important;');
-      navJoin.onclick = function(e) {
-        e.preventDefault();
-        sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
-      };
-    }
+    // Hide the Join button when logged in
+    if (navJoin) navJoin.style.display = 'none';
+    if (mobJoin) mobJoin.style.display = 'none';
 
-    // Mobile join → Log Out
-    if (mobJoin) {
-      mobJoin.textContent = '✦ Log Out';
-      mobJoin.href = '#';
-      mobJoin.onclick = function(e) {
-        e.preventDefault();
-        sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
-      };
-    }
+    // Wire up logout buttons
+    const logoutFn = function(e) {
+      e.preventDefault();
+      sb.auth.signOut().then(() => { window.location.href = 'index.html'; });
+    };
+    if (navLogout) navLogout.onclick = logoutFn;
+    if (mobLogout) mobLogout.onclick = logoutFn;
 
   } else {
     // ── LOGGED OUT ──
-    if (navProfile) navProfile.style.display = 'none';
-    if (navLogin)   navLogin.style.display   = 'inline-block';
-    if (mobProfile) mobProfile.style.display = 'none';
-    if (mobLogin)   mobLogin.style.display   = 'block';
+    if (navMessages) navMessages.style.display = 'none';
+    if (navProfile)  navProfile.style.display  = 'none';
+    if (navLogin)    navLogin.style.display     = 'inline-block';
+    if (navLogout)   navLogout.style.display    = 'none';
+    if (navJoin)     navJoin.style.display      = 'inline-block';
+    if (mobMessages) mobMessages.style.display  = 'none';
+    if (mobProfile)  mobProfile.style.display   = 'none';
+    if (mobLogin)    mobLogin.style.display      = 'block';
+    if (mobLogout)   mobLogout.style.display     = 'none';
+    if (mobJoin)     mobJoin.style.display       = 'block';
   }
 })();
