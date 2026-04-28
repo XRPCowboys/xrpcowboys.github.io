@@ -53,70 +53,77 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .nav-inner {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
-  height: 64px;
+  padding: 0 2.5rem;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
+  font-size: 1.45rem;
   font-weight: 900;
   letter-spacing: 0.1em;
-  background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);
+  background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 1rem;
 }
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 0.9rem;
+  gap: 1.5rem;
   align-items: center;
-  margin-left: auto;
+  margin-left: 0;
+  flex-wrap: nowrap;
 }
 .nav-links a {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.88rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(232,224,208,0.95);
+  color: rgba(232,224,208,0.97);
   text-decoration: none;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .nav-links a:hover,
 .nav-links a.active { color: var(--gold); }
 
 .nav-login-btn {
   border: 1px solid rgba(180,150,60,0.4);
-  padding: 0.45rem 1.1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 999px;
   font-family: 'Oswald', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  font-size: 0.82rem;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(232,224,208,0.95) !important;
+  color: rgba(232,224,208,0.97) !important;
   text-decoration: none;
   transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 .nav-login-btn:hover { border-color: var(--gold); color: var(--gold) !important; }
 
 .nav-join-btn {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: #080808 !important;
   background: linear-gradient(135deg, #f5d060, #c9921a);
-  padding: 0.45rem 1.1rem;
+  padding: 0.5rem 1.3rem;
   border-radius: 999px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 /* ── HAMBURGER / MOBILE MENU ── */

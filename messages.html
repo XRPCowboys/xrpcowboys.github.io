@@ -13,14 +13,14 @@
     body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;}
     .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg') center center/cover no-repeat;}
     .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(5,3,0,0.35);}
-    .nav{position:sticky;top:0;z-index:100;background:rgba(14,10,3,0.90);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;white-space:nowrap;display:inline-flex;align-items:center;background:linear-gradient(120deg,#f5c842 0%,#c9921a 50%,#c9921a 74%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
-    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;margin-left:auto;}
-    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
-    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
-    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
-    .nav-join-btn{background:linear-gradient(135deg,#f5d060,#c9921a)!important;color:#080808!important;padding:6px 18px;border-radius:999px;font-weight:600!important;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
+    
+    
+    
+    
+    
+    
+    
+    
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
     .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
     .mobile-menu{display:none;flex-direction:column;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
@@ -106,7 +106,7 @@
     .footer-links a:hover{color:var(--gold);}
     .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
-    @media(max-width:640px){.nav-links{display:none;}.hamburger{display:flex;}}
+    @media(max-width:640px){.hamburger{display:flex;}}
   </style>
 </head>
 <body>
@@ -119,32 +119,39 @@
 </div>
 
 <nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <div class="nav-inner">
+    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
     <ul class="nav-links">
+      <li><a href="index.html" id="nav-home">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="forum.html">The Corral</a></li>
+      <li><a href="dispatch.html">Corral</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="dispatch.html">Forum</a></li>
-      <li><a href="messages.html" class="active">Messages</a></li>
+      <li><a href="members.html">Posse</a></li>
+      <li><a href="forum.html">Forum</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
       <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
       <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
       <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
       <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
     </ul>
-    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="forum.html" onclick="toggleMenu()">The Corral</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Forum</a>
-    <a href="messages.html" onclick="toggleMenu()">Messages</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
     <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
     <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">✦ Member Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">✦ Join the Community</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
   </div>
 </nav>
 

@@ -25,7 +25,7 @@
     .feature-card p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: rgba(255,248,235,0.97); }
     .section { max-width: 1100px; margin: 0 auto; padding: 0 3rem 5rem; }
     /* Nav logo matching hero gradient */
-    .nav-logo { background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+    
     @media (max-width: 768px) { .section { padding: 0 1.25rem 3rem; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -40,39 +40,40 @@
 <div class="site-wrap">
 
   <nav class="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="dispatch.html">Corral</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="members.html">Posse</a></li>
-        <li><a href="forum.html">Forum</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
-        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
-        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
-        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
-      </ul>
-      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html" onclick="toggleMenu()">Home</a>
-      <a href="about.html" onclick="toggleMenu()">About</a>
-      <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
-      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-      <a href="members.html" onclick="toggleMenu()">Posse</a>
-      <a href="forum.html" onclick="toggleMenu()">Forum</a>
-      <a href="contact.html" onclick="toggleMenu()">Contact</a>
-      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
-      <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
-      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
-    </div>
+      <div class="nav-inner">
+    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="dispatch.html">Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">Posse</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+      <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
+  </div>
   </nav>
 
   <div class="page-hero">
