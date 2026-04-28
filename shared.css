@@ -75,13 +75,13 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 0.9rem;
+  gap: 1.1rem;
   align-items: center;
   margin-left: auto;
 }
 .nav-links a {
   font-family: 'Oswald', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
