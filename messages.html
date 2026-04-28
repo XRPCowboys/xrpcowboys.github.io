@@ -355,7 +355,9 @@ async function sendMessage() {
   if (!error) {
     document.getElementById('reply-box').value = '';
     pendingFiles = [];
-    renderPreviews();
+    document.getElementById('preview-strip').innerHTML = '';
+    document.getElementById('file-input').value = '';
+    status.textContent = '';
     await loadMessages(true);
   } else {
     console.error('Send error:', error);
