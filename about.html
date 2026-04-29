@@ -24,13 +24,27 @@
     .feature-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
     .feature-card p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: rgba(255,248,235,0.97); }
     .section { max-width: 1100px; margin: 0 auto; padding: 0 3rem 5rem; }
-    @media (max-width: 768px) { .section { padding: 0 1.25rem 3rem; } }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
     .section-label { font-size: 1rem !important; letter-spacing: 0.25em !important; }
     .page-hero-label { font-size: 1rem !important; letter-spacing: 0.25em !important; }
+    /* Forum identity banner — makes Class 038 use crystal clear */
+    .forum-identity {
+      background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(245,208,96,0.05));
+      border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .forum-identity-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .forum-identity-text { flex: 1; }
+    .forum-identity-label { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.4rem; }
+    .forum-identity-heading { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .forum-identity-body { font-size: 0.95rem; font-weight: 300; color: rgba(232,224,208,0.95); line-height: 1.7; }
+    @media (max-width: 768px) { .section { padding: 0 1.25rem 3rem; } .forum-identity { flex-direction: column; } }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="shared.js"></script>
 </head>
 <body>
@@ -38,40 +52,40 @@
 <div class="site-wrap">
 
   <nav class="nav">
-      <div class="nav-inner">
-    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
-    <ul class="nav-links">
-      <li><a href="index.html" id="nav-home">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="dispatch.html">Corral</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="members.html">Posse</a></li>
-      <li><a href="forum.html">Forum</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
-      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
-      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
-      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
-      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-      <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html" onclick="toggleMenu()">Home</a>
-    <a href="about.html" onclick="toggleMenu()">About</a>
-    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
-    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
-    <a href="members.html" onclick="toggleMenu()">Posse</a>
-    <a href="forum.html" onclick="toggleMenu()">Forum</a>
-    <a href="contact.html" onclick="toggleMenu()">Contact</a>
-    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
-    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
-    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
-    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
-    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
-  </div>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="dispatch.html">Corral</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="members.html">Posse</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="members.html" onclick="toggleMenu()">Posse</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+      <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+      <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
+    </div>
   </nav>
 
   <div class="page-hero">
@@ -85,6 +99,18 @@
     <p class="section-label">Who We Are</p>
     <h2 class="section-title">The XRPCowboys Story</h2>
     <div class="section-rule"></div>
+
+    <!-- FORUM IDENTITY BOX — makes Class 038 use immediately clear -->
+    <div class="forum-identity">
+      <div class="forum-identity-icon">&#128172;</div>
+      <div class="forum-identity-text">
+        <div class="forum-identity-label">&#10022; Online Forum &amp; Discussion Platform</div>
+        <div class="forum-identity-heading">XRPCowboys — HorsePower Wire</div>
+        <div class="forum-identity-body">XRPCowboys is a private, members-only online forum and community founded in 2018 for serious participants in the XRP Ledger ecosystem. Through our HorsePower Wire discussion platform, verified members engage in thoughtful conversations about XRP technology, ecosystem developments, regulatory updates, real-world adoption, and industry events.</div>
+      </div>
+    </div>
+
+    <!-- DAVE'S EXACT FOUR PARAGRAPHS -->
     <p class="body-text">XRPCowboys is a private, members-only online forum and community founded in 2018 for serious participants in the XRP Ledger ecosystem.</p>
     <p class="body-text">Through our HorsePower Wire discussion platform, verified members engage in thoughtful conversations about XRP technology, ecosystem developments, regulatory updates, real-world adoption, and industry events.</p>
     <p class="body-text">A fun tradition in our community is wearing cowboy hats at conferences and meetups — a symbol of the pioneering, independent spirit we bring to the XRP space.</p>
@@ -97,23 +123,23 @@
       </div>
       <div class="timeline-item">
         <div class="timeline-left"><div class="timeline-year">2019</div><div class="timeline-line"></div></div>
-        <div class="timeline-content"><h4>Community Grows</h4><p>Membership expands as the XRP community rallies together through market cycles. First private forum launched.</p></div>
+        <div class="timeline-content"><h4>Community Grows</h4><p>Membership expands as the XRP community rallies together through market cycles. First private online forum launched.</p></div>
       </div>
       <div class="timeline-item">
         <div class="timeline-left"><div class="timeline-year">2020</div><div class="timeline-line"></div></div>
-        <div class="timeline-content"><h4>Holding Strong</h4><p>Through the SEC lawsuit and market volatility, XRPCowboys members hold firm and support one another through the storm.</p></div>
+        <div class="timeline-content"><h4>Holding Strong</h4><p>Through the SEC lawsuit and market volatility, XRPCowboys members hold firm and support one another through the storm via our online forum.</p></div>
       </div>
       <div class="timeline-item">
         <div class="timeline-left"><div class="timeline-year">2022</div><div class="timeline-line"></div></div>
-        <div class="timeline-content"><h4>Twin BlockChain Technologies LLC</h4><p>XRPCowboys formally incorporated under Twin BlockChain Technologies LLC, establishing official operations and governance.</p></div>
+        <div class="timeline-content"><h4>Twin BlockChain Technologies LLC</h4><p>XRPCowboys formally incorporated under Twin BlockChain Technologies LLC, establishing official operations and governance of the online forum platform.</p></div>
       </div>
       <div class="timeline-item">
         <div class="timeline-left"><div class="timeline-year">2025</div><div class="timeline-line"></div></div>
-        <div class="timeline-content"><h4>Expansion &amp; Events</h4><p>XRPCowboys hosts and attends major XRP events including Swell, XRP Las Vegas, and community parties worldwide.</p></div>
+        <div class="timeline-content"><h4>Expansion &amp; Events</h4><p>XRPCowboys hosts and attends major XRP events including Swell, XRP Las Vegas, and community parties worldwide. The HorsePower Wire forum grows to hundreds of active members.</p></div>
       </div>
       <div class="timeline-item">
         <div class="timeline-left"><div class="timeline-year">2026</div></div>
-        <div class="timeline-content"><h4>Today</h4><p>XRPCowboys continues to grow as one of the most respected private communities in the XRP ecosystem. Membership by application only.</p></div>
+        <div class="timeline-content"><h4>Today</h4><p>XRPCowboys continues to grow as one of the most respected private online forum communities in the XRP ecosystem. Membership by application only.</p></div>
       </div>
     </div>
 
@@ -125,11 +151,11 @@
     <h2 class="section-title">Community Features</h2>
     <div class="section-rule"></div>
     <div class="feature-grid">
-      <div class="feature-card"><span class="feature-icon">&#128172;</span><h4>Private Forums</h4><p>Private discussion forums and threaded conversations covering XRP tech, markets, regulation, and ecosystem news.</p></div>
-      <div class="feature-card"><span class="feature-icon">&#127897;&#65039;</span><h4>Live AMAs</h4><p>Member-only live AMAs with XRP ecosystem participants, developers, and industry leaders.</p></div>
-      <div class="feature-card"><span class="feature-icon">&#9989;</span><h4>Verified Members</h4><p>Verified member directory and networking tools. Every member is reviewed and approved by our team.</p></div>
-      <div class="feature-card"><span class="feature-icon">&#128240;</span><h4>Curated Research</h4><p>Curated news, research, and educational resources focused exclusively on the XRP Ledger and ecosystem.</p></div>
-      <div class="feature-card"><span class="feature-icon">&#128379;&#65039;</span><h4>Governance</h4><p>Community governance polls and proposals. Members shape the direction of the XRPCowboys community.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128172;</span><h4>HorsePower Wire Forum</h4><p>Our private online discussion forum where verified members post, reply, and engage in threaded conversations about XRP tech, markets, regulation, and ecosystem news.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#127897;&#65039;</span><h4>Live AMAs</h4><p>Member-only live AMAs with XRP ecosystem participants, developers, and industry leaders — hosted through our forum platform.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#9989;</span><h4>Verified Members</h4><p>Verified member directory and networking tools. Every member is reviewed and approved by our team before gaining forum access.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128240;</span><h4>Curated Research</h4><p>Curated news, research, and educational resources focused exclusively on the XRP Ledger and ecosystem — shared through the forum.</p></div>
+      <div class="feature-card"><span class="feature-icon">&#128379;&#65039;</span><h4>Governance</h4><p>Community governance polls and proposals. Members shape the direction of the XRPCowboys online forum community.</p></div>
       <div class="feature-card"><span class="feature-icon">&#129312;</span><h4>Cowboy Spirit</h4><p>A fun tradition of wearing cowboy hats at XRP conferences — a symbol of our pioneering community spirit.</p></div>
     </div>
   </section>
