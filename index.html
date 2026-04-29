@@ -43,7 +43,6 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .mobile-menu .mob-join { color: var(--gold) !important; font-weight: 500; }
 .hero-wrapper { position: relative; min-height: 640px; display: flex; align-items: center; overflow: hidden; }
 .hero-wrapper::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(34,80,28,0.35) 0%, transparent 70%); pointer-events: none; }
-/* MOVED TO TOP */
 .cowboy-corner { position: absolute; top: 0px; left: 20px; width: 280px; pointer-events: none; z-index: 2; animation: floatCowboy 2s ease-in-out infinite; }
 .cowboy-corner img { width: 100%; display: block; filter: saturate(1.4) brightness(1.15) drop-shadow(0 0 22px rgba(255,80,100,0.45)) drop-shadow(0 0 8px rgba(255,80,100,0.3)); }
 @keyframes floatCowboy { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
@@ -51,10 +50,13 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .hero-eyebrow { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
 .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 10vw, 8rem); font-weight: 900; letter-spacing: 0.05em; line-height: 1; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
 .hero-divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-dim), var(--green), transparent); margin: 0 auto 1.2rem; opacity: 0; animation: fadeUp 0.8s 0.55s forwards; }
+/* NEW: forum description paragraph */
+.hero-desc { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em; color: rgba(232,224,208,0.88); max-width: 660px; margin: 0 auto 1.4rem; line-height: 1.75; opacity: 0; animation: fadeUp 0.8s 0.62s forwards; }
 .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: rgba(184,212,160,1); margin-bottom: 0.5rem; opacity: 0; animation: fadeUp 0.8s 0.65s forwards; }
-.hero-tagline { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.2em; color: rgba(232,224,208,0.92); margin-bottom: 2.2rem; opacity: 0; animation: fadeUp 0.8s 0.75s forwards; }
-.hero-btn { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; padding: 14px 40px; border-radius: 999px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
-.hero-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+.hero-tagline { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.2em; color: rgba(232,224,208,0.92); margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.75s forwards; }
+/* BIGGER JOIN BUTTON */
+.hero-btn { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; padding: 18px 56px; border-radius: 999px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; box-shadow: 0 6px 32px rgba(245,208,96,0.35), 0 2px 8px rgba(0,0,0,0.4); }
+.hero-btn:hover { opacity: 0.88; transform: translateY(-3px); box-shadow: 0 10px 40px rgba(245,208,96,0.45); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .badge-bar { background: rgba(8,8,8,0.28); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 2rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; backdrop-filter: blur(4px); }
 .badge { font-family: 'Oswald', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,208,96,0.7); border: 1px solid rgba(180,150,60,0.25); padding: 5px 14px; border-radius: 999px; background: rgba(180,150,60,0.06); transition: border-color 0.2s, color 0.2s; }
@@ -102,12 +104,12 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 .thread-left { display: flex; align-items: center; gap: 12px; }
 .thread-cat { font-family: 'Oswald', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 .thread-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: rgba(232,224,208,1); letter-spacing: 0.02em; }
-.thread-lock { font-size: 0.75rem; color: rgba(245,208,96,0.35); }
+.thread-stat { font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,224,208,0.35); }
 .join-banner { background: linear-gradient(135deg, rgba(245,208,96,0.08), rgba(74,222,128,0.06)); border-top: 1px solid rgba(180,150,60,0.25); border-bottom: 1px solid rgba(180,150,60,0.25); padding: 5rem 2rem; text-align: center; backdrop-filter: blur(3px); }
 .join-banner-inner { max-width: 560px; margin: 0 auto; }
 .join-banner h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.8rem); font-weight: 700; color: var(--gold); margin-bottom: 0.8rem; }
 .join-banner p { font-size: 1rem; color: rgba(232,224,208,0.85); margin-bottom: 2rem; line-height: 1.7; }
-.join-banner a { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; padding: 14px 40px; border-radius: 999px; text-decoration: none; transition: opacity 0.2s; }
+.join-banner a { display: inline-block; font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; background: linear-gradient(135deg, #f5d060, #c9921a); color: #080808; padding: 16px 48px; border-radius: 999px; text-decoration: none; transition: opacity 0.2s; box-shadow: 0 4px 24px rgba(245,208,96,0.3); }
 .join-banner a:hover { opacity: 0.88; }
 .footer { background: rgba(14,10,3,0.88); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; backdrop-filter: blur(8px); }
 .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
@@ -143,6 +145,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
   .hpw-card { flex-direction: column; }
   .section { padding: 3rem 1rem; }
   .cards-grid { padding: 2.5rem 1rem; }
+  .hero-desc { font-size: 0.82rem; padding: 0 0.5rem; }
 }
 @media (max-width: 520px) {
   .cards-inner { grid-template-columns: 1fr; }
@@ -201,7 +204,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <span class="xrp-dot"></span>
       <span class="xrp-grad">XRP Las Vegas 2026</span>
       <span class="xrp-dot"></span>
-      April 30 – May 1
+      April 30 â May 1
       <span class="xrp-dot"></span>
       <span class="xrp-gr">T-minus</span>
       <span class="xrp-tn" id="xrp-d1">--</span> days
@@ -216,7 +219,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <span class="xrp-dot"></span>
       <span class="xrp-grad">XRP Las Vegas 2026</span>
       <span class="xrp-dot"></span>
-      April 30 – May 1
+      April 30 â May 1
       <span class="xrp-dot"></span>
       <span class="xrp-gr">T-minus</span>
       <span class="xrp-tn" id="xrp-d2">--</span> days
@@ -231,7 +234,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
       <span class="xrp-dot"></span>
       <span class="xrp-grad">XRP Las Vegas 2026</span>
       <span class="xrp-dot"></span>
-      April 30 – May 1
+      April 30 â May 1
       <span class="xrp-dot"></span>
       <span class="xrp-gr">T-minus</span>
       <span class="xrp-tn" id="xrp-d3">--</span> days
@@ -253,9 +256,10 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
     <p class="hero-eyebrow">Exclusive XRP Ledger Community</p>
     <h1 class="hero-title">XRPCOWBOYS</h1>
     <div class="hero-divider"></div>
+    <p class="hero-desc">XRPCowboys is a private, members-only online forum and community founded in 2018 for serious participants in the XRP Ledger ecosystem. Through the HorsePower Wire discussion platform, verified members discuss technology, adoption, regulation, and real-world developments in the XRP space.</p>
     <p class="hero-sub">The Riders of the XRP Ledger</p>
     <p class="hero-tagline">Real holders &nbsp;&middot;&nbsp; Real friends &nbsp;&middot;&nbsp; Real value</p>
-    <a href="join.html" class="hero-btn">Join the Community</a>
+    <a href="join.html" class="hero-btn">&#10022; Join the Community</a>
   </div>
 </div>
 
@@ -306,7 +310,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
             <span class="hpw-hot">&#9889; Hot Off The Wire</span>
           </div>
           <div class="hpw-card-title" id="hpwTitle">XRP Surges as Ripple Eyes Institutional Expansion in 2026</div>
-          <div class="hpw-card-excerpt" id="hpwExcerpt">Ripple continues its push into institutional corridors as XRP ledger adoption accelerates — new partnerships, new corridors, and a market watching every move.</div>
+          <div class="hpw-card-excerpt" id="hpwExcerpt">Ripple continues its push into institutional corridors as XRP ledger adoption accelerates â new partnerships, new corridors, and a market watching every move.</div>
           <div class="hpw-meta">
             <span class="hpw-meta-text" id="hpwAuthor">XRPCowboys Staff</span>
             <span class="hpw-meta-text">&middot;</span>
@@ -323,14 +327,19 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
 
 <div class="forum-preview">
   <div class="forum-inner">
-    <a href="dispatch.html" class="section-label" style="text-decoration:none;display:block;">Community</a>
+    <a href="forum.html" class="section-label" style="text-decoration:none;display:block;">Community</a>
     <h2 class="section-title">Latest Discussions</h2>
     <div class="section-rule"></div>
     <div class="forum-threads">
-      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">XRP Ledger Tech</span><span class="thread-title">AMM liquidity pools — what every holder should know</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Ecosystem News</span><span class="thread-title">Ripple vs SEC — final settlement breakdown</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Member Intros</span><span class="thread-title">New here — been holding since 2017, happy to be in</span></div><span class="thread-lock">&#128274;</span></a>
-      <a href="dispatch.html" class="thread"><div class="thread-left"><span class="thread-cat">Governance</span><span class="thread-title">Community vote: expanding the HorsePower Wire</span></div><span class="thread-lock">&#128274;</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">XRP Ledger Tech</span><span class="thread-title">AMM liquidity pools â what every holder should know</span></div><span class="thread-stat">19 replies</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Ecosystem News</span><span class="thread-title">Ripple vs SEC â final settlement breakdown</span></div><span class="thread-stat">53 replies</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Member Intros</span><span class="thread-title">New here â been holding since 2017, happy to be in</span></div><span class="thread-stat">33 replies</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Governance</span><span class="thread-title">Community vote: expanding the HorsePower Wire</span></div><span class="thread-stat">28 replies</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Adoption</span><span class="thread-title">ODL volume up across Asia-Pacific corridors this quarter</span></div><span class="thread-stat">41 replies</span></a>
+      <a href="forum.html" class="thread"><div class="thread-left"><span class="thread-cat">Security</span><span class="thread-title">PSA: verify every wallet address â clipboard hijackers are active</span></div><span class="thread-stat">14 replies</span></a>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a href="forum.html" style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,146,26,0.35);padding:0.6rem 1.8rem;border-radius:999px;transition:border-color 0.2s;">View All Discussions →</a>
     </div>
   </div>
 </div>
@@ -359,7 +368,7 @@ body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--bg);
   <div class="join-banner-inner">
     <h2>Ready to Ride?</h2>
     <p>Membership is by application only. We're looking for serious, long-term participants in the XRP ecosystem.</p>
-    <a href="join.html">Apply for Membership</a>
+    <a href="join.html">&#10022; Apply for Membership</a>
   </div>
 </div>
 
