@@ -44,10 +44,7 @@
     .members-note p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.4);}
     .members-note a{color:var(--gold);text-decoration:none;}
     .members-note a:hover{text-decoration:underline;}
-
-    /* SIGNUP MODE highlight */
     .signup-banner{display:none;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:10px;padding:0.85rem 1rem;margin-bottom:1.5rem;text-align:center;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(74,222,128,0.9);}
-
     .footer{border-top:1px solid var(--border);padding:2rem;}
     .footer-bottom{max-width:1200px;margin:0 auto;text-align:center;}
     .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
@@ -73,9 +70,7 @@
         <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
         <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
       </ul>
-      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a href="index.html" onclick="toggleMenu()">Home</a>
@@ -102,7 +97,6 @@
         <div class="login-divider"></div>
       </div>
 
-      <!-- shown when arriving via #signup from approval email -->
       <div class="signup-banner" id="signupBanner">
         &#10022; You're approved! Create your password below to access XRPCowboys &#10022;
       </div>
@@ -209,17 +203,19 @@
         btn.disabled = false;
       } else {
         if(isSignUp){
-          showError('Account created! You can now sign in with your email and password.');
-          document.getElementById('errorMsg').style.color = '#4ade80';
-          btn.textContent = 'Sign In';
-          btn.disabled = false;
-          isSignUp = false;
-          document.getElementById('signupBanner').style.display = 'none';
-          document.getElementById('pageTitle').textContent = 'MEMBER LOGIN';
-          document.getElementById('pageSubtitle').textContent = 'Welcome back, partner. Sign in to access the members-only forum.';
-          document.getElementById('toggleMode').innerHTML = 'Don\'t have an account? <a onclick="toggleSignUp()">Sign Up</a>';
-          // Clear hash
-          history.replaceState(null, '', window.location.pathname);
+          // Auto sign in immediately — no extra step, go straight to site
+          const signInResult = await sb.auth.signInWithPassword({email, password});
+          if(signInResult.error){
+            // fallback if auto-signin fails
+            showError('Account created! Please sign in now.');
+            document.getElementById('errorMsg').style.color = '#4ade80';
+            btn.textContent = 'Sign In';
+            btn.disabled = false;
+            isSignUp = false;
+            history.replaceState(null, '', window.location.pathname);
+          } else {
+            window.location.href = 'index.html';
+          }
         } else {
           window.location.href = 'index.html';
         }
