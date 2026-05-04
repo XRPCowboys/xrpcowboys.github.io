@@ -477,7 +477,17 @@
       const{data,error}=await sb.from('gallery_photos').select('id,photo_url').eq('album',album).order('created_at',{ascending:false});
       if(!error&&data&&data.length>0){
         const urls=data.map(x=>x.photo_url);
-        data.forEach((p,i)=>{grid.appendChild(makeCard(p.photo_url,i,urls,p.id));});
+        data.forEach((p,i)=>{
+          // Add to the album-specific grid
+          grid.appendChild(makeCard(p.photo_url,i,urls,p.id));
+          // Also add to All Photos grid automatically
+          const allGrid=document.getElementById('grid-all');
+          if(allGrid){
+            const allImgs=Array.from(allGrid.querySelectorAll('img')).map(img=>img.src);
+            allImgs.push(p.photo_url);
+            allGrid.appendChild(makeCard(p.photo_url,allImgs.length-1,allImgs,p.id));
+          }
+        });
         const countEl=document.getElementById('lv2026-count');
         if(album==='xrplv2026'&&countEl)countEl.textContent=data.length+' photo'+(data.length!==1?'s':'')+' from the posse';
       }
