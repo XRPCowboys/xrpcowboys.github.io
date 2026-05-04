@@ -63,11 +63,11 @@
     .photo-card:hover{transform:scale(1.42);box-shadow:0 28px 56px rgba(0,0,0,0.9),0 0 0 1px rgba(245,208,96,0.2);border-color:rgba(245,208,96,0.75);z-index:20;}
     @media(hover:none){.photo-card:hover{transform:none;box-shadow:none;border-color:rgba(201,146,26,0.22);z-index:auto;}}
     .photo-card .img-wrap{border-radius:10px 10px 0 0;overflow:hidden;position:relative;}
-    /* Smaller thumbnail height — hover & lightbox unchanged */
-    .photo-card img{width:100%;height:120px;object-fit:cover;object-position:center top;display:block;background:#0a0a0a;transition:transform 0.5s ease,opacity 0.4s;opacity:0;}
-    @media(min-width:480px){.photo-card img{height:110px;}}
-    @media(min-width:768px){.photo-card img{height:105px;}}
-    @media(min-width:1024px){.photo-card img{height:100px;}}
+    /* Smaller thumbnail height — contain so nothing gets cropped */
+    .photo-card img{width:100%;height:150px;object-fit:contain;object-position:center center;display:block;background:#0d0d0d;transition:transform 0.5s ease,opacity 0.4s;opacity:0;}
+    @media(min-width:480px){.photo-card img{height:140px;}}
+    @media(min-width:768px){.photo-card img{height:130px;}}
+    @media(min-width:1024px){.photo-card img{height:120px;}}
     .photo-card img.loaded{opacity:1;}
     .photo-card:hover img{transform:scale(1.08);}
     .photo-card .img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.2) 0%,transparent 40%);pointer-events:none;}
