@@ -73,7 +73,7 @@ body {
 .nav-inner {
   position: relative;
   width: 100%;
-  padding: 0 1.5rem 0 86px;
+  padding: 0 1.5rem 0 84px;
   height: 76px;
   display: flex;
   align-items: center;
@@ -106,8 +106,7 @@ body {
     /* depth shadow */
     0 4px 12px rgba(0,0,0,0.5);
   /* scrollwork + star via SVG data URI */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='78' height='82' viewBox='0 0 78 82'%3E%3Cdefs%3E%3ClinearGradient id='gf' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f5d060'/%3E%3Cstop offset='30%25' stop-color='%23c9921a'/%3E%3Cstop offset='65%25' stop-color='%23e8b840'/%3E%3Cstop offset='100%25' stop-color='%238a6010'/%3E%3C/linearGradient%3E%3ClinearGradient id='gp' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23dda830'/%3E%3Cstop offset='50%25' stop-color='%23a07018'/%3E%3Cstop offset='100%25' stop-color='%23704808'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' width='78' height='82' rx='4' fill='url(%23gf)' stroke='%237a5008' stroke-width='1.2'/%3E%3Crect x='0' y='0' width='78' height='82' rx='4' fill='none' stroke='%23ffe87a' stroke-width='1.5' stroke-dasharray='2.5,1.8' opacity='0.5'/%3E%3Crect x='5' y='5' width='66' height='68' rx='2' fill='url(%23gp)' stroke='%23f5d060' stroke-width='0.6' opacity='0.8'/%3E%3Cg fill='none' stroke='%23f5d060' stroke-width='0.85' opacity='0.75' stroke-linecap='round'%3E%3Cpath d='M7,7 Q13,7 15,13 Q17,19 11,21 Q6,22 5,16 Q5,10 10,9'/%3E%3Cpath d='M15,7 Q22,6 24,13 Q25,19 19,20'/%3E%3Cpath d='M7,21 Q5,27 9,30 Q14,33 17,27'/%3E%3Cpath d='M63,7 Q57,7 55,13 Q53,19 59,21 Q64,22 65,16 Q65,10 60,9'/%3E%3Cpath d='M55,7 Q48,6 46,13 Q45,19 51,20'/%3E%3Cpath d='M63,21 Q65,27 61,30 Q56,33 53,27'/%3E%3Cpath d='M7,69 Q13,69 15,63 Q17,57 11,55 Q6,54 5,60 Q5,66 10,67'/%3E%3Cpath d='M15,69 Q22,70 24,63 Q25,57 19,56'/%3E%3Cpath d='M7,55 Q5,49 9,46 Q14,43 17,49'/%3E%3Cpath d='M63,69 Q57,69 55,63 Q53,57 59,55 Q64,54 65,60 Q65,66 60,67'/%3E%3Cpath d='M55,69 Q48,70 46,63 Q45,57 51,56'/%3E%3Cpath d='M63,55 Q65,49 61,46 Q56,43 53,49'/%3E%3C/g%3E%3Cpolygon points='39,27 41.2,33.5 48,33.5 42.6,37.5 44.8,44 39,40 33.2,44 35.4,37.5 30,33.5 36.8,33.5' fill='%23ffe87a' opacity='0.9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2278%22%20height%3D%2282%22%20viewBox%3D%220%200%2078%2082%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22gf%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f5d060%22%2F%3E%0A%3Cstop%20offset%3D%2230%25%22%20stop-color%3D%22%23c9921a%22%2F%3E%0A%3Cstop%20offset%3D%2265%25%22%20stop-color%3D%22%23e8b840%22%2F%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238a6010%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22gp%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23dda830%22%2F%3E%0A%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22%23a07018%22%2F%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23704808%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3C%2Fdefs%3E%0A%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2278%22%20height%3D%2282%22%20rx%3D%224%22%20fill%3D%22url%28%23gf%29%22%20stroke%3D%22%237a5008%22%20stroke-width%3D%221.2%22%2F%3E%0A%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2278%22%20height%3D%2282%22%20rx%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%23ffe87a%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%222.5%2C1.8%22%20opacity%3D%220.5%22%2F%3E%0A%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2266%22%20height%3D%2268%22%20rx%3D%222%22%20fill%3D%22url%28%23gp%29%22%20stroke%3D%22%23f5d060%22%20stroke-width%3D%220.6%22%20opacity%3D%220.8%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f5d060%22%20stroke-width%3D%220.85%22%20opacity%3D%220.75%22%20stroke-linecap%3D%22round%22%3E%0A%3Cpath%20d%3D%22M7%2C7%20Q13%2C7%2015%2C13%20Q17%2C19%2011%2C21%20Q6%2C22%205%2C16%20Q5%2C10%2010%2C9%22%2F%3E%0A%3Cpath%20d%3D%22M15%2C7%20Q22%2C6%2024%2C13%20Q25%2C19%2019%2C20%22%2F%3E%0A%3Cpath%20d%3D%22M7%2C21%20Q5%2C27%209%2C30%20Q14%2C33%2017%2C27%22%2F%3E%0A%3Cpath%20d%3D%22M63%2C7%20Q57%2C7%2055%2C13%20Q53%2C19%2059%2C21%20Q64%2C22%2065%2C16%20Q65%2C10%2060%2C9%22%2F%3E%0A%3Cpath%20d%3D%22M55%2C7%20Q48%2C6%2046%2C13%20Q45%2C19%2051%2C20%22%2F%3E%0A%3Cpath%20d%3D%22M63%2C21%20Q65%2C27%2061%2C30%20Q56%2C33%2053%2C27%22%2F%3E%0A%3Cpath%20d%3D%22M7%2C69%20Q13%2C69%2015%2C63%20Q17%2C57%2011%2C55%20Q6%2C54%205%2C60%20Q5%2C66%2010%2C67%22%2F%3E%0A%3Cpath%20d%3D%22M15%2C69%20Q22%2C70%2024%2C63%20Q25%2C57%2019%2C56%22%2F%3E%0A%3Cpath%20d%3D%22M7%2C55%20Q5%2C49%209%2C46%20Q14%2C43%2017%2C49%22%2F%3E%0A%3Cpath%20d%3D%22M63%2C69%20Q57%2C69%2055%2C63%20Q53%2C57%2059%2C55%20Q64%2C54%2065%2C60%20Q65%2C66%2060%2C67%22%2F%3E%0A%3Cpath%20d%3D%22M55%2C69%20Q48%2C70%2046%2C63%20Q45%2C57%2051%2C56%22%2F%3E%0A%3Cpath%20d%3D%22M63%2C55%20Q65%2C49%2061%2C46%20Q56%2C43%2053%2C49%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -134,7 +133,7 @@ body {
 
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 900;
   letter-spacing: 0.1em;
   background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%);
@@ -284,7 +283,7 @@ body {
   margin: 0 auto 1.25rem;
 }
 .page-hero-sub {
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 300;
   color: rgba(232,224,208,0.95);
   max-width: 600px;
@@ -399,7 +398,7 @@ body {
 }
 .footer-brand {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 900;
   background: linear-gradient(120deg, #f5c842 0%, #c9921a 50%, #c9921a 74%, #4ade80 76%, #22c55e 100%);
   -webkit-background-clip: text;
