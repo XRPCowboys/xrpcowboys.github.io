@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | XRPCOWBOYS</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--card-bg:rgba(15,12,6,0.85);--card-border:rgba(201,146,26,0.18);--border:rgba(201,146,26,0.15);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:"Source Serif 4",Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;}
+    .hero-bg{position:fixed;inset:0;z-index:0;background:url("XRPCowboys_files/cemrecan-yurtman-cB2hCETHtlY-unsplash.jpg") center center/cover no-repeat;}
+    .hero-bg::after{content:"";position:absolute;inset:0;background:rgba(10,8,4,0.62);}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);border-radius:2px;}
+    .mobile-menu{display:none;flex-direction:column;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);padding:1rem 2rem;gap:1rem;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-family:"Oswald",sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+    .page-title{font-family:"Playfair Display",serif;font-size:2.2rem;font-weight:900;background:linear-gradient(120deg,#f5c842,#c9921a 50%,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem;}
+    .page-sub{color:rgba(232,224,208,0.80);font-size:0.9rem;margin-bottom:2rem;font-family:"Oswald",sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
+    .card{background:rgba(22,16,6,0.78);border:1px solid var(--card-border);backdrop-filter:blur(18px);border-radius:4px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+    .card-title{font-family:"Playfair Display",serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid var(--card-border);}
+    .avatar-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1rem;}
+    .avatar-img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);background:rgba(201,146,26,0.15);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;}
+    .avatar-upload-btn{font-family:"Oswald",sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--card-border);color:rgba(232,224,208,0.80);padding:0.5rem 1rem;border-radius:2px;cursor:pointer;transition:border-color 0.2s,color 0.2s;}
+    .avatar-upload-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .form-field{display:flex;flex-direction:column;gap:0.4rem;}
+    .form-field.full{grid-column:1/-1;}
+    .form-field label{font-family:"Oswald",sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.80);}
+    .form-field input,.form-field textarea,.form-field select{background:rgba(201,146,26,0.07);border:1px solid var(--card-border);color:var(--text);font-family:"Source Serif 4",serif;font-size:0.92rem;padding:0.65rem 0.9rem;border-radius:2px;outline:none;transition:border-color 0.2s;}
+    .form-field input:focus,.form-field textarea:focus{border-color:var(--gold-dim);}
+    .form-field textarea{min-height:80px;resize:vertical;}
+    .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(232,224,208,0.80);}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;}
+    .toggle-label{font-family:"Oswald",sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);}
+    .toggle-desc{font-size:0.78rem;color:rgba(232,224,208,0.80);margin-top:0.2rem;}
+    .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+    .toggle input{opacity:0;width:0;height:0;}
+    .toggle-slider{position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:24px;cursor:pointer;transition:background 0.2s;}
+    .toggle-slider::before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform 0.2s;}
+    .toggle input:checked + .toggle-slider{background:var(--gold-dim);}
+    .toggle input:checked + .toggle-slider::before{transform:translateX(20px);}
+    .save-btn{font-family:"Oswald",sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;padding:0.7rem 2rem;border-radius:999px;cursor:pointer;transition:opacity 0.2s;margin-top:1rem;}
+    .save-btn:hover{opacity:0.85;}
+    .save-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .status{font-family:"Oswald",sans-serif;font-size:0.72rem;letter-spacing:0.1em;margin-top:0.6rem;min-height:1rem;}
+    .status.ok{color:var(--green);}
+    .status.err{color:#f87171;}
+    .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-top:1rem;}
+    .photo-item{position:relative;aspect-ratio:1;border-radius:3px;overflow:hidden;border:1px solid var(--card-border);}
+    .photo-item img{width:100%;height:100%;object-fit:cover;}
+    .photo-item .photo-actions{position:absolute;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;gap:0.5rem;flex-direction:column;}
+    .photo-item:hover .photo-actions{display:flex;}
+    .photo-action-btn{font-family:"Oswald",sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;border:none;padding:0.4rem 0.8rem;border-radius:2px;cursor:pointer;}
+    .btn-share{background:var(--green);color:#080808;}
+    .btn-delete{background:#f87171;color:#fff;}
+    .btn-shared{background:rgba(74,222,128,0.3);color:var(--green);border:1px solid var(--green);}
+    .upload-zone{border:2px dashed var(--card-border);border-radius:3px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-top:1rem;}
+    .upload-zone:hover{border-color:var(--gold-dim);}
+    .upload-zone p{color:rgba(232,224,208,0.80);font-size:0.88rem;}
+    .upload-zone .upload-icon{font-size:2rem;margin-bottom:0.5rem;}
+    .view-profile-link{font-family:"Oswald",sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;transition:color 0.2s;}
+    .view-profile-link:hover{color:var(--gold);}
+    @media(max-width:768px){.hamburger{display:flex;}.form-grid{grid-template-columns:1fr;}.photo-grid{grid-template-columns:repeat(2,1fr);}.page{padding:1.5rem 1rem 3rem;}}
+  </style>
+  <script src="shared.js"></script>
+</head>
+<body>
+<div class="hero-bg"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">Posse</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">
+    <h1 class="page-title">My Profile</h1>
+    <a href="#" id="view-public-link" class="view-profile-link">View Public Profile &rarr;</a>
+  </div>
+  <p class="page-sub">&#129312; Member since <span id="joined-date">...</span></p>
+
+  <div class="card">
+    <div class="card-title">Profile Info</div>
+    <div class="avatar-row">
+      <div class="avatar-img" id="avatar-display">&#129312;</div>
+      <div>
+        <button class="avatar-upload-btn" onclick="document.getElementById('avatar-input').click()">Change Avatar</button>
+        <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
+        <p style="color:rgba(232,224,208,0.80);font-size:0.78rem;margin-top:0.4rem;">JPG or PNG, max 2MB</p>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Handle / Cowboy Name</label>
+        <input type="text" id="f-handle" placeholder="e.g. DesertRider_XRP" maxlength="30">
+      </div>
+      <div class="form-field">
+        <label>Full Name</label>
+        <input type="text" id="f-name" placeholder="Your name">
+      </div>
+      <div class="form-field">
+        <label>Location</label>
+        <input type="text" id="f-location" placeholder="e.g. Texas, USA">
+      </div>
+      <div class="form-field full">
+        <label>Bio</label>
+        <textarea id="f-bio" placeholder="Tell the posse about yourself..."></textarea>
+      </div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Public Profile</div>
+        <div class="toggle-desc">Anyone can view your profile page</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="f-public" checked><span class="toggle-slider"></span></label>
+    </div>
+    <button class="save-btn" onclick="saveProfile()">Save Profile &#10022;</button>
+    <div class="status" id="profile-status"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">&#128274; Change Password</div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>New Password</label>
+        <input type="password" id="f-newpw" placeholder="New password (min 6 chars)">
+      </div>
+      <div class="form-field">
+        <label>Confirm New Password</label>
+        <input type="password" id="f-confirmpw" placeholder="Repeat new password">
+      </div>
+    </div>
+    <button class="save-btn" onclick="changePassword()">Update Password &#10022;</button>
+    <div class="status" id="pw-status"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL="https://fbngrpissakvjelrcfaf.supabase.co";
+const SUPABASE_KEY="sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU";
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let currentUser=null;
+function toggleMenu(){document.getElementById("mobileMenu").classList.toggle("open");}
+function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href="index.html";});}
+async function init(){
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session){window.location.href="login.html";return;}
+  currentUser=session.user;
+  document.getElementById("view-public-link").href="public_profile.html?id="+currentUser.id;
+  await loadProfile();
+}
+async function loadProfile(){
+  const{data}=await sb.from("profiles").select("*").eq("id",currentUser.id).single();
+  if(!data)return;
+  document.getElementById("f-handle").value=data.handle||"";
+  document.getElementById("f-name").value=data.full_name||"";
+  document.getElementById("f-location").value=data.location||"";
+  document.getElementById("f-bio").value=data.bio||"";
+  document.getElementById("f-public").checked=data.is_public!==false;
+  if(data.joined_at)document.getElementById("joined-date").textContent=new Date(data.joined_at).toLocaleDateString("en-US",{month:"long",year:"numeric"});
+  if(data.avatar_url){const av=document.getElementById("avatar-display");av.innerHTML='<img src="'+data.avatar_url+'" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">';}
+}
+async function saveProfile(){
+  const btn=document.querySelector(".save-btn");const status=document.getElementById("profile-status");
+  btn.disabled=true;btn.textContent="Saving...";
+  const{error}=await sb.from("profiles").upsert({id:currentUser.id,handle:document.getElementById("f-handle").value.trim()||null,full_name:document.getElementById("f-name").value.trim()||null,location:document.getElementById("f-location").value.trim()||null,bio:document.getElementById("f-bio").value.trim()||null,is_public:document.getElementById("f-public").checked});
+  btn.disabled=false;btn.textContent="Save Profile ✦";
+  if(error){status.textContent="Error: "+error.message;status.className="status err";}
+  else{status.textContent="Profile saved! 🤠";status.className="status ok";}
+}
+async function uploadAvatar(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>2*1024*1024){alert("Image must be under 2MB");return;}
+  const ext=file.name.split(".").pop();const path="avatars/"+currentUser.id+"."+ext;
+  const{error}=await sb.storage.from("member-photos").upload(path,file,{upsert:true});
+  if(error){alert("Upload failed: "+error.message);return;}
+  const{data:{publicUrl}}=sb.storage.from("member-photos").getPublicUrl(path);
+  await sb.from("profiles").upsert({id:currentUser.id,avatar_url:publicUrl});
+  const av=document.getElementById("avatar-display");
+  av.innerHTML='<img src="'+publicUrl+"?t="+Date.now()+'" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">';
+}
+async function changePassword(){
+  const newpw=document.getElementById("f-newpw").value;const confirmpw=document.getElementById("f-confirmpw").value;const status=document.getElementById("pw-status");
+  if(!newpw||newpw.length<6){status.textContent="Password must be at least 6 characters.";status.className="status err";return;}
+  if(newpw!==confirmpw){status.textContent="Passwords do not match.";status.className="status err";return;}
+  const btn=document.querySelectorAll(".save-btn")[1];btn.disabled=true;btn.textContent="Updating...";
+  const{error}=await sb.auth.updateUser({password:newpw});
+  btn.disabled=false;btn.textContent="Update Password ✦";
+  if(error){status.textContent="Error: "+error.message;status.className="status err";}
+  else{status.textContent="Password updated successfully! 🤠";status.className="status ok";document.getElementById("f-newpw").value="";document.getElementById("f-confirmpw").value="";}
+}
+init();
+</script>
+</body>
+</html>
