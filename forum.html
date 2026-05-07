@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forum | XRPCOWBOYS &bull; Member Discussions</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #f5d060; --gold-dim: #c9921a; --gold-dark: #a06e10;
+      --green: #4ade80; --cream: #e8e0d0; --bg: #080808;
+      --border: rgba(201,146,26,0.28);
+      --card-bg: rgba(22,16,6,0.82); --card-border: rgba(201,168,76,0.25);
+      --text: #f0e8d5; --muted: rgba(232,224,208,0.72);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); min-height: 100vh; }
+    .hero-bg { position: fixed; inset: 0; z-index: 0;
+      background: url('XRPCowboys_files/background picture.jpg') center center / cover no-repeat; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,2,0.55) 0%, rgba(8,6,2,0.48) 40%, rgba(8,6,2,0.65) 80%, rgba(8,6,2,0.85) 100%); }
+    .page { position: relative; z-index: 1; }
+    .forum-hero { padding: 4rem 2rem 2.5rem; text-align: center; }
+    .forum-hero-label { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
+    .forum-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
+      background: linear-gradient(150deg, #ffe87a 0%, #f5c842 18%, #c9921a 42%, #a06e10 58%, #4ade80 76%, #22c55e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .forum-hero .subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      font-weight: 300; color: var(--muted); max-width: 540px; margin: 0 auto 2rem;
+      font-style: italic; line-height: 1.6; }
+    .divider-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 0 auto; }
+    .forum-layout { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .post-btn-row { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+    .post-new-btn { font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.6rem 1.6rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold-dark));
+      color: #1a0f00; border: none; border-radius: 3px; cursor: pointer;
+      text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .post-new-btn:hover { background: linear-gradient(135deg, var(--gold), var(--gold-dim)); }
+    .post-new-btn.locked { background: rgba(201,146,26,0.15); color: var(--gold-dim);
+      border: 1px solid var(--border); cursor: default; pointer-events: none; }
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .section-label h2 { font-family: 'Oswald', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); white-space: nowrap; }
+    .section-label .line { flex: 1; height: 1px; background: var(--border); }
+    .thread-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 1rem; }
+    .thread-row { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.4rem;
+      background: var(--card-bg); border: 1px solid var(--card-border); border-bottom: none;
+      text-decoration: none; color: inherit; transition: background 0.18s, border-color 0.18s; cursor: pointer; }
+    .thread-row:first-child { border-radius: 6px 6px 0 0; }
+    .thread-row:last-child { border-bottom: 1px solid var(--card-border); border-radius: 0 0 6px 6px; }
+    .thread-row:only-child { border-radius: 6px; border-bottom: 1px solid var(--card-border); }
+    .thread-row:hover { background: rgba(35,24,8,0.90); border-color: rgba(201,168,76,0.4); }
+    .thread-num { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--gold-dim); min-width: 26px; opacity: 0.7; }
+    .thread-body { flex: 1; min-width: 0; }
+    .thread-title { font-family: 'Source Serif 4', serif; font-size: 0.98rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .thread-meta { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--muted); }
+    .thread-meta span { color: var(--gold-dim); }
+    .thread-lock { font-size: 0.8rem; opacity: 0.5; }
+    .thread-login-note { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-align: center; color: var(--muted); padding: 1.2rem; border: 1px solid var(--border);
+      border-radius: 0 0 6px 6px; background: rgba(22,16,6,0.6); margin-top: -1px; }
+    .thread-login-note a { color: var(--gold-dim); text-decoration: none; }
+    .thread-login-note a:hover { color: var(--gold); }
+    .features-section { margin-bottom: 3rem; }
+    .feature-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .feature-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 1.4rem 1.2rem; text-align: center; }
+    .feature-card-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .feature-card h4 { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .news-section { margin-bottom: 3rem; }
+    .article-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; transition: border-color 0.2s; }
+    .article-card:hover { border-color: rgba(201,168,76,0.45); }
+    .article-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.4rem; cursor: pointer; user-select: none; }
+    .article-flame { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .article-header-body { flex: 1; min-width: 0; }
+    .article-tag { font-family: "Oswald", sans-serif; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.3rem; }
+    .article-title { font-family: "Source Serif 4", serif; font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .article-preview { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .article-expand-hint { font-family: "Oswald", sans-serif; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,208,96,0.4); flex-shrink: 0; margin-top: 4px; transition: color 0.2s; }
+    .article-card:hover .article-expand-hint { color: var(--gold-dim); }
+    .article-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .article-body.open { max-height: 3000px; }
+    .article-body-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
+    .article-full-text { font-size: 0.95rem; line-height: 1.78; color: rgba(232,224,208,0.92); padding: 1.2rem 0 0.5rem; }
+    .article-full-text p { margin-bottom: 1rem; }
+    .members-gate { text-align: center; padding: 1.4rem 1rem; background: rgba(201,146,26,0.06); border: 1px solid var(--border); border-radius: 6px; margin: 0.5rem 0 1rem; }
+    .members-gate p { font-family: "Cormorant Garamond", serif; font-size: 1rem; font-style: italic; color: var(--muted); margin-bottom: 0.8rem; }
+    .members-gate a { font-family: "Oswald", sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.5rem 1.5rem; border: 1px solid var(--gold-dim); color: var(--gold); border-radius: 3px; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .members-gate a:hover { background: var(--gold-dim); color: #1a0f00; }
+    .comments-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .comments-label { font-family: "Oswald", sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.9rem; }
+    .comment { display: flex; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #c8a84b, #4ade80); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .comment-content { flex: 1; }
+    .comment-author { font-family: "Oswald", sans-serif; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.2rem; }
+    .comment-text { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .comment-time { font-family: "Oswald", sans-serif; font-size: 0.58rem; letter-spacing: 0.08em; color: rgba(232,224,208,0.35); margin-top: 0.2rem; }
+    .comment-form { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); display: none; }
+    .comment-form.visible { display: block; }
+    .comment-form-row { display: flex; gap: 0.8rem; align-items: flex-start; }
+    .comment-form textarea { flex: 1; background: rgba(201,146,26,0.06); border: 1px solid rgba(180,150,60,0.2); border-radius: 8px; padding: 0.7rem 1rem; font-family: "Cormorant Garamond", serif; font-size: 0.95rem; color: var(--cream); resize: none; outline: none; min-height: 64px; transition: border-color 0.2s; }
+    .comment-form textarea::placeholder { color: rgba(232,224,208,0.45); font-style: italic; }
+    .comment-form textarea:focus { border-color: rgba(200,168,75,0.4); }
+    .comment-submit { font-family: "Oswald", sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.55rem 1.2rem; background: linear-gradient(135deg, #c9921a, #a06e10); color: #1a0f00; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; align-self: flex-end; }
+    .comment-submit:hover { opacity: 0.85; }
+    .comment-form-name { font-family: "Oswald", sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.5rem; }
+    .threads-section { margin-bottom: 3rem; }
+    .thread-item { border: 1px solid var(--card-border); border-bottom: none; background: var(--card-bg); }
+    .thread-item:first-child { border-radius: 6px 6px 0 0; }
+    .thread-item:last-child { border-bottom: 1px solid var(--card-border); border-radius: 0 0 6px 6px; }
+    .thread-item .thread-row { border: none; border-radius: 0; cursor: pointer; }
+    .thread-expand { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .thread-expand.open { max-height: 3000px; }
+    .thread-expand-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
+    .thread-content { font-size: 0.95rem; line-height: 1.75; color: rgba(232,224,208,0.92); padding: 1rem 0 0.5rem; }
+    .thread-content p { margin-bottom: 0.8rem; }
+    .cta-section { text-align: center; padding: 2.5rem 1.5rem; background: rgba(22,16,6,0.7); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 3rem; }
+    .cta-section p { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--muted); margin-bottom: 1.2rem; }
+    .cta-section a { font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.65rem 2rem; background: transparent; border: 1px solid var(--gold-dim); color: var(--gold); border-radius: 3px; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .cta-section a:hover { background: var(--gold-dim); color: #1a0f00; }
+    .footer { background: rgba(8,6,2,0.95); border-top: 1px solid var(--border); position: relative; z-index: 1; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links a { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; border-top: 1px solid rgba(201,146,26,0.12); font-family: 'Oswald', sans-serif; font-size: 0.66rem; letter-spacing: 0.1em; color: rgba(232,224,208,0.35); text-align: center; }
+    @media (max-width: 768px) { .forum-layout { padding: 1.5rem 1rem 4rem; } }
+  </style>
+</head>
+<body>
+
+<div class="hero-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">Posse</a></li>
+      <li><a href="forum.html" class="active">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    <a href="#" onclick="handleLogout(event);toggleMenu();" class="mob-join" id="mob-logout-btn" style="display:none">&#10022; Log Out</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="forum-hero">
+    <p class="forum-hero-label">The Official Discussion Forum of XRPCowboys</p>
+    <h1>Barnyard Roundtable</h1>
+    <p class="subtitle">Where the posse gathers &mdash; XRP news, strategy, community, and everything in between.</p>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="forum-layout">
+
+    <!-- XRP NEWS ARTICLES -->
+    <div class="news-section">
+      <div class="section-label"><h2>&#128293; XRP News</h2><div class="line"></div></div>
+
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">&#9889;</div>
+          <div class="article-header-body">
+            <div class="article-tag">Market &middot; April 2026</div>
+            <div class="article-title">XRP Breaks $3.50 Resistance &mdash; Institutional Demand Driving New Highs</div>
+            <div class="article-preview">XRP pushed through a key technical level this week as institutional buy pressure intensified across major exchanges...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ &#9662;</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>XRP surged past the $3.50 resistance level this week in what analysts are calling one of the cleanest breakouts the asset has seen in years. Trading volume across Binance, Coinbase, and Kraken spiked 340% above the 30-day average, with large wallet accumulation data pointing squarely at institutional players.</p>
+              <p>On-chain data from the XRPL shows that wallet addresses holding over 1 million XRP increased by 12% in the past 30 days &mdash; a pattern historically associated with sustained bull moves. Ripple&rsquo;s ODL corridors are also processing record volume, with the Asia-Pacific region leading the charge.</p>
+              <p>&ldquo;The fundamentals have never been stronger,&rdquo; noted one prominent crypto analyst. &ldquo;With regulatory clarity now firmly in place and the network processing billions in daily settlement, the market is finally pricing in what XRP holders have known for years.&rdquo;</p>
+            </div>
+            <div class="members-gate guest-gate"><p>Full article available to XRP Cowboys members only.</p><a href="login.html">Login to Read More</a></div>
+            <div class="comments-section member-content">
+              <div class="comments-label">&#128172; Member Comments</div>
+              <div class="comment"><div class="comment-avatar">&#129312;</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">Called it back in January. The $3.50 level was always the line in the sand. Once that broke it was game on. Stack accordingly.</div><div class="comment-time">2 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128002;</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">ODL volume data is the real story here. Price follows utility and the utility is through the roof right now.</div><div class="comment-time">3 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127943;</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">@LonghornLedger 100%. The institutions don&rsquo;t move until they are ready and when they move they move big. We are watching it in real time.</div><div class="comment-time">4 hours ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">&#127963;</div>
+          <div class="article-header-body">
+            <div class="article-tag">Regulation &middot; April 2026</div>
+            <div class="article-title">U.S. Senate Advances Digital Asset Framework &mdash; XRP Named as Key Settlement Asset</div>
+            <div class="article-preview">Bipartisan legislation moving through the Senate would formally recognize XRP as a commodity and establish clear guidelines for its use in cross-border settlement...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ &#9662;</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>A sweeping digital asset regulatory framework advanced out of the Senate Banking Committee this week with rare bipartisan support. The bill explicitly categorizes XRP as a commodity under CFTC jurisdiction and clears the way for federally chartered banks to use XRP for real-time gross settlement.</p>
+              <p>The legislation, co-sponsored by senators from both parties, comes after two years of hearings in which Ripple executives testified on the efficiency gains of blockchain-based settlement. Industry observers say this is the clearest sign yet that Washington has accepted XRP&rsquo;s role in the financial infrastructure.</p>
+              <p>Ripple&rsquo;s legal team called the development &ldquo;a watershed moment&rdquo; adding that the company expects to see accelerated adoption among U.S. financial institutions once the bill is signed into law. The House version of the bill is expected to move to the floor within 60 days.</p>
+            </div>
+            <div class="members-gate guest-gate"><p>Full article available to XRP Cowboys members only.</p><a href="login.html">Login to Read More</a></div>
+            <div class="comments-section member-content">
+              <div class="comments-label">&#128172; Member Comments</div>
+              <div class="comment"><div class="comment-avatar">&#127806;</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">This is what we have been waiting for since 2018. The regulatory clarity changes everything for every bank on the planet that has been sitting on the sidelines.</div><div class="comment-time">5 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127964;</div><div class="comment-content"><div class="comment-author">MesquiteMike</div><div class="comment-text">Bipartisan support is the key detail here. This is not political &mdash; this is infrastructure. Both sides know it.</div><div class="comment-time">6 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#9881;</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">Named specifically as a settlement asset in the bill text. Read that again. This is not a maybe. This is written into law.</div><div class="comment-time">7 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128188;</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">@ChapparalChad I reread it three times just to make sure. Still can&rsquo;t believe how far we have come. Ride on Cowboys. &#129312;</div><div class="comment-time">8 hours ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">&#127760;</div>
+          <div class="article-header-body">
+            <div class="article-tag">XRPL Tech &middot; April 2026</div>
+            <div class="article-title">XRPL AMM Liquidity Hits Record $2.1 Billion &mdash; What It Means for Holders</div>
+            <div class="article-preview">Total value locked in XRPL&rsquo;s native automated market maker pools crossed $2.1 billion this week, a milestone that signals deepening DeFi adoption on the ledger...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ &#9662;</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>The XRPL&rsquo;s automated market maker protocol, which went live in early 2024, has now accumulated over $2.1 billion in total value locked &mdash; a 600% increase from its launch. The milestone positions the XRPL as a serious DeFi contender and adds a critical new dimension to XRP&rsquo;s utility story.</p>
+              <p>Liquidity providers are earning fees denominated in XRP, creating a new passive income stream for long-term holders who were previously limited to simply holding the asset. Early data shows that pools pairing XRP with stablecoins like RLUSD are seeing the deepest liquidity and tightest spreads.</p>
+              <p>Developers within the XRPL ecosystem say the AMM milestone is attracting new builder interest. &ldquo;We&rsquo;re seeing teams from Ethereum and Solana actively exploring deployment on XRPL because of the speed and cost advantages,&rdquo; said one XRPL Foundation contributor. &ldquo;The $2.1 billion TVL tells those teams that the liquidity is there.&rdquo;</p>
+            </div>
+            <div class="members-gate guest-gate"><p>Full article available to XRP Cowboys members only.</p><a href="login.html">Login to Read More</a></div>
+            <div class="comments-section member-content">
+              <div class="comments-label">&#128172; Member Comments</div>
+              <div class="comment"><div class="comment-avatar">&#129413;</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">I have been LP-ing in the XRP/RLUSD pool since launch and the returns have been solid. This is how you put your stack to work while you hold.</div><div class="comment-time">1 day ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127797;</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">2.1 billion TVL and barely a mention in mainstream crypto media. The moment this gets noticed it will be a completely different conversation.</div><div class="comment-time">1 day ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127956;</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Builders coming from ETH and SOL is the real alpha in this article. Network effects compound fast once the developers arrive.</div><div class="comment-time">1 day ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">&#127974;</div>
+          <div class="article-header-body">
+            <div class="article-tag">Adoption &middot; April 2026</div>
+            <div class="article-title">Three Major Banks Announce Live XRP Settlement Pilots &mdash; RippleNet Expands to 65 Countries</div>
+            <div class="article-preview">A trio of top-ten global banks have quietly gone live with XRP-based settlement pilots, pushing RippleNet&rsquo;s active corridor count to a record high...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ &#9662;</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>Three globally systemically important banks &mdash; two European and one Japanese &mdash; have moved from testing to live production on XRP-based payment corridors, according to sources familiar with the deployments. The institutions declined to be named publicly but the corridor data is visible on-chain and has been confirmed by multiple blockchain analytics firms.</p>
+              <p>RippleNet now spans 65 countries, up from 55 at the start of 2025. The new corridors cover high-volume remittance lanes between Southeast Asia, the Middle East, and Europe &mdash; some of the most expensive and slowest in traditional correspondent banking.</p>
+              <p>Transaction costs on the new XRP corridors are reported to be 94% lower than the SWIFT alternative, with settlement occurring in under four seconds. Industry analysts say these numbers, once widely published, will be difficult for rival networks to match and could trigger a broader banking migration toward XRP over the next 18 months.</p>
+            </div>
+            <div class="members-gate guest-gate"><p>Full article available to XRP Cowboys members only.</p><a href="login.html">Login to Read More</a></div>
+            <div class="comments-section member-content">
+              <div class="comments-label">&#128172; Member Comments</div>
+              <div class="comment"><div class="comment-avatar">&#129312;</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">94% cheaper than SWIFT. That number is going to break the internet when it gets into mainstream financial press. Just a matter of time.</div><div class="comment-time">2 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127806;</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">65 countries and growing. The network effects are starting to compound and once they do they do not stop. We are still early.</div><div class="comment-time">2 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128002;</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Four second settlement vs two to five business days. I do not know how you make a rational argument for SWIFT anymore. The technology has won.</div><div class="comment-time">2 days ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-header" onclick="toggleArticle(this)">
+          <div class="article-flame">&#128640;</div>
+          <div class="article-header-body">
+            <div class="article-tag">Community &middot; April 2026</div>
+            <div class="article-title">XRP Las Vegas 2026 &mdash; The Posse Rides to the Silverton April 30</div>
+            <div class="article-preview">The XRP Cowboys are heading to Las Vegas for the biggest XRP gathering of the year. Here is everything you need to know about the Silverton meetup...</div>
+          </div>
+          <div class="article-expand-hint">TAP TO READ &#9662;</div>
+        </div>
+        <div class="article-body">
+          <div class="article-body-inner">
+            <div class="article-full-text member-content" style="display:none">
+              <p>The XRP Cowboys are riding out to Las Vegas on April 30 for what is shaping up to be the largest gathering of XRP holders in the community&rsquo;s history. The Silverton Casino will host the event, with XRP enthusiasts arriving from across North America and Europe for two days of panels, networking, and celebration.</p>
+              <p>Cowboys members will be meeting up in the lobby at 6 PM on April 30. Look for the cowboy hats &mdash; you will not miss us. The group has reserved a block of tables at the Silverton&rsquo;s main restaurant for a community dinner at 7:30 PM. All members are welcome and no reservation is needed beyond what is already arranged.</p>
+              <p>The conference itself features speakers from Ripple, major financial institutions, and the broader XRPL developer community. Panel topics include institutional adoption timelines, the XRPL AMM ecosystem, and the legal landscape for digital assets in 2026 and beyond. For XRP Cowboys members the real conference happens at the dinner table afterward.</p>
+            </div>
+            <div class="members-gate guest-gate"><p>Full article available to XRP Cowboys members only.</p><a href="login.html">Login to Read More</a></div>
+            <div class="comments-section member-content">
+              <div class="comments-label">&#128172; Member Comments</div>
+              <div class="comment"><div class="comment-avatar">&#127943;</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">Already booked my room at the Silverton. Cannot wait to finally meet the herd in person. Four days and counting! &#129312;</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#9881;</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">The cowboy hat brigade is going to own that lobby. Vegas has never seen anything like a room full of XRP holders who have been right for this long. &#127920;</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128188;</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">Fly in Friday morning, meetup Friday evening, panels all day Saturday. Perfect schedule. See you all there partners.</div><div class="comment-time">4 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#129413;</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">@WagonWheelWayne Save me a seat at dinner! First round is on me if XRP is above $4 by the time we sit down. &#127866;</div><div class="comment-time">4 days ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FEATURE CARDS -->
+    <div class="features-section">
+      <div class="feature-cards">
+        <div class="feature-card"><div class="feature-card-icon">&#9889;</div><h4>Live Discussion</h4><p>Real-time threads with the XRP Cowboys community &mdash; updated daily.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">&#128274;</div><h4>Members Only</h4><p>All threads are exclusive to verified XRP Cowboys members.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">&#9775;</div><h4>Governance</h4><p>Members have a real voice in how this community grows and operates.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">&#9993;</div><h4>Application-Based</h4><p>Quality over quantity &mdash; membership keeps signal high and trust strong.</p></div>
+      </div>
+    </div>
+
+    <!-- LATEST DISCUSSIONS -->
+    <div class="threads-section">
+      <div class="section-label"><h2>&#128172; Latest Discussions</h2><div class="line"></div></div>
+      <div class="post-btn-row">
+        <a href="#" id="post-cavalry-btn" class="post-new-btn locked" onclick="checkAndPost(event)">+ Post to the Cavalry</a>
+      </div>
+      <div class="thread-list">
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">01</div>
+            <div class="thread-body"><div class="thread-title">XRP Ledger AMM Updates &ndash; What Changed This Week?</div><div class="thread-meta">Last post by <span>LonghornLedger</span> &middot; 2 hours ago</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>The XRPL AMM pools had a significant update this week &mdash; dynamic fee tiers went live and the new oracle price feeds are now active. Here is what changed and what it means for liquidity providers.</p><p>Fees now automatically adjust based on volatility. When XRP moves more than 2% in an hour, fees increase to protect LPs from impermanent loss. This is a major improvement for anyone in the XRP/RLUSD pool. Early data shows liquidity depth up 18% since the update went live.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#129312;</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">The dynamic fee adjustment is exactly what AMM LPs needed. Impermanent loss was the main reason I was hesitant to provide liquidity before this.</div><div class="comment-time">1 hour ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128002;</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Been in the XRP/RLUSD pool since day one. This update makes it significantly more attractive. Expect TVL to jump hard this week.</div><div class="comment-time">2 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127797;</div><div class="comment-content"><div class="comment-author">SagebrushSal</div><div class="comment-text">@LonghornLedger once DeFi Llama picks up the TVL jump this is going to get a lot of attention from outside the community.</div><div class="comment-time">2 hours ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127956;</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Added more to my LP position this morning after reading this. The risk/reward now is really compelling for long term holders.</div><div class="comment-time">3 hours ago</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">02</div>
+            <div class="thread-body"><div class="thread-title">Miami Blockchain Week 2025 &ndash; Cowboy Hat Crew Photos</div><div class="thread-meta">Last post by <span>WagonWheelWayne</span> &middot; Yesterday</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>What a week in Miami! The XRP Cowboys showed up in full force at Blockchain Week &mdash; 14 members connected in person, the biggest meetup outside of Las Vegas we have ever had. The cowboy hats turned heads all over the conference floor.</p><p>More than a few people stopped to ask what the XRP Cowboys were all about. Every single one of those conversations ended with them asking how to apply for membership. The community speaks for itself when people see it in person.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#128188;</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">Best trip yet. The energy in Miami was incredible. Already counting down to Vegas. Nothing beats meeting the herd in person.</div><div class="comment-time">Yesterday</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127943;</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">The photo of all 14 of us in the lobby is going in the gallery. Proud moment for this community. &#129312;</div><div class="comment-time">Yesterday</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127806;</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">Wish I could have made it. Was following the whole thing live on the forum. Next year I am there no matter what.</div><div class="comment-time">Yesterday</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">03</div>
+            <div class="thread-body"><div class="thread-title">Regulatory Outlook for XRP in 2026</div><div class="thread-meta">Last post by <span>ChapparalChad</span> &middot; 3 days ago</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>With the Senate bill advancing and the CFTC formally taking jurisdiction, 2026 is the year regulatory uncertainty for XRP is finally put to bed. Here is a breakdown of what to watch in the next six months.</p><p>Key milestones: House floor vote expected by June, CFTC formal rulemaking on XRP commodity classification by Q3, and the first federally chartered bank to publicly announce live XRP settlement by year end. Mark those dates &mdash; each one is a catalyst.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#9881;</div><div class="comment-content"><div class="comment-author">ChapparalChad</div><div class="comment-text">CFTC classification by Q3 is the one to watch. Once that is official the floodgates open for institutional products built on XRP.</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#129413;</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">A federally chartered bank going public with XRP settlement before year end is going to be a massive headline. That day is coming.</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128002;</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">The bipartisan support is what gives me confidence this actually passes. When both sides agree on something in Washington it moves fast.</div><div class="comment-time">3 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127806;</div><div class="comment-content"><div class="comment-author">PrairieStacker</div><div class="comment-text">Been waiting since 2018 for a thread like this one. Regulatory clarity was always the last piece. We are almost there. &#129312;</div><div class="comment-time">4 days ago</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">04</div>
+            <div class="thread-body"><div class="thread-title">Who&rsquo;s Attending the Next XRPL Dev Conference?</div><div class="thread-meta">Last post by <span>RidgelineRandy</span> &middot; 5 days ago</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>The next XRPL developer conference is scheduled for July in Amsterdam. Any Cowboys members planning to attend? Would be great to organize a meetup on the sidelines like we did in Miami.</p><p>The agenda looks strong &mdash; EVM sidechain deep dives, AMM development workshops, and a session specifically on RLUSD enterprise integration. If you are building on XRPL or just want to understand where the tech is headed this is worth the trip.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#127956;</div><div class="comment-content"><div class="comment-author">RidgelineRandy</div><div class="comment-text">Amsterdam in July &mdash; I am in. Would love to connect with the developer community in person and fly the Cowboys flag over there.</div><div class="comment-time">5 days ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#129312;</div><div class="comment-content"><div class="comment-author">DesertRiderXRP</div><div class="comment-text">The EVM sidechain session is worth the flight alone. That tech unlocks a completely new wave of builders coming to XRPL.</div><div class="comment-time">5 days ago</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">05</div>
+            <div class="thread-body"><div class="thread-title">Member Spotlight &ndash; Share Your XRP Story</div><div class="thread-meta">Last post by <span>SilverSpurSam</span> &middot; 1 week ago</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>This is the thread to share your XRP journey. When did you first buy? What kept you holding through the tough years? What does XRP mean to you beyond the price? Drop your story below &mdash; the herd wants to hear it.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#127943;</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">First bought in December 2017 at the top like everyone else &#128514; but I never sold. The lawsuit years were brutal but the community here kept me sane. Worth every sleepless night.</div><div class="comment-time">1 week ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128188;</div><div class="comment-content"><div class="comment-author">WagonWheelWayne</div><div class="comment-text">2020 for me. Found the Cowboys community six months in and that was that. You can not unsee what you see when you really study the XRPL. Ride or die. &#129312;</div><div class="comment-time">1 week ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#128002;</div><div class="comment-content"><div class="comment-author">LonghornLedger</div><div class="comment-text">Started in 2018. The lawsuit hit hard but I just kept stacking. Now watching banks go live on the network I have been following for six years. Wild ride and worth every penny.</div><div class="comment-time">1 week ago</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-row" onclick="toggleThread(this)">
+            <div class="thread-num">06</div>
+            <div class="thread-body"><div class="thread-title">Off-Topic: Best Cowboy Hat Spots at Crypto Events</div><div class="thread-meta">Last post by <span>DustBowlDave</span> &middot; 2 weeks ago</div></div>
+            <div class="thread-lock">&#9662;</div>
+          </div>
+          <div class="thread-expand"><div class="thread-expand-inner">
+            <div class="thread-content member-content" style="display:none"><p>Important community research: where is the best place to grab a cowboy hat before a crypto conference? This thread is dedicated to helping every Cowboys member show up properly dressed.</p></div>
+            <div class="members-gate guest-gate"><p>Login to read the full thread.</p><a href="login.html">Member Login</a></div>
+            <div class="comments-section member-content"><div class="comments-label">&#128172; Replies</div>
+              <div class="comment"><div class="comment-avatar">&#129413;</div><div class="comment-content"><div class="comment-author">DustBowlDave</div><div class="comment-text">Boot Barn near any convention center is always reliable. Stetson Open Road is the move if you want to look the part without breaking the bank.</div><div class="comment-time">2 weeks ago</div></div></div>
+              <div class="comment"><div class="comment-avatar">&#127943;</div><div class="comment-content"><div class="comment-author">SilverSpurSam</div><div class="comment-text">Do not underestimate the power of a good hat at these events. It is an instant conversation starter. Three people asked me about XRP just because of the hat. &#129312;</div><div class="comment-time">2 weeks ago</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+      </div>
+      <div class="thread-login-note"><a href="login.html">Login</a> or <a href="join.html">apply for membership</a> to post replies and start new threads.</div>
+    </div>
+
+    <div class="cta-section">
+      <p>Ready to ride with the herd? XRP Cowboys membership is by application only.</p>
+      <a href="join.html">Apply for Membership</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.92);margin-top:0.3rem;">Exclusive XRP Community &middot; Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a>
+        <a href="members.html">Posse</a><a href="forum.html">Forum</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</div>
+  </footer>
+
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://fbngrpissakvjelrcfaf.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU';
+
+  function toggleArticle(header) {
+    const card = header.parentElement;
+    const body = card.querySelector('.article-body');
+    const hint = header.querySelector('.article-expand-hint');
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.article-body.open').forEach(b => {
+      b.classList.remove('open');
+      b.closest('.article-card').querySelector('.article-expand-hint').textContent = 'TAP TO READ ▾';
+    });
+    if (!isOpen) { body.classList.add('open'); hint.textContent = 'CLOSE ▴'; }
+  }
+
+  function applyMemberGating(isLoggedIn) {
+    document.querySelectorAll('.member-content').forEach(el => { el.style.display = isLoggedIn ? 'block' : 'none'; });
+    document.querySelectorAll('.guest-gate').forEach(el => { el.style.display = isLoggedIn ? 'none' : 'block'; });
+  }
+
+  function buildCommentForms(username) {
+    if (!username) return;
+    ['.article-body-inner', '.thread-expand-inner'].forEach(sel => {
+      document.querySelectorAll(sel).forEach(inner => {
+        if (inner.querySelector('.comment-form')) return;
+        const form = document.createElement('div');
+        form.className = 'comment-form visible';
+        form.innerHTML = `<div class="comment-form-name">Replying as <span style="color:var(--gold)">${username}</span></div><div class="comment-form-row"><textarea placeholder="Add your comment..." rows="2"></textarea><button class="comment-submit" onclick="submitComment(this, '${username}')">Post ✦</button></div>`;
+        inner.appendChild(form);
+      });
+    });
+  }
+
+  function submitComment(btn, username) {
+    const ta = btn.closest('.comment-form-row').querySelector('textarea');
+    const text = ta.value.trim(); if (!text) return;
+    const section = btn.closest('.comments-section');
+    const c = document.createElement('div'); c.className = 'comment';
+    c.innerHTML = `<div class="comment-avatar">🤠</div><div class="comment-content"><div class="comment-author">${username}</div><div class="comment-text">${text}</div><div class="comment-time">just now</div></div>`;
+    section.insertBefore(c, btn.closest('.comment-form')); ta.value = '';
+  }
+
+  function toggleThread(row) {
+    const expand = row.parentElement.querySelector('.thread-expand');
+    const lock = row.querySelector('.thread-lock');
+    const isOpen = expand.classList.contains('open');
+    document.querySelectorAll('.thread-expand.open').forEach(e => {
+      e.classList.remove('open');
+      e.closest('.thread-item').querySelector('.thread-lock').textContent = '▾';
+    });
+    if (!isOpen) { expand.classList.add('open'); lock.textContent = '▴'; }
+  }
+
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  function checkAndPost(e) {
+    e.preventDefault();
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sb.auth.getSession().then(({data:{session}}) => {
+      if (session) { alert('Post to the Cavalry coming soon!'); }
+      else { window.location.href = 'login.html'; }
+    });
+  }
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    await sb.auth.signOut();
+    window.location.href = 'index.html';
+  }
+
+  (async function() {
+    if (typeof supabase === 'undefined') return;
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const {data:{session}} = await sb.auth.getSession();
+    const username = session ? session.user.email.split('@')[0] : null;
+    applyMemberGating(!!session);
+    buildCommentForms(username);
+    if (session) {
+      const postBtn = document.getElementById('post-cavalry-btn');
+      if (postBtn) { postBtn.classList.remove('locked'); postBtn.style.pointerEvents = 'auto'; }
+      const ids = {'nav-profile-btn':'inline-block','nav-messages-btn':'inline-block','nav-logout-btn':'inline-block','nav-login-btn':'none','nav-join-btn':'none'};
+      Object.entries(ids).forEach(([id, val]) => { const el=document.getElementById(id); if(el) el.style.display=val; });
+      const mobIds = {'mob-profile-btn':'block','mob-messages-btn':'block','mob-logout-btn':'block','mob-login-btn':'none','mob-join-btn':'none'};
+      Object.entries(mobIds).forEach(([id, val]) => { const el=document.getElementById(id); if(el) el.style.display=val; });
+    }
+  })();
+<\/script>
+</body>
+</html>
