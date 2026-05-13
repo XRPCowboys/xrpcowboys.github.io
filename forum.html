@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HorsePower Wire | XRPCOWBOYS • Community Chat</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--border:rgba(201,146,26,0.15);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;}
+    .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cowboy_bar.jpg') center center/cover no-repeat;}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(5,3,1,0.72);}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1.75rem;align-items:center;}
+    .nav-links a{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-login-btn{border:1px solid rgba(180,150,60,0.4);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95)!important;text-decoration:none;}
+    .nav-join-btn{color:#080808!important;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.45rem 1.1rem;border-radius:999px;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
+    .mobile-menu{display:none;flex-direction:column;padding:1.25rem 2rem 1.75rem;gap:1.1rem;background:rgba(14,10,3,0.98);border-top:1px solid var(--border);}
+    .mobile-menu a{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(232,224,208,0.95);text-decoration:none;}
+    .mobile-menu .mob-join{color:var(--gold)!important;font-weight:500;}
+    .mobile-menu.open{display:flex;}
+    .page{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+    .page-header{text-align:center;margin-bottom:1rem;}
+    .eyebrow{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.2rem;}
+    .page-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.6rem;}
+    .page-sub{font-size:0.78rem;color:rgba(232,224,208,0.85);max-width:720px;margin:0 auto;line-height:1.5;}
+    .guest-cta{background:linear-gradient(135deg,rgba(245,208,96,0.07),rgba(74,222,128,0.05));border:1px solid rgba(245,208,96,0.2);border-radius:8px;padding:2rem;text-align:center;margin-top:1rem;}
+    .guest-cta h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:0.5rem;}
+    .guest-cta p{font-size:0.9rem;color:rgba(232,224,208,0.8);margin-bottom:1.25rem;line-height:1.7;}
+    .guest-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .cta-login{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,224,208,0.95);border:1px solid rgba(180,150,60,0.4);padding:0.7rem 1.5rem;border-radius:999px;text-decoration:none;transition:border-color 0.2s;}
+    .cta-login:hover{border-color:var(--gold);}
+    .cta-join{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.7rem 1.5rem;border-radius:999px;text-decoration:none;box-shadow:0 4px 20px rgba(245,208,96,0.25);}
+    .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;background:rgba(8,6,2,0.88);backdrop-filter:blur(8px);position:relative;z-index:1;}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
+    .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.92);}
+    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
+    .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.97);text-decoration:none;transition:color 0.2s;}
+    .footer-links a:hover{color:var(--gold);}
+    .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
+    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
+    @media(max-width:768px){.nav-links{display:none;}.hamburger{display:flex;}.thread-list{grid-template-columns:1fr!important;}}
+    .feed-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.6rem;margin-bottom:1rem;padding:0.65rem 1rem;background:rgba(15,12,6,0.75);border:1px solid var(--border);border-radius:6px;}
+    .live-pill{display:flex;align-items:center;gap:7px;}
+    .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .live-label{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(74,222,128,0.8);}
+    .next-refresh-txt{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,146,26,0.5);}
+    .fetch-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;border:none;border-radius:999px;padding:0.4rem 1.1rem;font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:5px;transition:opacity 0.2s;}
+    .fetch-btn:disabled{opacity:0.45;cursor:default;}
+    .fetch-icon{display:inline-block;font-style:normal;}
+    .fetch-icon.spinning{animation:spin 0.75s linear infinite;}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .thread-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;margin-bottom:2rem;}
+    .thread-card{background:rgba(15,12,6,0.82);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;transition:border-color 0.2s;cursor:pointer;}
+    .thread-card:hover{border-color:rgba(201,146,26,0.35);}
+    .thread-card-top{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem;}
+    .thread-time{font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:rgba(201,146,26,0.45);margin-left:auto;}
+    .thread-footer{display:flex;align-items:center;gap:0.6rem;margin-top:0.3rem;}
+    .thread-stat{font-family:'Oswald',sans-serif;font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:rgba(232,224,208,0.4);}
+    .news-card-title{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;line-height:1.35;color:rgba(232,224,208,0.97);margin-bottom:0.25rem;}
+    .news-card-summary{font-size:0.76rem;color:rgba(232,224,208,0.62);line-height:1.45;border-left:2px solid rgba(201,146,26,0.25);padding-left:0.6rem;}
+    .cat-badge{font-family:'Oswald',sans-serif;font-size:0.57rem;letter-spacing:0.1em;text-transform:uppercase;padding:1px 7px;border-radius:999px;font-weight:500;flex-shrink:0;}
+    .cat-price{background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.18);}
+    .cat-adoption{background:rgba(245,200,66,0.1);color:#f5c842;border:1px solid rgba(245,200,66,0.18);}
+    .cat-legal{background:rgba(240,128,80,0.1);color:#f08050;border:1px solid rgba(240,128,80,0.18);}
+    .cat-tech{background:rgba(100,160,255,0.1);color:#80a8ff;border:1px solid rgba(100,160,255,0.18);}
+    .cat-defi{background:rgba(180,100,255,0.1);color:#c080ff;border:1px solid rgba(180,100,255,0.18);}
+    .thread-card.news-new{animation:cardIn 0.4s ease;}
+    @keyframes cardIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    .skel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;margin-bottom:2rem;}
+    .skel{background:rgba(201,146,26,0.05);border:1px solid rgba(201,146,26,0.07);border-radius:6px;height:115px;animation:shimmer 1.4s infinite;}
+    @keyframes shimmer{0%,100%{opacity:0.3}50%{opacity:0.65}}
+    .art-overlay{display:none;position:fixed;inset:0;background:rgba(5,3,1,0.97);z-index:600;overflow-y:auto;padding:1.4rem 1.2rem 5rem;}
+    .art-overlay.open{display:block;}
+    .art-back{background:none;border:1px solid rgba(201,146,26,0.3);color:var(--gold);border-radius:999px;padding:0.38rem 1rem;font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;margin-bottom:1.3rem;transition:border-color 0.2s;}
+    .art-back:hover{border-color:var(--gold);}
+    .art-inner{max-width:700px;margin:0 auto;}
+    .art-cat{display:inline-block;margin-bottom:0.7rem;}
+    .art-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:900;line-height:1.25;color:rgba(232,224,208,0.98);margin-bottom:0.55rem;}
+    .art-meta{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.75);margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+    .art-body{font-size:0.91rem;line-height:1.85;color:rgba(232,224,208,0.86);}
+    .art-body p{margin-bottom:1rem;}
+    .art-divider{border:none;border-top:1px solid var(--border);margin:1.8rem 0;}
+    .replies-hdr{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+    /* ── REPLY ITEMS with Reply button ── */
+    .reply-item{padding:0.75rem 0;border-bottom:1px solid rgba(201,146,26,0.07);}
+    .reply-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;}
+    .reply-author{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+    .reply-btn{background:rgba(201,146,26,0.08);border:1px solid rgba(201,146,26,0.4);border-radius:999px;padding:3px 12px;font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,224,208,0.8);cursor:pointer;transition:border-color 0.2s,color 0.2s,background 0.2s;}
+    .reply-btn:hover{border-color:var(--gold);color:var(--gold);}
+    .reply-body{font-size:0.82rem;line-height:1.55;color:rgba(232,224,208,0.82);}
+    .reply-time{font-family:'Oswald',sans-serif;font-size:0.58rem;color:var(--muted);margin-top:4px;}
+    .no-replies{font-size:0.78rem;color:var(--muted);padding:0.4rem 0;font-style:italic;}
+    /* ── COMPOSE ── */
+    .compose-area{padding:1rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;align-items:flex-end;}
+    .compose-area textarea{flex:1;background:rgba(10,8,2,0.7);border:1px solid rgba(201,146,26,0.2);color:var(--text);padding:0.65rem 0.9rem;border-radius:4px;font-family:'Source Serif 4',Georgia,serif;font-size:0.9rem;resize:none;height:64px;}
+    .compose-area textarea::placeholder{color:rgba(232,224,208,0.38);font-style:italic;}
+    .compose-area textarea:focus{outline:none;border-color:rgba(201,146,26,0.4);}
+    .send-btn{background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0 1.2rem;height:64px;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;}
+    .send-btn:hover{opacity:0.9;}
+    .replying-to-bar{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.4rem 1.2rem 0;display:none;}
+    .replying-to-bar.show{display:flex;align-items:center;gap:8px;}
+    .replying-to-bar button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.9rem;padding:0;}
+    @media(max-width:768px){.skel-grid{grid-template-columns:1fr;}}
+    /* ── NOTIFICATION BELL ── */
+    .notif-wrap{position:relative;display:none;}
+    .notif-wrap.visible{display:flex;align-items:center;}
+    .notif-bell{background:none;border:1px solid rgba(180,150,60,0.4);border-radius:999px;padding:0.38rem 0.85rem;color:rgba(232,224,208,0.95);cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;transition:border-color 0.2s;white-space:nowrap;}
+    .notif-bell:hover{border-color:var(--gold);color:var(--gold);}
+    .notif-badge{background:#ef4444;color:#fff;border-radius:999px;font-size:0.6rem;font-family:'Oswald',sans-serif;font-weight:700;padding:1px 5px;min-width:16px;text-align:center;display:none;line-height:1.4;}
+    .notif-badge.show{display:inline-block;}
+    .notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:310px;background:rgba(14,10,3,0.98);border:1px solid rgba(201,146,26,0.25);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.7);z-index:500;display:none;overflow:hidden;}
+    .notif-dropdown.open{display:block;}
+    .notif-hdr{padding:0.65rem 1rem;border-bottom:1px solid rgba(201,146,26,0.15);display:flex;justify-content:space-between;align-items:center;}
+    .notif-hdr-title{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+    .notif-mark-all{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,146,26,0.5);background:none;border:none;cursor:pointer;transition:color 0.2s;}
+    .notif-mark-all:hover{color:var(--gold);}
+    .notif-list{max-height:300px;overflow-y:auto;}
+    .notif-item{padding:0.65rem 1rem;border-bottom:1px solid rgba(201,146,26,0.07);cursor:pointer;transition:background 0.15s;display:flex;gap:0.65rem;align-items:flex-start;}
+    .notif-item:hover{background:rgba(201,146,26,0.07);}
+    .notif-item.unread{background:rgba(201,146,26,0.04);}
+    .notif-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+    .notif-content{flex:1;}
+    .notif-msg{font-size:0.76rem;color:rgba(232,224,208,0.9);line-height:1.4;margin-bottom:2px;}
+    .notif-time{font-family:'Oswald',sans-serif;font-size:0.58rem;letter-spacing:0.06em;color:var(--muted);}
+    .notif-unread-dot{width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:5px;}
+    .notif-empty{padding:1.4rem 1rem;text-align:center;font-size:0.78rem;color:var(--muted);font-style:italic;}
+    /* ── REPLY DELETE BUTTON ── */
+    .reply-delete-btn{background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.35);border-radius:999px;padding:3px 10px;font-size:0.65rem;cursor:pointer;color:rgba(220,38,38,0.85);transition:background 0.2s,border-color 0.2s;}
+    .reply-delete-btn:hover{background:rgba(220,38,38,0.25);border-color:rgba(220,38,38,0.7);color:#ef4444;}
+  </style>
+  <script src="shared.js"></script>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div style="position:relative;z-index:1;">
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ XRPCOWBOYS</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="dispatch.html">Corral</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members.html">Posse</a></li>
+      <li><a href="forum.html" class="active">Forum</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+      <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+      <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+      <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+      <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <div class="nav-notif-wrap" id="notif-wrap">
+      <button class="notif-bell" onclick="toggleNotifDropdown(event)">🔔 <span class="notif-badge" id="notif-badge"></span></button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-hdr">
+          <span class="notif-hdr-title">Notifications</span>
+          <button class="notif-mark-all" onclick="markAllRead()">Mark all read</button>
+        </div>
+        <div class="notif-list" id="notif-list">
+          <div class="notif-empty">No notifications yet, partner!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+    <a href="dispatch.html" onclick="toggleMenu()">Corral</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="members.html" onclick="toggleMenu()">Posse</a>
+    <a href="forum.html" onclick="toggleMenu()">Forum</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+    <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+    <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+    <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">Member Login</a>
+    <a href="join.html" onclick="toggleMenu()" class="mob-join">✦ Join the Community</a>
+  </div>
+</nav>
+
+<div class="art-overlay" id="artOverlay">
+  <button class="art-back" onclick="closeArticle()">← Back to Feed</button>
+  <div class="art-inner">
+    <span class="art-cat cat-badge" id="artCatBadge"></span>
+    <h2 class="art-title" id="artTitle"></h2>
+    <div class="art-meta" id="artMeta"></div>
+    <div class="art-body" id="artBody"></div>
+    <hr class="art-divider">
+    <div class="replies-hdr" id="repliesHdr">Posse Discussion (0 replies)</div>
+    <div id="repliesList"></div>
+    <div id="artCompose" style="display:none;margin-top:1.2rem;">
+      <div class="replying-to-bar" id="replyingToBar">
+        <span id="replyingToText"></span>
+        <button onclick="clearReplyTo()" title="Cancel reply">✕</button>
+      </div>
+      <div class="compose-area">
+        <textarea id="replyText" placeholder="Share your thoughts with the posse, partner..."></textarea>
+        <button class="send-btn" onclick="submitReply()">Post Reply</button>
+      </div>
+    </div>
+    <div id="artGuestCta" style="display:none;margin-top:1rem;">
+      <div class="guest-cta" style="padding:1.2rem 1.5rem;">
+        <h3 style="font-size:1.1rem;">Join the Discussion</h3>
+        <p style="font-size:0.85rem;margin-bottom:1rem;">Create a free account to reply and connect with the posse.</p>
+        <div class="guest-cta-btns">
+          <a href="login.html" class="cta-login">✦ Login</a>
+          <a href="join.html" class="cta-join">✦ Create Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <p class="eyebrow">The Official Discussion Forum of XRPCowboys</p>
+    <h1 class="page-title">HORSEPOWER WIRE</h1>
+    <p class="page-sub">Welcome to the HorsePower Wire — the private discussion forum of XRPCowboys. Verified members discuss XRP Ledger technology, ecosystem news, events, and community topics in a moderated environment.</p>
+  </div>
+
+  <div class="feed-controls">
+    <div class="live-pill"><div class="live-dot"></div><span class="live-label" id="liveLabel">Live Feed</span></div>
+    <span class="next-refresh-txt" id="nextRefreshTxt"></span>
+    <button class="fetch-btn" id="fetchBtn" onclick="fetchNews()"><span class="fetch-icon" id="fetchIcon">⟳</span>&nbsp;Refresh News</button>
+  </div>
+
+  <div class="skel-grid" id="skelArea">
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </div>
+
+  <div class="thread-list" id="newsGrid" style="display:none;"></div>
+
+  <div class="guest-cta" id="guest-cta">
+    <h3>Want to Reply &amp; Discuss?</h3>
+    <p>Create a free XRPCowboys account to reply to articles and connect with the posse.</p>
+    <div class="guest-cta-btns">
+      <a href="login.html" class="cta-login">&#10022; Member Login</a>
+      <a href="join.html" class="cta-join">&#10022; Create Account</a>
+    </div>
+  </div>
+  <div id="member-area" style="display:none;"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">✦ XRPCOWBOYS</div>
+      <div class="footer-tagline" style="margin-top:0.4rem;">Exclusive XRP Community · Est. 2018</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="dispatch.html">Corral</a>
+      <a href="gallery.html">Gallery</a><a href="members.html">Posse</a><a href="forum.html">Forum</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p></div>
+</footer>
+</div>
+
+<script>
+const sb=supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+let currentUser=null,articles=[],currentArtId=null,replyCounts={},countdownTimer=null,notifOpen=false;
+const ADMIN_EMAILS=['jamesltyler13@gmail.com','dave_oct@yahoo.com'];
+function isAdmin(){return currentUser&&ADMIN_EMAILS.includes(currentUser.email);}
+let replyToUserId=null,replyToAuthor=null;
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href='index.html';});}
+function timeAgo(ts){
+  const ms=typeof ts==='number'?ts:new Date(ts).getTime(),d=Math.floor((Date.now()-ms)/1000);
+  if(d<60)return'just now';if(d<3600)return Math.floor(d/60)+'m ago';
+  if(d<86400)return Math.floor(d/3600)+'h ago';if(d<604800)return Math.floor(d/86400)+'d ago';
+  return Math.floor(d/604800)+'w ago';
+}
+const CAT_CLASS={price:'cat-price',adoption:'cat-adoption',legal:'cat-legal',tech:'cat-tech',defi:'cat-defi'};
+const CAT_LABEL={price:'Price & Markets',adoption:'Adoption',legal:'Legal & Reg',tech:'Technology',defi:'DeFi & XRPL'};
+
+// ── REPLY TO ──────────────────────────────────────────────────
+function setReplyTo(userId, authorName){
+  replyToUserId=userId;
+  replyToAuthor=authorName;
+  const bar=document.getElementById('replyingToBar');
+  document.getElementById('replyingToText').textContent='↩ Replying to '+authorName;
+  bar.classList.add('show');
+  document.getElementById('replyText').focus();
+  document.getElementById('replyText').placeholder='Reply to '+authorName+'...';
+}
+function clearReplyTo(){
+  replyToUserId=null;replyToAuthor=null;
+  document.getElementById('replyingToBar').classList.remove('show');
+  document.getElementById('replyText').placeholder='Share your thoughts with the posse, partner...';
+}
+
+// ── NOTIFICATIONS ─────────────────────────────────────────────
+function toggleNotifDropdown(e){
+  if(e)e.stopPropagation();
+  notifOpen=!notifOpen;
+  document.getElementById('notif-dropdown').classList.toggle('open',notifOpen);
+  if(notifOpen)loadNotifications();
+}
+document.addEventListener('click',function(e){
+  const w=document.getElementById('notif-wrap');
+  if(w&&!w.contains(e.target)&&notifOpen){notifOpen=false;const dd=document.getElementById('notif-dropdown');if(dd)dd.classList.remove('open');}
+});
+async function loadNotifications(){
+  if(!currentUser)return;
+  const{data,error}=await sb.from('notifications').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(20);
+  if(error)return;
+  updateNotifBadge(data);
+  const list=document.getElementById('notif-list');if(!list)return;
+  if(!data||!data.length){list.innerHTML='<div class="notif-empty">No notifications yet, partner!</div>';return;}
+  list.innerHTML=data.map(n=>`
+    <div class="notif-item${n.read?'':' unread'}" onclick="handleNotifClick('${n.id}','${(n.link||'')}')">
+      <div class="notif-icon">${n.type==='dm'?'💬':'↩'}</div>
+      <div class="notif-content"><div class="notif-msg">${esc(n.message)}</div><div class="notif-time">${timeAgo(n.created_at)}</div></div>
+      ${n.read?'':'<div class="notif-unread-dot"></div>'}
+    </div>`).join('');
+}
+function updateNotifBadge(data){
+  const badge=document.getElementById('notif-badge');if(!badge)return;
+  const count=(data||[]).filter(n=>!n.read).length;
+  if(count>0){badge.textContent=count>9?'9+':count;badge.classList.add('show');}else{badge.classList.remove('show');}
+}
+async function handleNotifClick(id,link){
+  await sb.from('notifications').update({read:true}).eq('id',id);
+  notifOpen=false;document.getElementById('notif-dropdown').classList.remove('open');
+  if(link)window.location.href=link;
+}
+async function markAllRead(){
+  if(!currentUser)return;
+  await sb.from('notifications').update({read:true}).eq('user_id',currentUser.id).eq('read',false);
+  document.getElementById('notif-badge').classList.remove('show');
+  loadNotifications();
+}
+async function pollNotifCount(){
+  if(!currentUser)return;
+  const{data}=await sb.from('notifications').select('id,read').eq('user_id',currentUser.id).eq('read',false);
+  updateNotifBadge(data?data.map(d=>({...d,read:false})):[]);
+}
+
+// ── FALLBACK ARTICLES ─────────────────────────────────────────
+const FALLBACK=[
+  {id:'f1',category:'price',title:'XRP Surges 18% as Institutional Accumulation Accelerates',summary:'Major fund inflows drive XRP to new monthly highs amid growing adoption signals.',full_text:'XRP posted an 18% gain over 72 hours as institutional buying pressure mounted across major exchanges.\n\nOn-chain data revealed wallet addresses holding more than 100,000 XRP increased by 340 new entrants over the weekend.\n\nOptions markets show elevated call interest at strikes 30% above current price.\n\nTraders watching the Ripple escrow release schedule noted the monthly unlock was absorbed without downward pressure for the third consecutive month.',yeehaw:87,created_at:Date.now()-3600000},
+  {id:'f2',category:'adoption',title:'Southeast Asian Bank Consortium Selects XRPL for Settlement',summary:'Seven regional banks will pilot XRP-based cross-border corridors beginning Q3 2026.',full_text:'A consortium of seven Southeast Asian banks announced a joint pilot program utilizing the XRP Ledger for cross-border settlement.\n\nThe initiative targets the $180 billion annual remittance corridor between Southeast Asia and the Gulf states.\n\nRipple\'s technology has demonstrated cost reductions of 60–78% versus traditional SWIFT-based transfers.\n\nIntegration with existing core banking systems is being handled by a regional fintech partner with full XRPL certification.',yeehaw:63,created_at:Date.now()-7200000},
+  {id:'f3',category:'tech',title:'XRPL EVM Sidechain Hits 1 Million Transaction Milestone',summary:'Developer activity on the EVM-compatible sidechain has exceeded all early projections.',full_text:'The XRPL EVM sidechain achieved its one-millionth transaction last week, arriving nearly four months ahead of developer projections.\n\nTotal value locked surpassed $340 million, with decentralized lending markets accounting for the largest share.\n\nDeveloper tooling released in the most recent protocol upgrade reduced average gas costs by 22%.\n\nA dedicated hackathon attracted 1,800 registered developers from 67 countries.',yeehaw:44,created_at:Date.now()-10800000},
+  {id:'f4',category:'legal',title:'EU MiCA Framework Confirms XRP Utility Token Classification',summary:'European regulators deliver long-awaited clarity placing XRP outside securities rules.',full_text:'The European Securities and Markets Authority issued supplemental guidance under MiCA formally classifying XRP as a utility token.\n\nThe ruling provides regulatory clarity across all 27 EU member states simultaneously.\n\nThe classification opens a cleaner compliance pathway for European banks seeking to integrate XRP.\n\nRipple\'s chief legal officer confirmed active discussions with three EU central banks are underway.',yeehaw:91,created_at:Date.now()-14400000},
+  {id:'f5',category:'defi',title:'XRPL AMM Pools Cross $500M Total Value Locked',summary:'Native automated market makers gain traction as XRPL DeFi ecosystem matures rapidly.',full_text:'Total value locked in XRPL\'s native AMM pools crossed $500 million for the first time.\n\nDynamic fee adjustments have resulted in lower impermanent loss compared to constant-product models on competing chains.\n\nAverage annualized yields for top pools range from 8–14%, driven by genuine trading volume.\n\nAnalysts estimate AMM-driven XRP demand adds roughly $2.1 million in daily buy pressure.',yeehaw:55,created_at:Date.now()-18000000},
+  {id:'f6',category:'adoption',title:'RLUSD Stablecoin Monthly Volume Exceeds $3 Billion',summary:'Ripple\'s regulated stablecoin sees explosive growth as institutions embrace XRPL settlement.',full_text:'RLUSD recorded monthly settlement volume exceeding $3 billion in April, tripling its January figure.\n\nInstitutional clients account for an estimated 78% of total RLUSD flow.\n\nFull reserve attestations published monthly by a Big Four accounting firm have become a key selling point.\n\nPlans for RLUSD-denominated trade finance instruments were announced with a multinational supply chain finance platform.',yeehaw:72,created_at:Date.now()-21600000}
+];
+
+function renderGrid(isNew){
+  document.getElementById('skelArea').style.display='none';
+  const grid=document.getElementById('newsGrid');grid.style.display='grid';grid.innerHTML='';
+  articles.forEach((a,i)=>{
+    const cls=CAT_CLASS[a.category]||'cat-tech',lbl=CAT_LABEL[a.category]||a.category,rc=replyCounts[a.id]||0;
+    const card=document.createElement('div');card.className='thread-card'+(isNew&&i<2?' news-new':'');
+    card.onclick=()=>openArticle(a.id);
+    card.innerHTML=`<div class="thread-card-top"><span class="cat-badge ${cls}">${esc(lbl)}</span><div class="thread-time">${timeAgo(a.created_at)}</div></div>
+      <div class="news-card-title">${esc(a.title)}</div><div class="news-card-summary">${esc(a.summary)}</div>
+      <div class="thread-footer"><span class="thread-stat">✦ ${a.yeehaw||0} Yeehaw</span><span class="thread-stat" id="rc-${a.id}">↩ ${rc} Replies</span></div>`;
+    grid.appendChild(card);
+  });
+}
+
+async function loadFromSupabase(){
+  const cutoff=new Date(Date.now()-7*24*60*60*1000).toISOString();
+  const{data,error}=await sb.from('news_articles').select('id,category,title,summary,full_text,yeehaw,created_at,source_url,source_name').gte('created_at',cutoff).order('created_at',{ascending:false});
+  if(error||!data||!data.length)return false;
+  articles=data;
+  const ids=data.map(a=>a.id);
+  const{data:rdata}=await sb.from('news_replies').select('article_id').in('article_id',ids);
+  replyCounts={};if(rdata)rdata.forEach(r=>{replyCounts[r.article_id]=(replyCounts[r.article_id]||0)+1;});
+  return true;
+}
+
+async function openArticle(id){
+  const a=articles.find(x=>x.id===id);if(!a)return;
+  currentArtId=id;
+  clearReplyTo();
+  const cls=CAT_CLASS[a.category]||'cat-tech',lbl=CAT_LABEL[a.category]||a.category;
+  const badge=document.getElementById('artCatBadge');badge.className='art-cat cat-badge '+cls;badge.textContent=lbl;
+  document.getElementById('artTitle').textContent=a.title;
+  const sourcePart=a.source_name?' · '+esc(a.source_name):' · XRPCowboys HorsePower Wire';
+  document.getElementById('artMeta').textContent=timeAgo(a.created_at)+sourcePart;
+  const bodyText=(a.full_text||'').split('\n\n').filter(p=>!p.startsWith('Source:')).map(p=>`<p>${esc(p)}</p>`).join('');
+  const srcUrl=a.source_url||'';
+  const srcName=a.source_name||'Source';
+  const readMoreBtn=srcUrl?`<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(201,146,26,0.15);"><a href="${srcUrl}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.65rem 1.5rem;border-radius:999px;text-decoration:none;">Read Original Source → ${srcName}</a></div>`:'';
+  document.getElementById('artBody').innerHTML=bodyText+readMoreBtn;
+  document.getElementById('repliesList').innerHTML='<div class="no-replies">Loading replies…</div>';
+  document.getElementById('repliesHdr').textContent='Posse Discussion';
+  document.getElementById('artCompose').style.display=currentUser?'block':'none';
+  document.getElementById('artGuestCta').style.display=currentUser?'none':'block';
+  document.getElementById('artOverlay').classList.add('open');
+  document.getElementById('artOverlay').scrollTop=0;
+  await loadRepliesForArticle(id);
+}
+
+function closeArticle(){
+  document.getElementById('artOverlay').classList.remove('open');
+  currentArtId=null;
+  clearReplyTo();
+}
+
+async function loadRepliesForArticle(id){
+  const{data,error}=await sb.from('news_replies').select('id,author,body,created_at,user_id').eq('article_id',id).order('created_at',{ascending:true});
+  const count=(!error&&data)?data.length:0;
+  replyCounts[id]=count;
+  const rcEl=document.getElementById('rc-'+id);if(rcEl)rcEl.textContent='↩ '+count+' Replies';
+  document.getElementById('repliesHdr').textContent='Posse Discussion ('+count+' repl'+(count===1?'y':'ies')+')';
+  const el=document.getElementById('repliesList');
+  if(!data||!data.length){el.innerHTML='<div class="no-replies">No replies yet — be the first, partner!</div>';return;}
+
+  // Show replies with Reply + Delete buttons
+  el.innerHTML=data.map(r=>{
+    const canReply=currentUser&&r.user_id!==currentUser.id;
+    const canDelete=currentUser&&(isAdmin()||r.user_id===currentUser.id);
+    const replyBtn=canReply?`<button class="reply-btn" onclick="setReplyTo('${r.user_id}','${esc(r.author)}')">↩ Reply</button>`:'';
+    const delBtn=canDelete?`<button class="reply-delete-btn" onclick="deleteReply('${r.id}')" title="Delete reply">🗑</button>`:'';
+    return `<div class="reply-item" id="reply-${r.id}">
+      <div class="reply-item-top">
+        <div class="reply-author">${esc(r.author)}</div>
+        <div style="display:flex;gap:6px;align-items:center;">${replyBtn}${delBtn}</div>
+      </div>
+      <div class="reply-body">${esc(r.body)}</div>
+      <div class="reply-time">${timeAgo(r.created_at)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function deleteReply(replyId){
+  if(!currentUser)return;
+  if(!confirm('Delete this reply?'))return;
+  const{error}=await sb.from('news_replies').delete().eq('id',replyId);
+  if(error){alert('Delete failed: '+error.message);return;}
+  const el=document.getElementById('reply-'+replyId);
+  if(el)el.remove();
+  // Update count
+  if(currentArtId){
+    replyCounts[currentArtId]=Math.max(0,(replyCounts[currentArtId]||1)-1);
+    const rc=replyCounts[currentArtId];
+    const rcEl=document.getElementById('rc-'+currentArtId);if(rcEl)rcEl.textContent='↩ '+rc+' Replies';
+    document.getElementById('repliesHdr').textContent='Posse Discussion ('+rc+' repl'+(rc===1?'y':'ies')+')';
+  }
+}
+async function submitReply(){
+  if(!currentUser||!currentArtId)return;
+  const txt=document.getElementById('replyText').value.trim();if(!txt)return;
+  const btn=document.querySelector('#artCompose .send-btn');
+  if(btn){btn.disabled=true;btn.textContent='Posting…';}
+  try{
+    const{data:prof}=await sb.from('profiles').select('handle').eq('id',currentUser.id).single();
+    const name=(prof&&prof.handle)?prof.handle:currentUser.email.split('@')[0];
+    const{error}=await sb.from('news_replies').insert({article_id:currentArtId,author:name,body:txt,user_id:currentUser.id});
+    if(error)throw error;
+    document.getElementById('replyText').value='';
+
+    const article=articles.find(x=>x.id===currentArtId);
+    const title=article?article.title.substring(0,45)+'…':'an article';
+
+    // ── Only notify if replying directly to a specific member ──
+    if(replyToUserId&&replyToUserId!==currentUser.id){
+      await sb.from('notifications').insert({
+        user_id:replyToUserId,
+        type:'reply',
+        message:`${name} replied to your comment on "${title}"`,
+        link:`forum.html?article=${currentArtId}`,
+        read:false
+      });
+    }
+
+    clearReplyTo();
+    await loadRepliesForArticle(currentArtId);
+  }catch(e){alert('Could not post reply. Please try again.');}
+  finally{if(btn){btn.disabled=false;btn.textContent='Post Reply';}}
+}
+
+async function fetchNews(){
+  const btn=document.getElementById('fetchBtn'),icon=document.getElementById('fetchIcon');
+  btn.disabled=true;icon.classList.add('spinning');document.getElementById('liveLabel').textContent='Refreshing…';
+  const got=await loadFromSupabase();if(!got)articles=FALLBACK;
+  renderGrid(true);document.getElementById('liveLabel').textContent='Live Feed';
+  btn.disabled=false;icon.classList.remove('spinning');
+}
+
+function startCountdown(secs){
+  if(countdownTimer)clearInterval(countdownTimer);let s=secs;
+  countdownTimer=setInterval(()=>{
+    s--;const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);
+    document.getElementById('nextRefreshTxt').textContent='Next auto-refresh in '+h+'h '+m+'m';
+    if(s<=0){clearInterval(countdownTimer);fetchNews();startCountdown(21600);}
+  },1000);
+}
+
+async function init(){
+  articles=FALLBACK;renderGrid(false);
+  document.getElementById('liveLabel').textContent='Live Feed';startCountdown(21600);
+  const{data:{session}}=await sb.auth.getSession();
+  if(session){
+    currentUser=session.user;
+    document.getElementById('guest-cta').style.display='none';
+    document.getElementById('member-area').style.display='block';
+    document.getElementById('notif-wrap').classList.add('visible');
+    pollNotifCount();setInterval(pollNotifCount,30000);
+  }
+  const got=await loadFromSupabase();if(got)renderGrid(false);
+
+  // Auto-open article if ?article=ID in URL
+  const urlParams=new URLSearchParams(window.location.search);
+  const artParam=urlParams.get('article');
+  if(artParam){
+    setTimeout(()=>{
+      const target=articles.find(a=>String(a.id)===String(artParam));
+      if(target)openArticle(target.id);
+    },300);
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta=document.getElementById('replyText');
+  if(ta)ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitReply();}});
+});
+init();
+</script>
+</body>
+</html>
