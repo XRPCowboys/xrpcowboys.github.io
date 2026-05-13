@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | XRPCOWBOYS • Exclusive XRP Community</title>
+  <link rel="stylesheet" href="shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#f5d060;--gold-dim:#c9921a;--gold-dark:#a06e10;--green:#4ade80;--green-dim:#22c55e;--cream:#e8e0d0;--bg:#080808;--bg2:#0f0f0f;--border:rgba(201,146,26,0.25);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
+    .parallax-bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('XRPCowboys_files/jonas-dm1hYlnx2pQ-unsplash(1).jpg');background-size:cover;background-position:center 40%;z-index:0;}
+    .parallax-bg::after{content:'';position:absolute;inset:0;background:rgba(5,4,2,0.35);}
+    .site-wrap{position:relative;z-index:1;}
+    .page-hero{text-align:center;padding:5rem 2rem 3.5rem;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(34,80,28,0.28) 0%,transparent 70%);pointer-events:none;}
+    .page-hero-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;position:relative;z-index:1;}
+    .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;position:relative;z-index:1;opacity:0;animation:fadeUp 0.9s 0.2s forwards;}
+    .page-hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto 1.25rem;}
+    .page-hero-sub{font-size:1.1rem;font-weight:300;color:rgba(232,224,208,0.97);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .uploader-note{max-width:1200px;margin:0 auto 1rem;padding:0.75rem 2rem;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.18);border-radius:8px;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(74,222,128,0.8);text-align:center;}
+    .tab-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:0.5rem;padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto;}
+    .tab-btn{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,208,96,0.6);border:1px solid rgba(180,150,60,0.22);border-radius:999px;padding:0.4rem 1.1rem;background:rgba(180,150,60,0.04);cursor:pointer;transition:all 0.2s;}
+    .tab-btn:hover{border-color:rgba(245,208,96,0.45);color:var(--gold);background:rgba(245,208,96,0.07);}
+    .tab-btn.active{background:linear-gradient(135deg,rgba(245,208,96,0.18),rgba(201,146,26,0.12));border-color:rgba(245,208,96,0.5);color:var(--gold);}
+    .gallery-section{display:none;max-width:1200px;margin:0 auto;padding:0 2rem 5rem;}
+    .gallery-section.visible{display:block;}
+    .cat-title-box{position:relative;text-align:center;margin-bottom:3rem;padding:2.5rem 2rem;background:linear-gradient(135deg,rgba(245,208,96,0.06),rgba(201,146,26,0.04));border:1px solid rgba(245,208,96,0.2);border-radius:18px;overflow:hidden;}
+    .cat-title-eyebrow{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;position:relative;z-index:1;}
+    .cat-title-text{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;background:linear-gradient(135deg,#ffe87a 0%,#f5d060 30%,#c9921a 65%,#a06e10 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;position:relative;z-index:1;}
+    .cat-title-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0.75rem auto;}
+    .cat-title-count{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,224,208,0.92);position:relative;z-index:1;}
+    .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+    @media(min-width:480px){.gallery-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(min-width:768px){.gallery-grid{grid-template-columns:repeat(4,1fr);}}
+    @media(min-width:1024px){.gallery-grid{grid-template-columns:repeat(5,1fr);}}
+    @media(min-width:1400px){.gallery-grid{grid-template-columns:repeat(6,1fr);}}
+    .photo-card{border-radius:10px;overflow:hidden;border:1px solid rgba(201,146,26,0.22);background:#111;cursor:pointer;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.4s,border-color 0.3s;position:relative;}
+    .photo-card:hover{transform:scale(1.42);box-shadow:0 28px 56px rgba(0,0,0,0.9),0 0 0 1px rgba(245,208,96,0.2);border-color:rgba(245,208,96,0.75);z-index:20;}
+    @media(hover:none){.photo-card:hover{transform:none;box-shadow:none;border-color:rgba(201,146,26,0.22);z-index:auto;}}
+    .photo-card .img-wrap{border-radius:10px 10px 0 0;overflow:hidden;position:relative;}
+    .photo-card img{width:100%;height:150px;object-fit:contain;object-position:center center;display:block;background:#0d0d0d;transition:transform 0.5s ease,opacity 0.4s;opacity:0;}
+    @media(min-width:480px){.photo-card img{height:140px;}}
+    @media(min-width:768px){.photo-card img{height:130px;}}
+    @media(min-width:1024px){.photo-card img{height:120px;}}
+    .photo-card img.loaded{opacity:1;}
+    .photo-card:hover img{transform:scale(1.08);}
+    .photo-card .img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.2) 0%,transparent 40%);pointer-events:none;}
+    .photo-caption{display:block;padding:0.35rem 0.5rem 0.4rem;font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:0.07em;text-transform:uppercase;color:rgba(232,224,208,0.85);line-height:1.4;text-align:center;background:rgba(10,8,4,0.75);border-top:1px solid rgba(201,146,26,0.18);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .delete-btn{position:absolute;top:5px;right:5px;z-index:30;background:rgba(220,38,38,0.85);border:none;border-radius:50%;width:24px;height:24px;color:#fff;font-size:0.9rem;cursor:pointer;display:none;align-items:center;justify-content:center;transition:background 0.2s;line-height:1;}
+    .delete-btn:hover{background:rgba(220,38,38,1);}
+    .photo-card:hover .delete-btn{display:flex;}
+    .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;flex-direction:column;}
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:90vw;max-height:80vh;object-fit:contain;display:block;border:1px solid rgba(245,208,96,0.15);border-radius:8px;}
+    .lightbox-close{position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;color:var(--gold);font-size:2rem;cursor:pointer;opacity:0.7;}
+    .lightbox-close:hover{opacity:1;}
+    .lightbox-nav{display:flex;gap:2rem;margin-top:1.25rem;}
+    .lightbox-nav button{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid rgba(245,208,96,0.3);color:var(--gold);padding:0.5rem 1.4rem;cursor:pointer;border-radius:999px;transition:all 0.2s;}
+    .lightbox-nav button:hover{background:rgba(245,208,96,0.1);border-color:var(--gold);}
+    .lightbox-counter{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.18em;color:rgba(232,224,208,0.92);margin-top:0.6rem;}
+    .ornament{text-align:center;color:rgba(180,150,60,0.25);font-size:1rem;letter-spacing:0.6em;margin:0 0 4rem;user-select:none;}
+    .join-banner{background:linear-gradient(135deg,rgba(245,208,96,0.08),rgba(74,222,128,0.06));border:1px solid rgba(245,208,96,0.2);border-radius:20px;padding:3rem 2rem;text-align:center;max-width:1200px;margin:0 auto 6rem;}
+    .join-banner h3{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,4vw,2.8rem);color:var(--gold);margin-bottom:0.75rem;}
+    .join-banner p{font-size:1.05rem;font-weight:300;color:rgba(232,224,208,0.95);max-width:520px;margin:0 auto 1.75rem;line-height:1.8;}
+    .join-banner a{display:inline-block;font-family:'Oswald',sans-serif;font-size:0.85rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#080808;background:linear-gradient(135deg,#f5d060,#c9921a);padding:0.9rem 2.5rem;border-radius:999px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 24px rgba(245,208,96,0.25);}
+    .join-banner a:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,208,96,0.4);}
+    .footer{border-top:1px solid var(--border);padding:3rem 2rem 2rem;}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
+    .footer-tagline{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.92);}
+    .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
+    .footer-links a{font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.90);text-decoration:none;transition:color 0.2s;}
+    .footer-links a:hover{color:var(--gold);}
+    .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;text-align:center;}
+    .footer-bottom p{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,224,208,0.88);}
+    @media(max-width:640px){.gallery-section{padding:0 1rem 3rem;}.tab-bar{padding:0 1rem 2rem;}}
+    .member-upload-box{border:2px dashed rgba(245,208,96,0.3);border-radius:14px;padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;margin-bottom:1.5rem;background:rgba(245,208,96,0.03);}
+    .member-upload-box:hover{border-color:var(--gold);background:rgba(245,208,96,0.07);}
+    .upload-status{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;min-height:1.2rem;}
+    .upload-status.ok{color:#4ade80;} .upload-status.err{color:#f87171;}
+    .admin-upload-zone{margin:0 0 1.5rem;padding:1rem 1.5rem;background:rgba(245,208,96,0.06);border:1px dashed rgba(245,208,96,0.3);border-radius:8px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .admin-upload-btn{font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:linear-gradient(135deg,#f5d060,#c9921a);color:#080808;padding:0.6rem 1.4rem;border-radius:999px;cursor:pointer;white-space:nowrap;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared.js"></script>
+</head>
+<body>
+<div class="parallax-bg"></div>
+<div class="site-wrap">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">&#10022; XRPCOWBOYS</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="members.html">Posse</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="messages.html" class="nav-login-btn" id="nav-messages-btn" style="display:none">Messages</a></li>
+        <li><a href="profile.html" class="nav-login-btn" id="nav-profile-btn" style="display:none">My Profile</a></li>
+        <li><a href="login.html" class="nav-login-btn" id="nav-login-btn">Login</a></li>
+        <li><a href="join.html" class="nav-join-btn" id="nav-join-btn">Join</a></li>
+        <li><a href="#" class="nav-join-btn" id="nav-logout-btn" style="display:none" onclick="handleLogout(event)">Log Out</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="members.html" onclick="toggleMenu()">Posse</a>
+      <a href="forum.html" onclick="toggleMenu()">Forum</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="messages.html" onclick="toggleMenu()" id="mob-messages-btn" style="display:none">Messages</a>
+      <a href="profile.html" onclick="toggleMenu()" id="mob-profile-btn" style="display:none">My Profile</a>
+      <a href="login.html" onclick="toggleMenu()" id="mob-login-btn">&#10022; Member Login</a>
+      <a href="join.html" onclick="toggleMenu()" class="mob-join" id="mob-join-btn">&#10022; Join the Community</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <p class="page-hero-label">The Posse in Action</p>
+    <h1 class="page-hero-title">THE GALLERY</h1>
+    <div class="page-hero-rule"></div>
+    <p class="page-hero-sub">Real moments from the XRPCowboys community at events across the years. Cowboy hats encouraged.</p>
+  </div>
+
+  <div class="uploader-note">
+    &#10022; When uploading new photos, please include a short caption with the event name and year &mdash; example: &ldquo;Swell 2025 &ndash; XRPCowboys Posse&rdquo;
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('all',event)">All Photos</button>
+    <button class="tab-btn" onclick="showTab('podcastors',event)">Podcastors Cowboys</button>
+    <button class="tab-btn" onclick="showTab('properparty2024',event)">Proper Party 2023</button>
+    <button class="tab-btn" onclick="showTab('xrplv2024',event)">XRP Las Vegas 2024</button>
+    <button class="tab-btn" onclick="showTab('xrplv2025',event)">XRP Las Vegas 2025</button>
+    <button class="tab-btn" onclick="showTab('swell2025',event)">Swell 2025</button>
+    <button class="tab-btn" onclick="showTab('xrplv2026',event)">XRP Las Vegas 2026</button>
+  </div>
+
+  <section class="gallery-section visible" id="tab-all">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">All Photos</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">38 photos across all events</p>
+    </div>
+    <div class="gallery-grid" id="grid-all"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-podcastors">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">Podcastors Cowboys</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">13 photos</p>
+    </div>
+    <div class="admin-upload-zone" id="admin-podcastors" style="display:none">
+      <div class="upload-status" id="status-podcastors"></div>
+      <label class="admin-upload-btn">&#128247; Upload Photos to This Album<input type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'podcastors')"></label>
+    </div>
+    <div class="gallery-grid" id="grid-podcastors"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-properparty2024">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">Proper Party 2023</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">5 photos</p>
+    </div>
+    <div class="admin-upload-zone" id="admin-properparty2024" style="display:none">
+      <div class="upload-status" id="status-properparty2024"></div>
+      <label class="admin-upload-btn">&#128247; Upload Photos to This Album<input type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'properparty2024')"></label>
+    </div>
+    <div class="gallery-grid" id="grid-properparty2024"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-xrplv2024">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">XRP Las Vegas 2024</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count" id="count-xrplv2024">Photos coming soon</p>
+    </div>
+    <div class="admin-upload-zone" id="admin-xrplv2024" style="display:none">
+      <div class="upload-status" id="status-xrplv2024"></div>
+      <label class="admin-upload-btn">&#128247; Upload Photos to This Album<input type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'xrplv2024')"></label>
+    </div>
+    <div class="gallery-grid" id="grid-xrplv2024"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-xrplv2025">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">XRP Las Vegas 2025</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">9 photos</p>
+    </div>
+    <div class="admin-upload-zone" id="admin-xrplv2025" style="display:none">
+      <div class="upload-status" id="status-xrplv2025"></div>
+      <label class="admin-upload-btn">&#128247; Upload Photos to This Album<input type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'xrplv2025')"></label>
+    </div>
+    <div class="gallery-grid" id="grid-xrplv2025"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-swell2025">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">Swell 2025</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count">11 photos</p>
+    </div>
+    <div class="admin-upload-zone" id="admin-swell2025" style="display:none">
+      <div class="upload-status" id="status-swell2025"></div>
+      <label class="admin-upload-btn">&#128247; Upload Photos to This Album<input type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'swell2025')"></label>
+    </div>
+    <div class="gallery-grid" id="grid-swell2025"></div>
+  </section>
+
+  <section class="gallery-section" id="tab-xrplv2026">
+    <div class="cat-title-box">
+      <p class="cat-title-eyebrow">XRP Cowboys Gallery</p>
+      <h2 class="cat-title-text">XRP Las Vegas 2026</h2>
+      <div class="cat-title-rule"></div>
+      <p class="cat-title-count" id="lv2026-count">Photos coming soon!</p>
+    </div>
+    <div id="upload-prompt-lv2026" style="max-width:600px;margin:0 auto 2rem;display:none;">
+      <div class="member-upload-box" onclick="document.getElementById('lv2026-file-input').click()">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">&#128247;</div>
+        <p style="font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Add Your Vegas Photos</p>
+        <p style="font-size:0.88rem;color:rgba(232,224,208,0.82);">JPG or PNG &middot; Max 10MB each &middot; Share your memories with the posse</p>
+      </div>
+      <input type="file" id="lv2026-file-input" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this,'xrplv2026')">
+      <div class="upload-status" id="lv2026-status"></div>
+    </div>
+    <div class="gallery-grid" id="grid-xrplv2026"></div>
+  </section>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+    <img id="lightbox-img" src="" alt="Gallery photo"/>
+    <div class="lightbox-nav"><button onclick="prevPhoto()">&#8592; Prev</button><button onclick="nextPhoto()">Next &#8594;</button></div>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <div class="ornament" style="padding-top:1rem;">&#8212; &#10022; &#8212;</div>
+  <div class="join-banner">
+    <h3>Ready to Ride With Us?</h3>
+    <p>Membership in XRPCowboys is selective and by application only. We're looking for serious, long-term participants in the XRP ecosystem.</p>
+    <a href="join.html">Apply for Membership</a>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;letter-spacing:0.1em;background:linear-gradient(150deg,#ffe87a 0%,#f5c842 18%,#c9921a 42%,#a06e10 58%,#4ade80 76%,#22c55e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&#10022; XRPCOWBOYS</div>
+        <div class="footer-tagline">Exclusive XRP Community &middot; Est. 2018</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="members.html">Posse</a><a href="forum.html">Forum</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2018&ndash;2026 Twin BlockChain Technologies LLC &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; xrpcowboys.com</p>
+    </div>
+  </footer>
+
+  <script>
+    const BASE='XRPCowboys_files';
+    const captions={'IMG_1881.jpeg':'Podcastors Cowboys Event – XRPCowboys Crew','IMG_1893.jpeg':'Podcastors Cowboys Event – Hats On Point','IMG_1908.jpeg':'Podcastors Cowboys Event – The Posse Represents','IMG_2871.jpeg':'Podcastors Cowboys Event – Community Strong','IMG_2875.jpeg':'Podcastors Cowboys Event – Riding Together','IMG_2881.jpeg':'Podcastors Cowboys Event – XRP Community','IMG_2891.jpeg':'Podcastors Cowboys Event – The Crew','IMG_2895.jpeg':'Podcastors Cowboys Event – Posse Assembled','IMG_2899.jpeg':'Podcastors Cowboys Event – XRPCowboys','IMG_2913(1).jpeg':'Podcastors Cowboys Event – Community Gathering','IMG_2924(1).jpeg':'Podcastors Cowboys Event – Full Crew','IMG_4278.jpeg':'Podcastors Cowboys Event – Cowboy Hats Mandatory','IMG_6154.JPEG':'Podcastors Cowboys Event – Posse in Action','4389(2).jpg':'Proper Party 2023 – The Crew Riding Strong','8bcc0302-ad10-472d-925d-84e52990072d-1_all_833.jpg':'Proper Party 2023 – XRPCowboys Posse','IMG_1912.jpeg':'Proper Party 2023 – Community Night Out','IMG_2622.jpeg':'Proper Party 2023 – Cowboy Hats Required','IMG_5363.jpeg':'Proper Party 2023 – XRP Family','387(1).jpg':'Swell 2025 – XRPCowboys Posse in Full Gear','390.jpg':'Swell 2025 – Community Gathering','6245018752869772079.JPG':'Swell 2025 – The Posse Assembles','IMG_2887.jpeg':'Swell 2025 – XRPCowboys at Swell','IMG_2918(1).jpeg':'Swell 2025 – Riding Together','IMG_5372.jpeg':'Swell 2025 – Cowboy Hats on Point','IMG_5385(2).jpeg':'Swell 2025 – XRP Community Strong','IMG_5430.jpeg':'Swell 2025 – Full Posse','IMG_5432(1).jpeg':'Swell 2025 – XRPCowboys Crew','IMG_5447.jpg':'Swell 2025 – Community in Action','8bcc0302-ad10-472d-925d-84e52990072d-1_all_444.jpg':'XRP Las Vegas 2025 – Cowboy Hats Mandatory','IMG_2872.jpeg':'XRP Las Vegas 2025 – XRPCowboys Posse','IMG_2927(1).jpeg':'XRP Las Vegas 2025 – Community Gathering','IMG_4277.jpeg':'XRP Las Vegas 2025 – The Crew Arrives','IMG_4292.jpeg':'XRP Las Vegas 2025 – Riding Strong','IMG_4300.jpeg':'XRP Las Vegas 2025 – XRPCowboys in Full Force','IMG_4309.jpeg':'XRP Las Vegas 2025 – Posse Represents','IMG_4315.jpeg':'XRP Las Vegas 2025 – Full Squad','IMG_4936.jpeg':'XRP Las Vegas 2025 – Community Night'};
+    const categories={podcastors:{folder:'Podcastors Cowboys',files:['IMG_1881.jpeg','IMG_1893.jpeg','IMG_1908.jpeg','IMG_2871.jpeg','IMG_2875.jpeg','IMG_2881.jpeg','IMG_2891.jpeg','IMG_2895.jpeg','IMG_2899.jpeg','IMG_2913(1).jpeg','IMG_2924(1).jpeg','IMG_4278.jpeg','IMG_6154.JPEG']},properparty2024:{folder:'Properparty',files:['4389(2).jpg','8bcc0302-ad10-472d-925d-84e52990072d-1_all_833.jpg','IMG_1912.jpeg','IMG_2622.jpeg','IMG_5363.jpeg']},swell2025:{folder:'Swell2025',files:['387(1).jpg','390.jpg','6245018752869772079.JPG','IMG_2887.jpeg','IMG_2918(1).jpeg','IMG_5372.jpeg','IMG_5385(2).jpeg','IMG_5430.jpeg','IMG_5432(1).jpeg','IMG_5447.jpg']},xrplv2024:{folder:'xrp2024',files:[]},xrplv2025:{folder:'xrp2025',files:['8bcc0302-ad10-472d-925d-84e52990072d-1_all_444.jpg','IMG_2872.jpeg','IMG_2927(1).jpeg','IMG_4277.jpeg','IMG_4292.jpeg','IMG_4300.jpeg','IMG_4309.jpeg','IMG_4315.jpeg','IMG_4936.jpeg']}};
+    let currentPhotos=[],currentIndex=0,currentUser=null,photoOwners={};
+    const sb=supabase.createClient('https://fbngrpissakvjelrcfaf.supabase.co','sb_publishable__lAiK0hWnTs6gr7BSL8qAQ_40zk3KLU');
+    const ADMIN_EMAILS=['jamesltyler13@gmail.com','dave_oct@yahoo.com'];
+    function isAdmin(){return currentUser&&ADMIN_EMAILS.includes(currentUser.email);}
+    function ownedByUser(photoId){return !!(photoOwners[photoId]&&currentUser&&photoOwners[photoId]===currentUser.id);}
+    function buildUrl(cat,file){return BASE+'/'+categories[cat].folder+'/'+file;}
+    function getCaption(src){const filename=src.split('/').pop();return captions[filename]||null;}
+    function makeCard(src,index,photoArray,photoId){
+      const card=document.createElement('div');card.className='photo-card';
+      card.onclick=(e)=>{if(e.target.classList.contains('delete-btn'))return;openLightbox(index,photoArray);};
+      const wrap=document.createElement('div');wrap.className='img-wrap';
+      const img=document.createElement('img');img.alt='XRP Cowboys';img.loading='lazy';
+      img.onload=()=>img.classList.add('loaded');img.onerror=()=>{card.style.display='none';};
+      img.src=src;wrap.appendChild(img);card.appendChild(wrap);
+      const cap=getCaption(src);
+      if(cap){const capEl=document.createElement('div');capEl.className='photo-caption';capEl.textContent=cap;card.appendChild(capEl);}
+      if(photoId&&(isAdmin()||ownedByUser(photoId))){const btn=document.createElement('button');btn.className='delete-btn';btn.title='Delete photo';btn.innerHTML='&#128465;';btn.onclick=(e)=>{e.stopPropagation();deletePhoto(photoId,src,card);};card.appendChild(btn);}
+      return card;
+    }
+    function populateGrids(){
+      const allPhotos=[];
+      Object.keys(categories).forEach(cat=>{
+        const catPhotos=categories[cat].files.map(f=>buildUrl(cat,f));
+        const grid=document.getElementById('grid-'+cat);
+        catPhotos.forEach((src,i)=>{grid.appendChild(makeCard(src,i,catPhotos));allPhotos.push(src);});
+      });
+      const allGrid=document.getElementById('grid-all');
+      allPhotos.forEach((src,i)=>{allGrid.appendChild(makeCard(src,i,allPhotos));});
+    }
+    function showTab(name,e){
+      document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('visible'));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById('tab-'+name).classList.add('visible');
+      e.target.classList.add('active');
+      window.scrollTo({top:220,behavior:'smooth'});
+    }
+    function openLightbox(index,photos){currentPhotos=photos;currentIndex=index;updateLightbox();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+    function updateLightbox(){document.getElementById('lightbox-img').src=currentPhotos[currentIndex];document.getElementById('lightbox-counter').textContent=(currentIndex+1)+' / '+currentPhotos.length;}
+    function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+    function closeLightboxOutside(e){if(e.target.id==='lightbox')closeLightbox();}
+    function prevPhoto(){currentIndex=(currentIndex-1+currentPhotos.length)%currentPhotos.length;updateLightbox();}
+    function nextPhoto(){currentIndex=(currentIndex+1)%currentPhotos.length;updateLightbox();}
+    function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+    function handleLogout(e){e.preventDefault();sb.auth.signOut().then(()=>{window.location.href='index.html';});}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')prevPhoto();if(e.key==='ArrowRight')nextPhoto();});
+    sb.auth.getSession().then(({data:{session}})=>{
+      if(session){
+        currentUser=session.user;
+        populateGrids();
+        loadAlbumPhotos('xrplv2026','grid-xrplv2026');
+        loadAlbumPhotos('xrplv2024','grid-xrplv2024');
+        if(isAdmin()){['podcastors','properparty2024','xrplv2024','xrplv2025','swell2025'].forEach(id=>{const el=document.getElementById('admin-'+id);if(el)el.style.display='flex';});document.getElementById('upload-prompt-lv2026').style.display='block';}
+        const p=document.getElementById('nav-profile-btn');const l=document.getElementById('nav-login-btn');const j=document.getElementById('nav-join-btn');const lo=document.getElementById('nav-logout-btn');const mp=document.getElementById('mob-profile-btn');const ml=document.getElementById('mob-login-btn');const mj=document.getElementById('mob-join-btn');
+        if(p)p.style.display='inline-block';if(l)l.style.display='none';if(j)j.style.display='none';if(lo)lo.style.display='inline-block';
+        const nm=document.getElementById('nav-messages-btn');if(nm)nm.style.display='inline-block';
+        const mm=document.getElementById('mob-messages-btn');if(mm)mm.style.display='block';
+        if(mp)mp.style.display='block';if(ml)ml.style.display='none';if(mj)mj.style.display='none';
+      } else {
+        populateGrids();
+        loadAlbumPhotos('xrplv2026','grid-xrplv2026');
+        loadAlbumPhotos('xrplv2024','grid-xrplv2024');
+      }
+    });
+    async function uploadGalleryPhotos(input,album){
+      if(!isAdmin()){alert('Admin access required.');return;}
+      const files=Array.from(input.files);
+      const statusId=album==='xrplv2026'?'lv2026-status':'status-'+album;
+      const status=document.getElementById(statusId);
+      if(status){status.textContent='Uploading '+files.length+' photo(s)...';status.className='upload-status ok';}
+      for(const file of files){
+        if(file.size>10*1024*1024){if(status){status.textContent='File too large (max 10MB): '+file.name;status.className='upload-status err';}continue;}
+        const path=`gallery/${album}/${currentUser.id}_${Date.now()}_${file.name}`;
+        const{error}=await sb.storage.from('member-photos').upload(path,file);
+        if(error){if(status){status.textContent='Upload error: '+error.message;status.className='upload-status err';}continue;}
+        const{data:{publicUrl}}=sb.storage.from('member-photos').getPublicUrl(path);
+        await sb.from('gallery_photos').insert({user_id:currentUser.id,album:album,photo_url:publicUrl});
+      }
+      if(status){status.textContent='Photos uploaded! Yeehaw 🤠';status.className='upload-status ok';}
+      const g=document.getElementById('grid-'+album);if(g)g.innerHTML='';
+      await loadAlbumPhotos(album,'grid-'+album);
+    }
+    async function loadAlbumPhotos(album,gridId){
+      const grid=document.getElementById(gridId);if(!grid)return;
+      const{data,error}=await sb.from('gallery_photos').select('id,photo_url,user_id').eq('album',album).order('created_at',{ascending:false});
+      if(!error&&data&&data.length>0){
+        const urls=data.map(x=>x.photo_url);
+        data.forEach((p,i)=>{
+          photoOwners[p.id]=p.user_id;
+          grid.appendChild(makeCard(p.photo_url,i,urls,p.id));
+          const allGrid=document.getElementById('grid-all');
+          if(allGrid){const allImgs=Array.from(allGrid.querySelectorAll('img')).map(img=>img.src);allImgs.push(p.photo_url);allGrid.appendChild(makeCard(p.photo_url,allImgs.length-1,allImgs,p.id));}
+        });
+        const countEl=document.getElementById('lv2026-count');
+        if(album==='xrplv2026'&&countEl)countEl.textContent=data.length+' photo'+(data.length!==1?'s':'')+' from the posse';
+      }
+    }
+    async function deletePhoto(id,url,card){
+      if(!confirm('Delete this photo?'))return;
+      const{error}=await sb.from('gallery_photos').delete().eq('id',id);
+      if(error){alert('Delete failed: '+error.message);return;}
+      try{const path=url.split('/member-photos/')[1];if(path)await sb.storage.from('member-photos').remove([path]);}catch(e){}
+      card.remove();
+    }
+  </script>
+</div>
+</body>
+</html>
