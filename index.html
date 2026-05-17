@@ -788,7 +788,7 @@ async function loadBroadcast(){
 }
 
 async function loadBcReactions(){
-  const{data:rxns}=await sb.from('broadcast_comments').select('username,text,created_at').order('created_at',{ascending:false}).limit(10);
+  const{data:rxns}=await sb.from('broadcast_comments').select('username,text,created_at').order('created_at',{ascending:true}).limit(10);
   const list=document.getElementById('bcReactions');
   if(rxns&&rxns.length){
     list.innerHTML=rxns.map(r=>`<div class="bc-reaction-item">
@@ -796,10 +796,15 @@ async function loadBcReactions(){
       <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(r.text)}</span>
       <span class="bc-reaction-time">${timeAgo(r.created_at)}</span>
     </div>`).join('');
+    // Scroll to bottom to show latest
+    list.scrollTop=list.scrollHeight;
   } else {
     list.innerHTML='<div style="font-family:Oswald,sans-serif;font-size:0.6rem;color:rgba(232,224,208,0.3);letter-spacing:0.1em;">Be the first to react, partner...</div>';
   }
 }
+
+// Auto-refresh reactions every 10 seconds
+setInterval(loadBcReactions, 10000);
 
 function bcTogglePlay(){
   const btn=document.getElementById('bcPlayBtn');
