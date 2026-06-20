@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&family=Oswald:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    :root{--gold:#f5c842;--gold-dim:#c9921a;--green:#4ade80;--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--border:rgba(201,146,26,0.15);}
+    :root{--gold:#f5c842;--gold-dim:#c9921a;--gold-dark:#a06e10;--green:#4ade80;--cream:rgba(232,224,208,0.92);--bg:#0a0804;--text:rgba(232,224,208,0.92);--muted:rgba(232,224,208,0.5);--border:rgba(201,146,26,0.15);--leather-w:26px;--leather-1:#3a1f0a;--leather-2:#5a3214;--leather-3:#7a4520;--stitch:rgba(245,208,96,0.35);}
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Source Serif 4',Georgia,serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;}
     .hero-bg{position:fixed;inset:0;z-index:0;background:url('XRPCowboys_files/cowboy_bar.jpg') center center/cover no-repeat;}
@@ -125,6 +125,161 @@
     /* ── REPLY DELETE BUTTON ── */
     .reply-delete-btn{background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.35);border-radius:999px;padding:3px 10px;font-size:0.65rem;cursor:pointer;color:rgba(220,38,38,0.85);transition:background 0.2s,border-color 0.2s;}
     .reply-delete-btn:hover{background:rgba(220,38,38,0.25);border-color:rgba(220,38,38,0.7);color:#ef4444;}
+
+    /* ============================================================
+       BROADCAST CARD (mirrored from homepage) — HorsePower Wire live broadcast
+       ============================================================ */
+    .hpw-section { padding: 1rem 1.5rem 2rem; position: relative; z-index: 1; }
+    .hpw-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-dim), var(--green), var(--gold-dim), transparent); animation: hpwScan 3s linear infinite; }
+    @keyframes hpwScan { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+    .hpw-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .hpw-header { text-align: center; margin-bottom: 1.8rem; }
+    .hpw-label { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green); }
+    .hpw-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; background: linear-gradient(150deg, #ffe87a 0%, #f5c842 15%, #c9921a 35%, #a06e10 50%, #4ade80 68%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hpw-footer-link { margin-top: 1rem; text-align: right; }
+    .hpw-footer-link a { font-family: 'Oswald', sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,224,208,0.4); text-decoration: none; transition: color 0.2s; }
+    .hpw-footer-link a:hover { color: var(--gold); }
+
+    .bc-wrap {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      background:
+        linear-gradient(90deg, transparent calc(var(--leather-w) - 4px), var(--stitch) calc(var(--leather-w) - 4px), var(--stitch) calc(var(--leather-w) - 3px), transparent calc(var(--leather-w) - 3px)) top/100% 1px no-repeat,
+        linear-gradient(90deg, transparent calc(var(--leather-w) - 4px), var(--stitch) calc(var(--leather-w) - 4px), var(--stitch) calc(var(--leather-w) - 3px), transparent calc(var(--leather-w) - 3px)) bottom/100% 1px no-repeat,
+        repeating-linear-gradient(90deg,
+          rgba(0,0,0,0.18) 0 1px,
+          transparent 1px 3px,
+          rgba(255,220,160,0.04) 3px 4px,
+          transparent 4px 7px),
+        radial-gradient(ellipse at 30% 40%, var(--leather-3) 0%, var(--leather-2) 45%, var(--leather-1) 100%);
+      border-radius: 14px;
+      box-shadow:
+        0 0 0 1px #1a0a02,
+        inset 0 0 0 1px rgba(255,200,120,0.18),
+        inset 0 1px 0 rgba(255,220,160,0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.5),
+        0 22px 60px rgba(0,0,0,0.7);
+      overflow: visible;
+      padding: var(--leather-w);
+    }
+    .bc-inner {
+      position: relative;
+      background: linear-gradient(160deg, #1a0e04 0%, #120a02 50%, #1a0e04 100%);
+      border-radius: 6px;
+      padding: 18px 18px 18px;
+      box-shadow:
+        inset 0 0 0 1px rgba(180,120,40,0.35),
+        inset 0 2px 8px rgba(0,0,0,0.6);
+    }
+    .bc-topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 14px; padding: 0 4px;
+    }
+    .bc-live { color: var(--green); display: flex; align-items: center; gap: 6px; }
+    .bc-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 6px var(--green); animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+    .bc-date { color: rgba(232,224,208,0.5); }
+    .bc-body { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; margin-bottom: 14px; }
+    .bc-left { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .bc-video-wrap {
+      width: 100%; aspect-ratio: 16/9; max-height: 60vh; border-radius: 6px; overflow: hidden;
+      border: 1px solid rgba(180,120,40,0.4);
+      background: linear-gradient(160deg, #1a0e04, #0d0800);
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .bc-video-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at center, rgba(201,146,26,0.08) 0%, transparent 70%);
+    }
+    .bc-dan-label { font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 8px; }
+    .bc-dan-sub { font-family: 'Oswald', sans-serif; font-size: 0.55rem; letter-spacing: 0.15em; color: rgba(232,224,208,0.4); margin-top: 2px; }
+    .bc-audio {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,0.4); border-radius: 999px;
+      padding: 5px 10px; border: 1px solid rgba(180,120,40,0.25);
+    }
+    .bc-play {
+      background: linear-gradient(135deg,var(--gold),var(--gold-dim));
+      border: none; border-radius: 50%; width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.65rem; color: #080808; flex-shrink: 0;
+      padding-left: 2px;
+    }
+    .bc-seek { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 999px; cursor: pointer; position: relative; }
+    .bc-seek-fill { height: 100%; width: 0%; background: linear-gradient(90deg,var(--gold),var(--green)); border-radius: 999px; transition: width 0.3s; }
+    .bc-time { font-family: 'Oswald', sans-serif; font-size: 0.55rem; color: rgba(232,224,208,0.5); white-space: nowrap; flex-shrink: 0; }
+    .bc-voice-label { font-family: 'Oswald', sans-serif; font-size: 0.55rem; letter-spacing: 0.1em; color: rgba(232,224,208,0.35); text-align: center; }
+    .bc-right { display: flex; flex-direction: column; min-width: 0; }
+    .bc-stories-label { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .bc-stories { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .bc-story { display: flex; gap: 10px; align-items: flex-start; }
+    .bc-story-num { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 700; color: #f5d060; flex-shrink: 0; line-height: 1.3; text-shadow: 0 0 8px rgba(245,208,96,0.6); width: 18px; }
+    .bc-story-title { font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; font-weight: 600; color: rgba(232,224,208,0.97); line-height: 1.4; text-decoration: none; display: block; text-align: left; }
+    .bc-story-title:hover { color: var(--gold); }
+    .bc-story-skel { height: 40px; background: rgba(201,146,26,0.04); border-radius: 4px; animation: shimmer 1.4s infinite; margin-bottom: 6px; }
+    @keyframes shimmer { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+    .bc-all-link { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,208,96,0.55); text-decoration: none; display: inline-block; margin-bottom: 6px; }
+    .bc-all-link:hover { color: var(--gold); }
+    .bc-section-rule { height: 1px; margin: 10px 0 14px; background: linear-gradient(90deg, transparent, rgba(180,120,40,0.45), transparent); position: relative; }
+    .bc-section-rule::before, .bc-section-rule::after { content: ''; position: absolute; top: -2px; width: 5px; height: 5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f5d97a, #8a6020); }
+    .bc-section-rule::before { left: 30%; }
+    .bc-section-rule::after { right: 30%; }
+    .bc-reactions-label { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .bc-reactions-list { display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto; max-height: 280px; padding-right: 6px; scrollbar-width: thin; scrollbar-color: rgba(180,120,40,0.4) transparent; }
+    .bc-reactions-list::-webkit-scrollbar { width: 6px; }
+    .bc-reactions-list::-webkit-scrollbar-thumb { background: rgba(180,120,40,0.4); border-radius: 3px; }
+    .bc-reaction-item { font-family: 'Oswald', sans-serif; font-size: 0.72rem; letter-spacing: 0.03em; color: rgba(232,224,208,0.7); padding: 8px 0; border-bottom: 1px solid rgba(180,120,40,0.12); display: block; width: 100%; }
+    .bc-reaction-item:last-child { border-bottom: none; }
+    .bc-reaction-user { color: var(--gold); font-weight: 600; }
+    .bc-reaction-time { color: rgba(232,224,208,0.3); font-size: 0.55rem; margin-left: 8px; }
+    .bc-post-row { display: flex; gap: 8px; margin-top: 10px; }
+    .bc-input { flex: 1; min-width: 0; background: rgba(0,0,0,0.5); border: 1px solid rgba(180,120,40,0.3); border-radius: 4px; padding: 8px 12px; color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    .bc-input:focus { border-color: rgba(245,208,96,0.5); }
+    .bc-post-btn { font-family: 'Oswald', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; background: linear-gradient(135deg,var(--gold),var(--gold-dim)); color: #080808; border: none; border-radius: 4px; padding: 8px 16px; cursor: pointer; font-weight: 700; transition: opacity 0.2s; flex-shrink: 0; }
+    .bc-post-btn:hover { opacity: 0.85; }
+    .bc-bullets { position: absolute; display: flex; pointer-events: none; z-index: 2; }
+    .bc-bullet {
+      width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+      background: radial-gradient(circle at 35% 30%, #f5d97a 0%, #c9921a 35%, #6b4408 70%, #2a1804 100%);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,230,140,0.6), inset 0 -1px 1px rgba(0,0,0,0.4), 0 0 6px rgba(245,208,96,0.25);
+    }
+    .bc-bullet.casing { background: radial-gradient(circle at 35% 30%, #ffe48a 0%, #d4a843 30%, #8a6020 75%, #2a1804 100%); }
+    .bc-bullets-top, .bc-bullets-bot { left: 0; right: 0; height: var(--leather-w); align-items: center; justify-content: space-around; padding: 0 calc(var(--leather-w) + 6px); }
+    .bc-bullets-top { top: 0; }
+    .bc-bullets-bot { bottom: 0; }
+    .bc-bullets-left, .bc-bullets-right { top: 0; bottom: 0; width: var(--leather-w); flex-direction: column; align-items: center; justify-content: space-around; padding: calc(var(--leather-w) + 6px) 0; }
+    .bc-bullets-left { left: 0; }
+    .bc-bullets-right { right: 0; }
+    .bc-concho { position: absolute; width: 24px; height: 24px; border-radius: 50%; z-index: 3;
+      background: radial-gradient(circle at 35% 30%, #f5d97a 0%, #c9921a 30%, #6b4408 75%, #1a0e04 100%);
+      box-shadow: 0 0 0 1.5px #2a1804, 0 2px 4px rgba(0,0,0,0.9), inset 0 1px 2px rgba(255,230,140,0.7), inset 0 -1px 2px rgba(0,0,0,0.5);
+    }
+    .bc-concho::after { content: '\2726'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(40,20,4,0.7); font-size: 11px; }
+    .bc-concho.tl { top: 1px; left: 1px; }
+    .bc-concho.tr { top: 1px; right: 1px; }
+    .bc-concho.bl { bottom: 1px; left: 1px; }
+    .bc-concho.br { bottom: 1px; right: 1px; }
+    @media(max-width:760px){
+      .bc-body { grid-template-columns: 1fr; }
+      :root { --leather-w: 18px; }
+    }
+    .bc-archive { max-width: 1100px; margin: 28px auto 8px; padding: 0 4px; }
+    .bc-archive-label { font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
+    .bc-archive-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; margin-bottom: 20px; }
+    .bc-archive-slot { aspect-ratio: 16/9; border: 1px solid rgba(201,146,26,0.55); border-radius: 6px; background: rgba(0,0,0,0.55); position: relative; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+    .bc-archive-slot:not(.empty):hover { border-color: var(--gold); box-shadow: 0 0 16px rgba(245,208,96,0.2); }
+    .bc-archive-slot video { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+    .bc-archive-slot.empty { cursor:default; background: repeating-linear-gradient(45deg, rgba(201,146,26,0.04), rgba(201,146,26,0.04) 4px, transparent 4px, transparent 14px); }
+    .bc-archive-date { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,0.88)); font-family:'Oswald',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:var(--gold); padding:10px 6px 5px; text-transform:uppercase; }
+    .bc-archive-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:32px; height:32px; border-radius:50%; background:rgba(245,208,96,0.9); display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#080808; padding-left:3px; opacity:0; transition:opacity 0.2s; }
+    .bc-archive-slot:not(.empty):hover .bc-archive-play { opacity:1; }
+    @media(max-width:600px){ .bc-archive-grid{ grid-template-columns:repeat(2,1fr); } }
   </style>
   <script src="shared.js"></script>
 </head>
@@ -216,7 +371,97 @@
   </div>
 
   <div class="thread-list" id="newsGrid" style="display:none;"></div>
+</div>
 
+<!-- BROADCAST CARD (mirrored from homepage, placed under the news articles) -->
+<div class="hpw-section" id="hpw">
+  <div class="hpw-inner">
+    <div class="hpw-header">
+      <span class="hpw-label">Live Broadcast</span>
+      <h2 class="hpw-title">HorsePower Wire</h2>
+    </div>
+
+    <div class="bc-wrap">
+      <div class="bc-bullets bc-bullets-top">
+        <span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span>
+      </div>
+      <div class="bc-bullets bc-bullets-bot">
+        <span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span>
+      </div>
+      <div class="bc-bullets bc-bullets-left">
+        <span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span>
+      </div>
+      <div class="bc-bullets bc-bullets-right">
+        <span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span><span class="bc-bullet casing"></span><span class="bc-bullet"></span>
+      </div>
+
+      <span class="bc-concho tl"></span>
+      <span class="bc-concho tr"></span>
+      <span class="bc-concho bl"></span>
+      <span class="bc-concho br"></span>
+
+      <div class="bc-inner">
+        <div class="bc-topbar">
+          <span class="bc-live"><span class="bc-dot"></span>LIVE BROADCAST</span>
+          <span class="bc-date" id="bcDate"></span>
+        </div>
+
+        <div class="bc-body">
+          <div class="bc-left">
+            <div class="bc-video-wrap" id="bcVideoWrap">
+              <div class="bc-video-placeholder" id="bcPlaceholder">
+                <div class="bc-dan-label">DEPUTY DAN</div>
+                <div class="bc-dan-sub">ANCHOR</div>
+              </div>
+              <video id="bcVideo" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:6px;" controls playsinline></video>
+            </div>
+            <div class="bc-audio" id="bcAudio">
+              <button class="bc-play" id="bcPlayBtn" onclick="bcTogglePlay()">&#9658;</button>
+              <div class="bc-seek" onclick="bcSeek(event)">
+                <div class="bc-seek-fill" id="bcFill"></div>
+              </div>
+              <span class="bc-time"><span id="bcElapsed">0:00</span> / <span id="bcDur">--:--</span></span>
+            </div>
+            <div class="bc-voice-label">Newscaster Steve · AI Voice</div>
+          </div>
+
+          <div class="bc-right">
+            <div class="bc-stories-label">&#9679; TODAY'S TOP STORIES</div>
+            <div class="bc-stories" id="bcStories">
+              <div class="bc-story-skel"></div>
+              <div class="bc-story-skel"></div>
+              <div class="bc-story-skel"></div>
+            </div>
+            <a href="forum.html" class="bc-all-link">All Stories on HorsePower Wire &rarr;</a>
+
+            <div class="bc-section-rule"></div>
+
+            <div class="bc-reactions-label">&#9679; POSSE REACTIONS</div>
+            <div class="bc-reactions-list" id="bcReactions">
+              <div class="bc-story-skel" style="height:32px;margin-bottom:6px;"></div>
+              <div class="bc-story-skel" style="height:32px;margin-bottom:6px;"></div>
+            </div>
+            <div class="bc-post-row">
+              <input class="bc-input" id="bcInput" type="text" placeholder="Leave a reaction, partner..." maxlength="200">
+              <button class="bc-post-btn" onclick="bcPostReaction()">POST</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="bc-archive">
+      <div class="bc-archive-label">&#9679; PAST BROADCASTS</div>
+      <div class="bc-archive-grid" id="bcArchiveGrid"></div>
+    </div>
+    <div class="hpw-footer-link" style="margin-top:1.2rem;">
+      <a href="forum.html">All Stories on HorsePower Wire &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="page" style="padding-top:0;">
   <div class="guest-cta" id="guest-cta">
     <h3>Want to Reply &amp; Discuss?</h3>
     <p>Create a free XRPCowboys account to reply to articles and connect with the posse.</p>
@@ -469,6 +714,151 @@ async function submitReply(){
   finally{if(btn){btn.disabled=false;btn.textContent='Post Reply';}}
 }
 
+// ── BROADCAST CARD (mirrored from homepage) ───────────────────
+let bcAud=null,bcPlaying=false,bcTicker=null;
+function bcFmtTime(s){const m=Math.floor(s/60);return m+':'+Math.floor(s%60).toString().padStart(2,'0');}
+
+async function loadBroadcast(){
+  document.getElementById('bcDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase();
+
+  let bc=null;
+  const{data:bcVid}=await sb.from('daily_broadcast')
+    .select('audio_url,video_url,broadcast_date')
+    .not('video_url','is',null)
+    .order('broadcast_date',{ascending:false})
+    .limit(1).single();
+
+  if(bcVid&&bcVid.video_url){
+    bc=bcVid;
+  } else {
+    const{data:bcAud2}=await sb.from('daily_broadcast')
+      .select('audio_url,video_url,broadcast_date')
+      .not('audio_url','is',null)
+      .order('broadcast_date',{ascending:false})
+      .limit(1).single();
+    bc=bcAud2;
+  }
+
+  if(bc){
+    if(bc.video_url){
+      const vid=document.getElementById('bcVideo');
+      vid.src=bc.video_url;
+      vid.style.display='block';
+      document.getElementById('bcPlaceholder').style.display='none';
+      document.getElementById('bcAudio').style.display='none';
+    } else if(bc.audio_url){
+      bcAud=new Audio(bc.audio_url);
+      bcAud.addEventListener('loadedmetadata',()=>{document.getElementById('bcDur').textContent=bcFmtTime(bcAud.duration);});
+      bcAud.addEventListener('ended',()=>{bcPlaying=false;document.getElementById('bcPlayBtn').innerHTML='&#9658;';clearInterval(bcTicker);document.getElementById('bcFill').style.width='0%';document.getElementById('bcElapsed').textContent='0:00';});
+    }
+  }
+
+  const{data:stories}=await sb.from('news_articles').select('id,title,category').order('created_at',{ascending:false}).limit(3);
+  const box=document.getElementById('bcStories');
+  if(stories&&stories.length){
+    box.innerHTML=stories.map((s,i)=>`<div class="bc-story"><span class="bc-story-num">${i+1}</span><a href="forum.html?article=${esc(s.id)}" class="bc-story-title">${esc(s.title)}</a></div>`).join('');
+  } else {
+    box.innerHTML='<div class="bc-story"><span class="bc-story-num">—</span><span class="bc-story-title" style="color:rgba(232,224,208,0.35)">Stories loading...</span></div>';
+  }
+
+  loadBcReactions();
+  loadBcArchive();
+}
+
+async function loadBcReactions(){
+  const{data:rxns}=await sb.from('broadcast_comments').select('id,username,text,created_at').order('created_at',{ascending:true}).limit(50);
+  const list=document.getElementById('bcReactions');
+  if(!list)return;
+  const{data:{session}}=await sb.auth.getSession();
+  const u=session?.user;
+  let admin=false;
+  if(u){
+    const{data:prof}=await sb.from('profiles').select('handle').eq('id',u.id).single();
+    const handle=(prof?.handle||'').toUpperCase();
+    admin=(handle==='STRAIGHT SHOOTER'||u.email==='xrpcowboysmail@gmail.com'||ADMIN_EMAILS.includes(u.email));
+  }
+  if(rxns&&rxns.length){
+    list.innerHTML=rxns.map(r=>`<div class="bc-reaction-item" id="rctn-${r.id}">
+      <span class="bc-reaction-user">\u2713 ${esc(r.username||'Cowboy')}</span>
+      <span class="bc-reaction-time" style="margin-left:8px;">${timeAgo(r.created_at)}</span>
+      <div style="color:rgba(232,224,208,0.85);line-height:1.6;margin-top:3px;word-wrap:break-word;overflow-wrap:break-word;white-space:normal;">${esc(r.text)}</div>
+      ${admin?`<button onclick="bcDeleteReaction(${r.id})" style="background:rgba(200,30,30,0.8);border:none;border-radius:3px;color:#fff;cursor:pointer;font-size:0.75rem;padding:3px 8px;flex-shrink:0;margin-left:4px;font-weight:700;">\ud83d\uddd1</button>`:''}
+    </div>`).join('');
+    list.scrollTop=list.scrollHeight;
+  } else {
+    list.innerHTML='<div style="font-family:Oswald,sans-serif;font-size:0.6rem;color:rgba(232,224,208,0.3);letter-spacing:0.1em;">Be the first to react, partner...</div>';
+  }
+}
+
+async function bcDeleteReaction(id){
+  if(!confirm('Delete this reaction?'))return;
+  const{error}=await sb.from('broadcast_comments').delete().eq('id',id);
+  if(!error)document.getElementById('rctn-'+id)?.remove();
+}
+
+function bcTogglePlay(){
+  const btn=document.getElementById('bcPlayBtn');
+  if(!bcAud){btn.innerHTML='!';return;}
+  if(bcPlaying){
+    bcAud.pause();bcPlaying=false;btn.innerHTML='&#9658;';clearInterval(bcTicker);
+  } else {
+    bcAud.play();bcPlaying=true;btn.innerHTML='&#9646;&#9646;';
+    bcTicker=setInterval(()=>{
+      if(!bcAud.duration)return;
+      document.getElementById('bcFill').style.width=(bcAud.currentTime/bcAud.duration*100)+'%';
+      document.getElementById('bcElapsed').textContent=bcFmtTime(bcAud.currentTime);
+    },500);
+  }
+}
+
+function bcSeek(e){
+  if(!bcAud||!bcAud.duration)return;
+  const r=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-r.left)/r.width;
+  bcAud.currentTime=pct*bcAud.duration;
+}
+
+async function bcPostReaction(){
+  const inp=document.getElementById('bcInput');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  const{data:{session}}=await sb.auth.getSession();
+  const username=session?.user?.user_metadata?.username||session?.user?.email?.split('@')[0]||'Cowboy';
+  await sb.from('broadcast_comments').insert({username,text:txt});
+  inp.value='';
+  loadBcReactions();
+  loadBcArchive();
+}
+
+async function loadBcArchive(){
+  const{data:vids}=await sb.from('daily_broadcast').select('id,video_url,broadcast_date').not('video_url','is',null).order('broadcast_date',{ascending:false}).limit(6);
+  const grid=document.getElementById('bcArchiveGrid');
+  if(!grid)return;
+  let slots='';
+  for(let i=0;i<6;i++){
+    const v=vids&&vids[i];
+    if(v&&v.video_url){
+      const dt=v.broadcast_date?new Date(v.broadcast_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+      const url=v.video_url;
+      slots+=`<div class="bc-archive-slot" onclick="bcPlayArchive(this)"><video src="${url}#t=2" preload="metadata" muted playsinline data-src="${url}"></video><div class="bc-archive-play">&#9658;</div><div class="bc-archive-date">${dt}</div></div>`;
+    } else {
+      slots+='<div class="bc-archive-slot empty"></div>';
+    }
+  }
+  grid.innerHTML=slots;
+}
+function bcPlayArchive(el){
+  const url=el.querySelector('video').dataset.src;
+  if(!url)return;
+  const vid=document.getElementById('bcVideo');
+  vid.src=url; vid.style.display='block';
+  document.getElementById('bcPlaceholder').style.display='none';
+  document.getElementById('bcAudio').style.display='none';
+  vid.play();
+  const wrap=document.getElementById('bcVideoWrap');
+  if(wrap){const y=wrap.getBoundingClientRect().top+window.pageYOffset-120;window.scrollTo({top:y,behavior:'smooth'});}
+}
+
 async function init(){
   articles=FALLBACK;renderGrid(false);
   const{data:{session}}=await sb.auth.getSession();
@@ -496,6 +886,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(ta)ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitReply();}});
 });
 init();
+// Broadcast loads independently of the article feed, exactly like the homepage
+loadBroadcast();
+setInterval(loadBcReactions,10000);
 </script>
 </body>
 </html>
